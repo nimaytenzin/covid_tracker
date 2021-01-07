@@ -44,6 +44,7 @@ import { RecordVerifyComponent } from './record-verify/record-verify.component';
 import { VerifyComponent } from './verify/verify.component';
 import { AddResultComponent } from './add-result/add-result.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
