@@ -111,6 +111,7 @@ export class RegisterStatusComponent implements OnInit {
       residenceDzongkhagControl:[], 
       residenceZoneControl:[],
       residenceAccomodationControl:[],
+      sampleIdControl:[],
       testTypeControl:[],
       testDateControl:[],
       testPlaceControl:[]   
@@ -162,7 +163,8 @@ export class RegisterStatusComponent implements OnInit {
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
               this.certificate.utid = Md5.hashStr(`${this.certificate.subject_id} + ${Date.now()}`).toString();
-
+              this.certificate.status = "PENDING";
+            
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
                   let hash =this.certificate.utid

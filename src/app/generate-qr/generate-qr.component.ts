@@ -25,4 +25,8 @@ export class GenerateQrComponent implements OnInit {
     this.sample_id = this.route.snapshot.params['id']
   }
 
+  ShareQr(){
+    alert('share on facebook')
+  }
+
 }

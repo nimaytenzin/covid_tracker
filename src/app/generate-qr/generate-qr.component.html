@@ -14,9 +14,14 @@
       cssClass="bshadow">
     </ngx-qrcode>
 
-    <button mat-raised-button routerLink= "/register" color="warn">
-      Exit
-    </button>
+    <div style="display: flex; flex-direction: row;">
+      <button mat-raised-button routerLink= "/navigate" >
+        Completed
+      </button>
+      <button mat-raised-button (click)="ShareQr()" >
+        ShareQR
+      </button>
+    </div>
 
 </div>
 
