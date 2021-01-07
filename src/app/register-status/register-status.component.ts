@@ -1,0 +1,215 @@
+import { RepositionScrollStrategy } from '@angular/cdk/overlay';
+import { Component, OnInit } from '@angular/core';
+import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../service/data.service';
+
+interface Dropdown{
+  id: string,
+  name: string
+}
+
+interface Dzongkhag {
+  id: string;
+  name: string;
+  created_at: string;
+  updated_at: string;
+}
+
+interface Zone {
+  id: string;
+  name: string;
+  map_image: string;
+  dzongkhag_id: number;
+  color_code: string;
+  lat: number;
+  lng: number;
+  created_at: string;
+  updated_date: string;
+}
+
+export class SubjectDetails{
+  cid: number;
+  name: string;
+  age:string;
+  sex:string;
+  contact:number;
+
+  work_dzongkhag:string;
+  work_category:string;
+  work_agency: string;
+  work_remarks:string;
+
+  residence_dzongkhag:string;
+  residence_zone:string;
+  residence_accomodation:string;
+}
+
+export class Certificate{
+  subject_id:number;
+  operator_id:number;
+  test_type:string;
+  test_date:string;
+  place:string;
+  utid:string;
+}
+
+@Component({
+  selector: 'app-register-status',
+  templateUrl: './register-status.component.html',
+  styleUrls: ['./register-status.component.scss']
+})
+
+
+export class RegisterStatusComponent implements OnInit {
+  dzongkhags: Dzongkhag[] = [];
+  agencyCategories: Dropdown [] =[]
+  agencies:Dropdown[] =[]
+  superZones: Zone[] = [];
+  registerSubjectForm:FormGroup;
+  subjectDetails: SubjectDetails = new SubjectDetails();
+  certificate:Certificate = new Certificate();
+  isExistingUser = false;
+
+  
+  testTypes : Dropdown [] =[
+    {id: "1", name:"RT/PCR"},
+    {id: "2", name:"Antigen Test"},
+    {id: "3", name:"Antibody Test"}
+  ]
+
+  constructor(
+    private router: Router,
+    private dataService: DataService,
+    private fb:FormBuilder
+  ) { }
+
+  ngOnInit() {
+    this.getDzongkhagList();
+    this.reactiveForm()
+    this.getAgencyCategories();
+  }
+
+  reactiveForm(){
+    this.registerSubjectForm = this.fb.group({
+      cidControl: ['', Validators.compose([Validators.required, Validators.maxLength(11), Validators.minLength(11)])],
+      nameControl:[],
+      sexControl:[],
+      ageControl:[],
+      phoneNumberControl:[],
+      workDzongkhagControl:[],
+      agencyCategoryControl:[],
+      agencyControl:[],
+      agencyRemarkControl:[],
+      residenceDzongkhagControl:[], 
+      residenceZoneControl:[],
+      residenceAccomodationControl:[],
+      testTypeControl:[],
+      testDateControl:[],
+      testPlaceControl:[]   
+    });
+  }
+
+  getDzongkhagList() {
+    this.dataService.getDzongkhags().subscribe(response => {
+      this.dzongkhags = response.data;
+    });
+  }
+  getAgencyCategories(){ 
+    this.dataService.getAgencyCategories().subscribe(response => {
+      this.agencyCategories = response.data
+    })
+  }
+  getAgencies(agencyCategoryId){
+    this.dataService.getAgencies(agencyCategoryId).subscribe(response => {
+      this.agencies = response.data
+    })
+  }
+  getZoneList(dzongkhagId) {
+    this.dataService.getZones(dzongkhagId).subscribe(response => {
+      this.superZones = response.data;
+    });
+  }
+
+  submit(){
+    if(this.registerSubjectForm.valid ){
+
+      this.subjectDetails.cid = this.registerSubjectForm.get('cidControl').value
+      this.subjectDetails.name = this.registerSubjectForm.get('nameControl').value
+      this.subjectDetails.sex = this.registerSubjectForm.get('sexControl').value
+      this.subjectDetails.age = this.registerSubjectForm.get('ageControl').value
+      this.subjectDetails.contact = this.registerSubjectForm.get('phoneNumberControl').value
+      this.subjectDetails.work_dzongkhag = this.registerSubjectForm.get('workDzongkhagControl').value
+      this.subjectDetails.work_category = this.registerSubjectForm.get('agencyCategoryControl').value
+      this.subjectDetails.work_agency = this.registerSubjectForm.get('agencyControl').value
+      this.subjectDetails.work_remarks = this.registerSubjectForm.get('agencyRemarkControl').value
+      this.subjectDetails.residence_dzongkhag = this.registerSubjectForm.get('residenceDzongkhagControl').value
+      this.subjectDetails.residence_zone = this.registerSubjectForm.get('residenceZoneControl').value
+      this.subjectDetails.residence_accomodation = this.registerSubjectForm.get('residenceAccomodationControl').value
+
+      if(this.isExistingUser === false){
+        this.dataService.registerSubject(this.subjectDetails).subscribe( res =>{
+          if(res.success === "true"){
+              this.certificate.subject_id = res.data.id;
+              this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
+              this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
+              this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
+              this.dataService.registerCertificate(this.certificate).subscribe(
+                res => {
+                  alert(res.success)
+                }
+              )
+          }
+        })
+      }
+      
+    }
+    
+ 
+   
+  }
+  getZones(e){
+
+  }
+
+  changeDiff(e){
+    let cid =  this.registerSubjectForm.get('cidControl').value
+    if(cid.length === 11){
+      this.dataService.getSubjects(cid).subscribe( res => {
+        if(res.success === "true"){
+            this.isExistingUser = true;
+
+          this.registerSubjectForm.patchValue({
+              
+              nameControl: res.data.name,
+              sexControl: res.data.sex,
+              ageControl: res.data.age,
+
+              phoneNumberControl:res.data.contact,
+              workDzongkhagControl:res.data.work_dzongkhag,
+              agencyCategoryControl:res.data.work_category,
+              agencyControl:res.data.work_agency,
+              agencyRemarkControl:res.data.work_remarks,
+              residenceDzongkhagControl:res.data.residence_dzongkhag,
+              residenceZoneControl:res.data.residence_zone,
+              residenceAccomodationControl:res.data.residence_accomodation 
+              
+            })
+            this.registerSubjectForm.controls['workDzongkhagControl'].setValue(res.data.work_dzongkhag)
+        }else{
+          this.isExistingUser = false
+          this.registerSubjectForm.reset({
+            cidControl:cid
+        });
+        }
+      })
+    }
+    
+    
+  }
+
+
+
+
+}
