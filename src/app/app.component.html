@@ -1,10 +1,10 @@
 <div>
-  <mat-toolbar color="warn">
+  <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button mat-icon-button class="example-icon" aria-label="back button" (click)="back()" *ngIf="isUserLoggedIn">
         <mat-icon>arrow_back</mat-icon>
       </button>
-     <mat-icon>health_and_safety</mat-icon>
+      <img src="../assets/app-logo.png" alt="" width="50px">
       <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
       <span class="menu-spacer"></span>
       <button mat-icon-button (click)="logout()" *ngIf="isUserLoggedIn">

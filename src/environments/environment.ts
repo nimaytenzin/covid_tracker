@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://192.168.128.62:8080'
-  // API_URL: 'https://zhichar.myddns.rocks/api',
+  // API_URL: 'http://192.168.128.62:8080'
+  API_URL: 'https://zhichar.ddnsfree.com/cpi'
 };
 
 /*
