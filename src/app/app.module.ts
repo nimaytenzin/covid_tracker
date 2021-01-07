@@ -42,6 +42,7 @@ import { GenerateQrComponent } from './generate-qr/generate-qr.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import { RecordVerifyComponent } from './record-verify/record-verify.component';
 import { VerifyComponent } from './verify/verify.component';
+import { AddResultComponent } from './add-result/add-result.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { VerifyComponent } from './verify/verify.component';
     FrontlineDashComponent,
     GenerateQrComponent,
     RecordVerifyComponent,
-    VerifyComponent
+    VerifyComponent,
+    AddResultComponent
   ],
   imports: [
     BrowserModule,

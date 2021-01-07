@@ -1,0 +1,26 @@
+<p>add-result works!</p>
+
+<table class="table" >
+    <thead>
+        <tr>
+            <th>Sample ID</th>
+        <th>Subject ID</th>
+        <th>Date of Test</th>
+        <th>Edit Test</th>
+
+        </tr>
+    </thead>
+    <tbody style="text-align: left;">
+        <tr *ngFor="let pendingSubject of pendingSubjects">
+            <td>{{pendingSubject.id}}</td>
+            <td>{{pendingSubject.subject_id}}</td>
+            <td>{{pendingSubject.test_date}}</td>
+            <td>
+                <button mat-button  [ngStyle]="{'background-color' : 'rgb(154,210,127)'}" (click)="setResult(pendingSubject.id,'POSITIVE')">Set Positive</button>
+                <button mat-button [ngStyle]="{'background-color' : 'rgb(247,79,79)'}" (click)="setResult(pendingSubject.id,'NEGATIVE')">Set Negative</button>
+            </td>
+            <hr>
+         </tr>
+    
+    </tbody>
+  </table>

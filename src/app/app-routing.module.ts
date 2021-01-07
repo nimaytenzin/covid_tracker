@@ -14,6 +14,7 @@ import { RegisterStatusComponent } from './register-status/register-status.compo
 import { GenerateQrComponent } from './generate-qr/generate-qr.component';
 import { RecordVerifyComponent } from './record-verify/record-verify.component';
 import { VerifyComponent } from './verify/verify.component';
+import { AddResultComponent } from './add-result/add-result.component';
 
 
 const routes: Routes = [
@@ -22,12 +23,13 @@ const routes: Routes = [
   {path:'register', component: RegisterStatusComponent},
   {path: 'navigate', component: RecordVerifyComponent},
   {path: 'verify', component:VerifyComponent},
+  {path: 'add-result', component: AddResultComponent},
   {path: 'selectzone', component:SelectZoneComponent},
   {path: 'dashboard/:id', component: DashboardComponent},
   {path: 'building', component: RegisterComponent },
   {path: 'unit', component: RegisterUnitComponent},
   {path: 'map', component: MapComponent },
-  {path: 'generateQr', component: GenerateQrComponent},
+  {path: 'generateQr/:hash/:id', component: GenerateQrComponent},
   {path: 'camera',component: UploadImageComponent},
   {path: '**', component: ErrorComponent},
 ];

@@ -1,6 +1,12 @@
 <div class="centerContainer">
+    
+  <div>
+    <h2>Royal Government of Bhutan</h2>  
+  </div>
 
-    <h2>Covid Test Certificate</h2>
+    <h3>Covid 19 Test Report</h3>
+
+    <div> sample ID: {{sample_id}}</div>
        <ngx-qrcode
       [elementType]="elementType"
       [errorCorrectionLevel]="correctionLevel"
@@ -8,4 +14,9 @@
       cssClass="bshadow">
     </ngx-qrcode>
 
+    <button mat-raised-button routerLink= "/register" color="warn">
+      Exit
+    </button>
+
 </div>
+

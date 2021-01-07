@@ -4,6 +4,8 @@ import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../service/data.service';
+import { Md5 } from 'ts-md5';
+import { StateService } from "../service/stateService";
 
 interface Dropdown{
   id: string,
@@ -52,6 +54,7 @@ export class Certificate{
   test_type:string;
   test_date:string;
   place:string;
+  status:string;
   utid:string;
 }
 
@@ -71,6 +74,8 @@ export class RegisterStatusComponent implements OnInit {
   subjectDetails: SubjectDetails = new SubjectDetails();
   certificate:Certificate = new Certificate();
   isExistingUser = false;
+  subjectId: number;
+  
 
   
   testTypes : Dropdown [] =[
@@ -82,7 +87,8 @@ export class RegisterStatusComponent implements OnInit {
   constructor(
     private router: Router,
     private dataService: DataService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private stateService: StateService
   ) { }
 
   ngOnInit() {
@@ -155,13 +161,31 @@ export class RegisterStatusComponent implements OnInit {
               this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
+              this.certificate.utid = Md5.hashStr(`${this.certificate.subject_id} + ${Date.now()}`).toString();
+
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
-                  alert(res.success)
+                  let hash =this.certificate.utid
+                  this.router.navigate([`/generateQr/${hash}/${res.data.id}`]);
                 }
               )
           }
         })
+
+      }else{
+        this.certificate.subject_id = this.subjectId;
+              this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
+              this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
+              this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
+              this.certificate.status = "PENDING"
+              this.certificate.utid = Md5.hashStr(`${this.certificate.subject_id} + ${Date.now()}`).toString();
+
+              this.dataService.registerCertificate(this.certificate).subscribe(
+                res => {
+                  let hash =this.certificate.utid
+                  this.router.navigate([`/generateQr/${hash}/${res.data.id}`]);
+                }
+              )
       }
       
     }
@@ -179,6 +203,7 @@ export class RegisterStatusComponent implements OnInit {
       this.dataService.getSubjects(cid).subscribe( res => {
         if(res.success === "true"){
             this.isExistingUser = true;
+            this.subjectId = res.data.id;
 
           this.registerSubjectForm.patchValue({
               

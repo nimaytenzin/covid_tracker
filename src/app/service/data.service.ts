@@ -114,6 +114,21 @@ export class DataService {
       );
   }
 
+  getPendingCertificate(){
+    return this.http
+      .get<any>(`${this.API_URL}/cert/get-pending-certificate`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+  setTestResult(item){
+    return this.http
+    .post<any>(`${this.API_URL}/cert/set-test-result`,item,this.httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   validateQRCode(requestType, uuid) {
     return this.http
       .get<any>(`${this.API_URL}/validate-qr/${requestType}/${uuid}`, this.httpOptions)

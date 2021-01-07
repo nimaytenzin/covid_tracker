@@ -58,7 +58,7 @@
                 <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl"  required min="0" required autofocus>
               </mat-form-field>
 
-              <p style="font-weight: bolder; font-size: small;">Current Station of Residence</p>
+              <!-- <p style="font-weight: bolder; font-size: small;">Current Station of Residence</p>
               <mat-form-field class="justifier">
                 <mat-label>Dzongkhag/Thromde</mat-label>
                 <mat-select name="residenceDzongkhag" formControlName= "residenceDzongkhagControl"  (selectionChange)="getZones($event.value)" >
@@ -79,10 +79,14 @@
               <mat-form-field class="justifier">
                 <mat-label>Name of Accomodation</mat-label>
                 <input matInput type="text" name="residenceAccomodation" formControlName="residenceAccomodationControl"   required min="0" required autofocus>
-              </mat-form-field>
+              </mat-form-field> -->
 
 
               <p style="font-weight: bolder; font-size: small;">Test Details</p>
+              <mat-form-field class="justifier">
+                <mat-label>Sample ID</mat-label>
+                <input matInput type="text" name="testPlace" formControlName="testPlaceControl"  required autofocus>
+              </mat-form-field>
               <mat-form-field class="justifier">
                 <mat-label>Type of Test</mat-label>
                 <mat-select name="testType" formControlName="testTypeControl" >
