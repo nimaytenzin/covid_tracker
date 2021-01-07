@@ -145,6 +145,15 @@ export class DataService {
       );
   }
 
+  getCertificateByUtid(utid){
+    return this.http
+      .get<any>(`${this.API_URL}/cert/get-certificate-utid/${utid}`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+
+  }
+
   postUpdateHouseHold(item, houseHoldId) {
     return this.http
       .put(`${this.API_URL}/household-details/${houseHoldId}`, item, this.httpOptions)

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { StateService } from "../service/stateService";
 
 @Component({
@@ -9,9 +8,6 @@ import { StateService } from "../service/stateService";
   styleUrls: ['./generate-qr.component.scss']
 })
 export class GenerateQrComponent implements OnInit {
-  elementType = NgxQrcodeElementTypes.URL;
-  
-  correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   value = "";
   sample_id = ""
 

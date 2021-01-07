@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { last } from 'rxjs/operators';
+import { ScannerComponent } from '../scanner/scanner.component';
+import { MatDialog } from '@angular/material';
+import { DataService } from '../service/data.service';
 
 
 
@@ -13,11 +15,14 @@ import { last } from 'rxjs/operators';
 export class VerifyComponent implements OnInit {
   showVerifyByCid: boolean;
   verifyForm: FormGroup;
+  certificates: any;
  
 
   constructor(
     private fb:FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private dataService: DataService,
   ) { }
 
   ngOnInit() {
@@ -45,5 +50,17 @@ export class VerifyComponent implements OnInit {
  
   }
   
+  triggerCamera() {
+    const dialogRef = this.dialog.open(ScannerComponent, {
+      width: '60vw',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dataService.getCertificateByUtid(result).subscribe(resp=>{
+        this.certificates = resp.data
+      })
+    });
+  }
 
 }

@@ -1,7 +1,8 @@
 <div style="display: flex; flex-direction: column"> 
     <h3 style="text-align: center;">Covid 19 Test Verification</h3>
     
-       <button mat-flat-button [routerLink]="['/generateQr']"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button>
+       <!-- <button mat-flat-button [routerLink]="['/generateQr']"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button> -->
+       <button mat-flat-button (click)="triggerCamera()"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button>
      <br>
        <button mat-flat-button [routerLink]="['/verify']" (click)="VerifyByCid()"> <mat-icon>fact_check</mat-icon>  <h3>Verify by CID</h3></button>
 
@@ -17,6 +18,38 @@
             <mat-icon>fact_check</mat-icon> Check Status
           </button>
 
+       </div>
+
+       <div *ngIf = "certificates">
+          <table class="table" >
+              <thead>
+                  <tr>
+                    <th>Test ID</th>
+                    <th>Subject ID</th>
+                    <th>Test Place</th>
+                    <th>Test Type</th>
+                    <th>Test Result</th>
+                    <th>Date of Test</th>
+                    <th>Expiry Date</th>
+                    <th>Status</th>
+                  </tr>
+              </thead>
+              <tbody style="text-align: left;">
+                  <tr *ngFor="let certificate of certificates">
+                      <td>{{certificate.id}}</td>
+                      <td>{{certificate.subject_id}}</td>
+                      <td>{{certificate.place}}</td>
+                      <td>{{certificate.test_type}}</td>
+                      <td>{{certificate.test_result || certificate.status}}</td>
+                      <td>{{certificate.test_date | date: 'mediumDate'}}</td>
+                      <td>{{certificate.exp_date | date: 'mediumDate'}}</td>
+                      <td>{{certificate.status}}</td>
+
+                      <hr>
+                  </tr>
+              
+              </tbody>
+            </table>
        </div>
    
   

@@ -39,10 +39,12 @@ import { UploadImageComponent } from './upload-image/upload-image.component';
 import { RegisterStatusComponent } from './register-status/register-status.component';
 import { FrontlineDashComponent } from './frontline-dash/frontline-dash.component';
 import { GenerateQrComponent } from './generate-qr/generate-qr.component';
-import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import { QRCodeModule } from 'angularx-qrcode';
 import { RecordVerifyComponent } from './record-verify/record-verify.component';
 import { VerifyComponent } from './verify/verify.component';
 import { AddResultComponent } from './add-result/add-result.component';
+import { ScannerComponent } from './scanner/scanner.component';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 
 @NgModule({
@@ -64,7 +66,8 @@ import { AddResultComponent } from './add-result/add-result.component';
     GenerateQrComponent,
     RecordVerifyComponent,
     VerifyComponent,
-    AddResultComponent
+    AddResultComponent,
+    ScannerComponent
   ],
   imports: [
     BrowserModule,
@@ -92,13 +95,14 @@ import { AddResultComponent } from './add-result/add-result.component';
     MatListModule,
     MatCheckboxModule,
     WebcamModule,
-    NgxQRCodeModule
+    QRCodeModule,
+    ZXingScannerModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ ConfirmDialogComponent]
+  entryComponents: [ ConfirmDialogComponent,ScannerComponent]
 })
 export class AppModule { }
