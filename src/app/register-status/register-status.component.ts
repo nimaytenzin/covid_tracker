@@ -1,5 +1,5 @@
 import { RepositionScrollStrategy } from '@angular/cdk/overlay';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -67,6 +67,12 @@ export class Certificate{
 
 
 export class RegisterStatusComponent implements OnInit {
+
+  
+  @ViewChild('screen',{static: true}) screen: ElementRef;
+  @ViewChild('canvas',{static: true}) canvas: ElementRef;
+  @ViewChild('downloadLink',{static: true}) downloadLink: ElementRef;
+
   dzongkhags: Dzongkhag[] = [];
   agencyCategories: Dropdown [] =[]
   agencies:Dropdown[] =[]

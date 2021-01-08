@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../service/data.service';
-import { ElementRef, ViewChild } from '@angular/core';
 import html2canvas from 'html2canvas';
 
 @Component({
@@ -10,6 +9,11 @@ import html2canvas from 'html2canvas';
   styleUrls: ['./generate-certificate.component.scss']
 })
 export class GenerateCertificateComponent implements OnInit {
+
+    
+  @ViewChild('screen',{static: true}) screen: ElementRef;
+  @ViewChild('canvas',{static: true}) canvas: ElementRef;
+  @ViewChild('downloadLink',{static: true}) downloadLink: ElementRef;
 
   certificates: any;
   showCertificates: boolean;
@@ -45,20 +49,32 @@ export class GenerateCertificateComponent implements OnInit {
           this.showCertificates = true;
           this.certificates = res.data
 
-        })
-      }
-   }
-   )
+          })
+        }
+    }
+    )
 
-
+ 
   }
 
-  print(){
+  download(){
     const hiddenDiv = document.getElementById('hiddendiv')
-    html2canvas(document.querySelector("#centerContainer")).then(canvas => {
+    html2canvas(document.querySelector("#centerContainer")).then((canvas) => {
       hiddenDiv.appendChild(canvas)
-  });
-
+      });   
   }
+
+  downloadImage(){
+    
+    html2canvas(this.screen.nativeElement).then(canvas => {
+      this.canvas.nativeElement.src = canvas.toDataURL();
+      this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
+      this.downloadLink.nativeElement.download = 'marble-diagram.png';
+      this.downloadLink.nativeElement.click();
+      location.reload();
+    });
+  }
+  
+      
 
 }

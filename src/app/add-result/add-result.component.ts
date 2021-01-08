@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DataService } from '../service/data.service';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-result',
@@ -11,18 +12,21 @@ export class AddResultComponent implements OnInit {
   pendingSubjects: []
   constructor(
     private dataservice: DataService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) { }
 
   ngOnInit() {
     this.dataservice.getPendingCertificate().subscribe(res => {
       this.pendingSubjects = res.data
+      
     })
   }
 
-  setResult(id,result){
+  setResult(id,result,s_id){
     let obj = {
       id: id,
+      subject_id: s_id,
       test_result: result
     }
     this.dataservice.setTestResult(obj).subscribe( res=>{
@@ -32,5 +36,7 @@ export class AddResultComponent implements OnInit {
       }
     })
   }
+
+  
 
 }
