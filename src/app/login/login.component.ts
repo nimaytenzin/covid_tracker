@@ -36,37 +36,34 @@ export class LoginComponent implements OnInit {
       cid: ['', Validators.compose([Validators.required, Validators.maxLength(11), Validators.minLength(11)])],
       password: ['', Validators.compose([Validators.required])]
     });
-
     this.loginForm.controls.cid.setValue(localStorage.getItem('loginId'));
   }
 
   
   login() {
-    // this.submitted = true;
+    this.submitted = true;
 
-    // if (this.loginForm.valid) {
-    //   const loginId = this.loginForm.get('cid').value;
-    //   const password = this.loginForm.get('password').value;
-    //   this.authService.validateLogin(loginId, password).subscribe(response => {
-    //     sessionStorage.setItem('userId', response.data.id);
-    //     localStorage.setItem('loginId', loginId);
-    //     this.router.navigate(['selectzone']);
-    //     this.snackBar.open('Welcome Desuup ' + response.data.username, '', {
-    //       duration: 5000,
-    //       verticalPosition: 'bottom',
-    //       panelClass: ['success-snackbar']
-    //     });
-    //   },
-    //   error => {
-    //     this.submitted = false;
-    //     this.snackBar.open('Invalid login credentials, please try again', '', {
-    //       duration: 5000,
-    //       verticalPosition: 'bottom',
-    //       panelClass: ['error-snackbar']
-    //     });
-    //     console.log(error);
-    //   });
-    // }
-    this.router.navigate(['navigate']);
+    if (this.loginForm.valid) {
+      const loginId = this.loginForm.get('cid').value;
+      const password = this.loginForm.get('password').value;
+      this.authService.validateLogin(loginId, password).subscribe(response => {
+        sessionStorage.setItem('operatorId', response.data.id);
+        this.router.navigate(['navigate']);
+        this.snackBar.open('Welcome ' + response.data.name, '', {
+          duration: 5000,
+          verticalPosition: 'bottom',
+          panelClass: ['success-snackbar']
+        });
+      },
+      error => {
+        this.submitted = false;
+        this.snackBar.open('Invalid login credentials, please try again', '', {
+          duration: 5000,
+          verticalPosition: 'bottom',
+          panelClass: ['error-snackbar']
+        });
+        console.log(error);
+      });
+    }
   }
 }

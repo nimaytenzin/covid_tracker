@@ -2,11 +2,14 @@
      <h3 style="text-align: center;">Covid 19 Test Record</h3>
      <p style="text-align: center;">record || Verify</p>
       <br>
-   
-        <button mat-raised-button [routerLink]="['/register']"> <mat-icon>assignment</mat-icon><h3 >Register</h3></button>
+        <button [disabled]="userRole=='admin' ? null : 'disabled' " mat-raised-button [routerLink]="['/admin']"> <mat-icon>assignment</mat-icon><h3 >Admin</h3></button>
       <br>
-        <button mat-raised-button [routerLink]="['/add-result']"> <mat-icon>fact_check</mat-icon>  <h3>Add Test Result</h3></button>
-        <br>
+        <button [disabled]="userRole=='registrar' ? null : 'disabled' " mat-raised-button [routerLink]="['/register']"> <mat-icon>assignment</mat-icon><h3 >Register</h3></button>
+      <br>
+        <button [disabled]="userRole=='registrar' ? null : 'disabled' " mat-raised-button [routerLink]="['/summary']"> <mat-icon>list</mat-icon>  <h3>Generate Summary</h3></button>
+      <br>
+        <button [disabled]="userRole=='tester' ? null : 'disabled' " mat-raised-button [routerLink]="['/add-result']"> <mat-icon>fact_check</mat-icon>  <h3>Add Test Result</h3></button>
+      <br>
         <button mat-raised-button [routerLink]="['/verify']"> <mat-icon>fact_check</mat-icon>  <h3>Verify Certificate</h3></button>
         <br>
         <button mat-raised-button [routerLink]="['/']"> <mat-icon>settings_back</mat-icon>  <h3>Log Out</h3></button>

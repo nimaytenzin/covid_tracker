@@ -1,0 +1,27 @@
+
+<br>
+<div style="display: flex;align-items: center;justify-content: center;">
+    <button mat-button routerLink="/navigate"> <mat-icon>rotate_left</mat-icon> Back</button>
+    <br>
+    <button mat-button (click)="exportToExcel()"> <mat-icon>download</mat-icon> Download as xlsx</button>
+</div>
+
+<br>
+<table #testTable id="test-table"style = "width:100%;">
+    <tr>
+      <th>Sl no.</th>
+      <th>Test Id</th>
+      <th>Subject</th>
+      <th>Type</th>
+      <th>CID</th>
+      <th>Date</th>
+    </tr>
+    <tr *ngFor = "let test of tests; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{test.id}}</td>
+        <td>{{test.Subject.name}}</td>
+        <td>{{test.test_type}}</td>
+        <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_date | date: 'mediumDate'}}</td>
+    </tr>
+  </table>

@@ -42,9 +42,13 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
 import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
+import { SummaryComponent } from './summary/summary.component';
+
+
 import { SampleIdComponent } from './sample-id/sample-id.component';
 import { MatTableModule } from '@angular/material';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+
 
 @NgModule({
   declarations: [
@@ -64,8 +68,12 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     ScannerComponent,
     GenerateCertificateComponent,
     PublicDashboardComponent,
+
+    SummaryComponent
+
     SampleIdComponent,
     ConfirmModalComponent
+
   ],
   imports: [
     BrowserModule,
