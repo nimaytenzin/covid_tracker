@@ -50,6 +50,8 @@ export class VerifyComponent implements OnInit {
   chechValidity(){
      this.dataService.getSubjects(this.verifyForm.get('cidControl').value).subscribe( res => {
         if(res.success === "true"){
+
+          console.log(res.data)
           let id = res.data.id;
           this.subjectName = res.data.name
           this.subjectCID = res.data.cid
@@ -58,7 +60,6 @@ export class VerifyComponent implements OnInit {
           this.dataService.getCertificateBySubjectId(id).subscribe( res => {
             this.showCertificates = true;
             this.certificates = res.data
-
           })
         }
      }
@@ -72,8 +73,9 @@ export class VerifyComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dataService.getCertificateByUtid(result).subscribe(resp=>{
+      this.dataService.getSubjectByUtid(result).subscribe(resp=>{
         this.certificates = resp.data
+        alert(resp.data.name)
       })
     });
   }

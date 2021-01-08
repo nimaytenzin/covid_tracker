@@ -83,6 +83,14 @@ export class DataService {
       );
   }
 
+  getSubjectByUtid(utid) {
+    return this.http
+      .get<any>(`${this.API_URL}/sub/get-subject-utid/${utid}`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getAgencyCategories() {
     return this.http
       .get<any>(`${this.API_URL}/agency/get-all-category`, this.httpOptions)

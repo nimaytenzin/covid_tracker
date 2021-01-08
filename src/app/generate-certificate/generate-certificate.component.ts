@@ -17,9 +17,8 @@ export class GenerateCertificateComponent implements OnInit {
 
   certificates: any;
   showCertificates: boolean;
-  value = "asdsadsadsadsadsadsa";
+  value:any;
   todaysDate = new Date();
-  //subject intro
   subjectName: string;
   subjectCid: number;
   subjectAge: number;
@@ -35,13 +34,16 @@ export class GenerateCertificateComponent implements OnInit {
   ngOnInit() {
 
     let cid = this.route.snapshot.params.cid;
+   
 
     this.dataservice.getSubjects(cid).subscribe( res => {
       if(res.success === "true"){
+        console.log(res.data)
         this.subjectName = res.data.name;
+        this.value = res.data.utid;
         this.subjectAge = res.data.age;
         this.subjectGender = res.data.sex;
-        this.subjectWorkingAgency = res.data.work_agency + res.data.work_dzongkhag;
+        this.subjectWorkingAgency = res.data.Agency.name + ", "+ res.data.Dzongkhag.name;
         this.subjectCid = res.data.cid;
         this.subjectDzongkhag = res.data.work_dzongkhag;
 
@@ -68,9 +70,11 @@ export class GenerateCertificateComponent implements OnInit {
   downloadImage(){
     
     html2canvas(this.screen.nativeElement).then(canvas => {
+
+      let cid = this.route.snapshot.params.cid;
       this.canvas.nativeElement.src = canvas.toDataURL();
       this.downloadLink.nativeElement.href = canvas.toDataURL('image/png');
-      this.downloadLink.nativeElement.download = 'testResult.png';
+      this.downloadLink.nativeElement.download = `${cid}.png`;
       this.downloadLink.nativeElement.click();
       location.reload();
     });

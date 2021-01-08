@@ -192,8 +192,7 @@ lol: boolean;
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
               this.certificate.status = "PENDING"
-              this.subjectDetails.utid = Md5.hashStr(`${this.subjectDetails.cid} + ${this.subjectDetails.name}`).toString();
-
+  
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
                   console.log(res)

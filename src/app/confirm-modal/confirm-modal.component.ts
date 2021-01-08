@@ -33,7 +33,6 @@ export class ConfirmModalComponent implements OnInit {
   }
 
   no() {
-    
     this.dialogRef.close();
   }
 
