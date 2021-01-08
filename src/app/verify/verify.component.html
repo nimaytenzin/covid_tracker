@@ -1,7 +1,11 @@
+<mat-toolbar style="align-items: center; justify-content: center;">
+  <h3 style="text-align: center;">Covid 19 Test Verification</h3>
+  <span class="menu-spacer"></span>
+
+  <button mat-button routerLink="/navigate"> <mat-icon>rotate_left</mat-icon> Back</button>
+</mat-toolbar>
 <div style="display: flex; flex-direction: column"> 
-    <h3 style="text-align: center;">Covid 19 Test Verification</h3>
-    
-       <!-- <button mat-flat-button [routerLink]="['/generateQr']"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button> -->
+   
        <button mat-flat-button (click)="triggerCamera()"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button>
      <br>
        <button mat-flat-button [routerLink]="['/verify']" (click)="VerifyByCid()"> <mat-icon>fact_check</mat-icon>  <h3>Verify by CID</h3></button>
@@ -61,4 +65,5 @@
               </tbody>
             </table>
        </div>
+  
 </div>

@@ -53,7 +53,6 @@ export class PublicDashboardComponent implements OnInit {
               this.dataService.getCertificateBySubjectId(id).subscribe( res => {
                 this.showCertificates = true;
                 this.certificates = res.data
-
               })
             }
         }

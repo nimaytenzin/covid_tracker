@@ -183,12 +183,12 @@ export class RegisterStatusComponent implements OnInit {
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
               this.certificate.status = "PENDING"
-              this.certificate.utid = Md5.hashStr(`${this.certificate.subject_id} + ${Date.now()}`).toString();
+              this.subjectDetails.utid = Md5.hashStr(`${this.subjectDetails.cid} + ${this.subjectDetails.name}`).toString();
 
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
                   let hash =this.certificate.utid
-                  this.router.navigate([`/generateQr/${hash}/${res.data.id}`]);
+                  this.router.navigate([`/navigate`]);
                 }
               )
       }
