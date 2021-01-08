@@ -55,7 +55,7 @@ export class VerifyComponent implements OnInit {
           let id = res.data.id;
           this.subjectName = res.data.name
           this.subjectCID = res.data.cid
-          this.workAgency = res.data.work_agency
+          this.workAgency = res.data.Agency.name
           this.subjectAge = res.data.age
           this.dataService.getCertificateBySubjectId(id).subscribe( res => {
             this.showCertificates = true;
@@ -73,9 +73,8 @@ export class VerifyComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.dataService.getSubjectByUtid(result).subscribe(resp=>{
-        this.certificates = resp.data
-        alert(resp.data.name)
+      this.dataService.getSubjectByUtid(result).subscribe(res=>{
+        this.router.navigate([`/generateCertificate/${res.data.cid}`])
       })
     });
   }
