@@ -14,6 +14,7 @@ import { AddResultComponent } from './add-result/add-result.component';
 import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
 import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
 import { SummaryComponent } from './summary/summary.component';
+import { SampleIdComponent } from './sample-id/sample-id.component';
 
 
 const routes: Routes = [
@@ -28,8 +29,11 @@ const routes: Routes = [
   {path: 'generateQr/:hash/:id', component: GenerateQrComponent},
   {path: 'camera',component: UploadImageComponent},
   {path: 'public-dash', component:PublicDashboardComponent},
+
   {path: 'summary', component:SummaryComponent},
-  {path: '**', component: ErrorComponent},
+  
+  {path: 'sampleid/:sampleid', component:SampleIdComponent},
+  {path: '**', component: ErrorComponent}
 ];
 
 @NgModule({

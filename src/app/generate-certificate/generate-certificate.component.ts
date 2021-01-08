@@ -25,7 +25,8 @@ export class GenerateCertificateComponent implements OnInit {
   subjectAge: number;
   subjectGender: string;
   subjectWorkingAgency: string;
-  
+  subjectDzongkhag: string;
+
   constructor(
     private dataservice: DataService,
     private route: ActivatedRoute
@@ -37,12 +38,12 @@ export class GenerateCertificateComponent implements OnInit {
 
     this.dataservice.getSubjects(cid).subscribe( res => {
       if(res.success === "true"){
-        console.log(res.data);
         this.subjectName = res.data.name;
         this.subjectAge = res.data.age;
         this.subjectGender = res.data.sex;
         this.subjectWorkingAgency = res.data.work_agency + res.data.work_dzongkhag;
         this.subjectCid = res.data.cid;
+        this.subjectDzongkhag = res.data.work_dzongkhag;
 
         let id = res.data.id;
         this.dataservice.getCertificateBySubjectId(id).subscribe( res => {

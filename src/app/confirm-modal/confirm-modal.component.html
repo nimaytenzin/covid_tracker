@@ -1,0 +1,18 @@
+<div id="modal-content-wrapper">
+    <header id="modal-header">
+        <h1 id="modal-title">Set Test Result</h1>
+    </header>
+    <section id="modal-body">
+        <p>warning - Test result can't be set again once set and the subject will be notifited on sms</p>
+    </section>
+    <footer id="modal-footer">
+        Are you sure?
+        <button mat-raised-button id="modal-action-button" (click)="yes()">
+            Yes
+        </button>
+
+        <button mat-raised-button id="modal-cancel-button" (click)="no()">
+            No
+        </button>
+    </footer>
+</div>

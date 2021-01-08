@@ -1,0 +1,25 @@
+#modal-content-wrapper {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    color: black;
+}
+
+#modal-title {
+    font-size: 22px;
+}
+
+#modal-footer {
+    justify-self: center;
+    align-self: center;
+}
+
+#modal-action-button {
+    margin-right: 30px;
+  
+    color: black;
+}
+
+#modal-cancel-button {
+    color: black;
+}

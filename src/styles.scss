@@ -100,6 +100,12 @@ a{
   color: rgb(42, 125, 219);
 }
 
+mat-dialog-container#confirm-modal {
+
+    border-radius: 11px;
+    background-color:white;
+}
+
 /*
 ##Device = Desktops
 ##Screen = 1281px to higher resolution desktops

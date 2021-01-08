@@ -1,10 +1,14 @@
 <button mat-button routerLink="/navigate" style="justify-content: end;"> <mat-icon>rotate_left</mat-icon> Back</button>
-<table class="table" >
+
+<table class="table" id="table2">
     <thead>
         <tr>
-    <th>Sample ID</th>
-        <th>Subject ID</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type of Test</th>
         <th>Date of Test</th>
+
         <th>Edit Test</th>
 
         </tr>
@@ -12,14 +16,28 @@
     <tbody style="text-align: left;">
         <tr *ngFor="let pendingSubject of pendingSubjects">
             <td>{{pendingSubject.id}}</td>
-            <td>{{pendingSubject.subject_id}}</td>
+            <td>{{pendingSubject.Subject.name}}</td>
+            <td>{{pendingSubject.Subject.cid}}</td>
+            <td>{{pendingSubject.test_type}}</td>
             <td>{{pendingSubject.test_date | date: 'mediumDate'}}</td>
             <td>
-                <button mat-button  [ngStyle]="{'background-color' : 'rgb(247,79,79) '}" (click)="setResult(pendingSubject.id,'POSITIVE', pendingSubject.subject_id)">Set Positive</button>
-                <button mat-button [ngStyle]="{'background-color' : 'rgb(154,210,127)'}" (click)="setResult(pendingSubject.id,'NEGATIVE',pendingSubject.subject_id)">Set Negative</button>
+                <!-- <button mat-button  [ngStyle]="{'background-color' : 'rgb(154,210,127)'}" (click)="setResult(pendingSubject.id,'POSITIVE')">Set Positive</button>
+                <button mat-button [ngStyle]="{'background-color' : 'rgb(247,79,79)'}" (click)="setResult(pendingSubject.id,'NEGATIVE')">Set Negative</button> -->
+
+                <button mat-button  [ngStyle]="{'background-color' : 'rgb(154,210,127)'}" (click)="openModal(pendingSubject.id,'POSITIVE',pendingSubject.subject_id)">Set Positive</button>
+                <button mat-button [ngStyle]="{'background-color' : 'rgb(247,79,79)'}" (click)="openModal(pendingSubject.id,'NEGATIVE',pendingSubject.subject_id)">Set Negative</button>
             </td>
             <hr>
          </tr>
+    
     </tbody>
-
   </table>
+
+
+
+
+
+
+
+
+ 

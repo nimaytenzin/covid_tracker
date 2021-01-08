@@ -28,7 +28,6 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { CameraComponent } from './camera/camera.component';
 import {WebcamModule} from 'ngx-webcam';
 import { UploadImageComponent } from './upload-image/upload-image.component';
@@ -46,6 +45,11 @@ import { PublicDashboardComponent } from './public-dashboard/public-dashboard.co
 import { SummaryComponent } from './summary/summary.component';
 
 
+import { SampleIdComponent } from './sample-id/sample-id.component';
+import { MatTableModule } from '@angular/material';
+import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +57,6 @@ import { SummaryComponent } from './summary/summary.component';
     ErrorComponent,
     SelectZoneComponent,
     ChangePasswordComponent,
-    ConfirmDialogComponent,
     CameraComponent,
     UploadImageComponent,
     RegisterStatusComponent,
@@ -65,7 +68,12 @@ import { SummaryComponent } from './summary/summary.component';
     ScannerComponent,
     GenerateCertificateComponent,
     PublicDashboardComponent,
+
     SummaryComponent
+
+    SampleIdComponent,
+    ConfirmModalComponent
+
   ],
   imports: [
     BrowserModule,
@@ -95,12 +103,13 @@ import { SummaryComponent } from './summary/summary.component';
     WebcamModule,
     QRCodeModule,
     ZXingScannerModule,
+    MatTableModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  entryComponents: [ ConfirmDialogComponent,ScannerComponent]
+  entryComponents: [ ScannerComponent,ConfirmModalComponent]
 })
 export class AppModule { }
