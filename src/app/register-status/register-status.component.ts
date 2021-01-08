@@ -37,7 +37,6 @@ export class SubjectDetails{
   age:string;
   sex:string;
   contact:number;
-
   work_dzongkhag:string;
   work_category:string;
   work_agency: string;
@@ -102,6 +101,8 @@ lol: boolean;
   ) { }
 
   ngOnInit() {
+    
+    console.log(sessionStorage)
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
@@ -171,6 +172,7 @@ lol: boolean;
           if(res.success === "true"){
              console.log(res.data)
               this.certificate.subject_id = res.data.id;
+              this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
               this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
@@ -188,6 +190,7 @@ lol: boolean;
 
       }else{
         this.certificate.subject_id = this.subjectId;
+        this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
               this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value

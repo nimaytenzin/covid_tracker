@@ -31,6 +31,12 @@ export class SummaryComponent implements OnInit {
   }
 
   exportToExcel(): void {
-    this.exportService.exportTableElmToExcel(this.testTable, 'sample_table');
+
+    var d = new Date(Date.now())
+    var s = d.toDateString()
+    s.replace(/\s+/g,'_').toLowerCase();
+          
+    let oId = sessionStorage.getItem('operatorId')
+    this.exportService.exportTableElmToExcel(this.testTable, `${s}_${oId}`);
   }
 }
