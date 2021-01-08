@@ -4,6 +4,7 @@
       <img src="../../assets/app-logo.png"  class="main-lock-icon" alt="">
     </div>
     <div class="form-body">
+      <p style="font-size: smaller;text-align: center">Welcome to Covid Test Record Tracker</p>
       <form [formGroup]="loginForm">
         <mat-form-field class="justifier">
           <input matInput type="number" placeholder="CID Number" class="form-input" name="cid" formControlName="cid" [ngClass]="{ 'is-invalid': submitted && f.cid.errors }" required autofocus>
@@ -26,6 +27,9 @@
     </div>
     <div class="form-footer">
         <button mat-raised-button class="btn custom-btn" (click)="login()" color="warn" [disabled]="!loginForm.valid"><mat-icon>input</mat-icon> Login</button>
-    </div>
+        <p style="text-align: center">Or</p>
+        <p style="font-size: medium;text-align: center">Track your covid Status</p>
+        <button mat-raised-button class="btn custom-btn" routerLink ="/public-dash">Track </button>
+      </div>
   </div>
 </div>

@@ -1,18 +1,31 @@
 <div class="centerContainer">
     
   <div>
-    <h2>Royal Government of Bhutan</h2>  
+    <img src="http://www.moh.gov.bt/wp-content/uploads/ict-files/2020/07/logo.png" style="width: 100vh;" alt="">
+  
   </div>
-
     <h3>Covid 19 Test Report</h3>
-
-    <div> sample ID: {{sample_id}}</div>
-    <!-- <ngx-qrcode
-      [elementType]="elementType"
-      [errorCorrectionLevel]="correctionLevel"
-      [value]="value"
-      cssClass="bshadow">
-    </ngx-qrcode> -->
+    <table>
+      <tr>
+        <td>Name: </td> <td>Nima Yoezer Tenzin</td>
+      </tr>
+      <tr>
+        <td>Age: </td> <td>24</td>
+      </tr>
+      <tr>
+        <td>Sex: </td> <td>Male</td>
+      </tr>
+      <tr>
+        <td>Working Agency: </td><td>National Zoning TaskForce, Thimphu Thromde</td>
+      </tr>
+      <tr>
+        <td>Test Type: </td> <td>RT/PCR</td>
+      </tr>
+      <tr>
+        <td>Date of Test: </td> <td>08/01/2021</td>
+      </tr>
+    </table>
+   
     <qrcode [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
 
     <div style="display: flex; flex-direction: row;">

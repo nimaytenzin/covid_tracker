@@ -17,8 +17,12 @@
                 <input matInput type="text" name="name" formControlName="nameControl"   required min="0" required autofocus>
               </mat-form-field>
               <mat-form-field class="justifier">
-                <mat-label>Sex</mat-label>
-                <input matInput type="text" name="sex" formControlName="sexControl"   required min="0" required autofocus>
+                <mat-label>Gender</mat-label>
+                <mat-select name="sex"  formControlName="sexControl" >
+                  <mat-option *ngFor="let sex of genders" [value]="sex.name" >
+                    {{sex.name}}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
               <mat-form-field class="justifier">
                 <mat-label>Age</mat-label>
@@ -57,7 +61,7 @@
               </mat-form-field>
               <mat-form-field class="justifier">
                 <mat-label>Agency Remarks</mat-label>
-                <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl"  required min="0" required autofocus>
+                <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl" autofocus>
               </mat-form-field>
 
               <!-- <p style="font-weight: bolder; font-size: small;">Current Station of Residence</p>

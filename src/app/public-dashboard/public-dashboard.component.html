@@ -1,28 +1,18 @@
-<div style="display: flex; flex-direction: column"> 
-    <h3 style="text-align: center;">Covid 19 Test Verification</h3>
-    
-       <!-- <button mat-flat-button [routerLink]="['/generateQr']"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button> -->
-       <button mat-flat-button (click)="triggerCamera()"> <mat-icon>qr_code</mat-icon><h3 >Verify by QR</h3></button>
-     <br>
-       <button mat-flat-button [routerLink]="['/verify']" (click)="VerifyByCid()"> <mat-icon>fact_check</mat-icon>  <h3>Verify by CID</h3></button>
 
-       <div>
+       <div class="container">
+        <p style="font-size: medium;text-align: center">To track your Covid 19 Status enter your CID below</p>
         <form [formGroup]="verifyForm">
             <mat-form-field class="justifier">
                 <mat-label>Enter CID</mat-label>
                 <input matInput type="number"  name="cid" formControlName="cidControl" required required min="11" autofocus>
               </mat-form-field>
         </form>
-        <button mat-raised-button (click)="chechValidity()"  [disabled]="!verifyForm.valid">
+        <button mat-raised-button (click)="chechValidity()"  [disabled]="!verifyForm.valid" >
             <mat-icon>fact_check</mat-icon> Check Status 
-          </button>
-          <button mat-raised-button (click)="generateCertificate()"  [disabled]="!verifyForm.valid">
-            <mat-icon>fact_check</mat-icon> Generate Certificate
           </button>
        </div>
 
        <div *ngIf = "showCertificates">
-
           <div>
               <mat-card>
                 <p>Name: {{subjectName}}</p>
@@ -54,11 +44,8 @@
                       <td>{{certificate.test_date | date: 'mediumDate'}}</td>
                       <td>{{certificate.exp_date | date: 'mediumDate'}}</td>
                       <td>{{certificate.status}}</td>
-
                       <hr>
                   </tr>
-              
               </tbody>
             </table>
        </div>
-</div>

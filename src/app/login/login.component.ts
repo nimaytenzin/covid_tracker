@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   hide = true;
   loginForm: FormGroup;
   submitted = false;
+  showLoginForm: boolean;
+  
 
   constructor(
     private router: Router,
@@ -24,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.reactiveForm();
+    this.showLoginForm = false
   }
 
   get f() { return this.loginForm.controls; }
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit {
     this.loginForm.controls.cid.setValue(localStorage.getItem('loginId'));
   }
 
+  
   login() {
     // this.submitted = true;
 

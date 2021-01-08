@@ -4,10 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { ErrorComponent } from './error/error.component';
 import { SelectZoneComponent } from './select-zone/select-zone.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
 import {
@@ -30,9 +28,7 @@ import { HttpInterceptorService } from './service/http-interceptor.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { MapComponent } from './map/map.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import { RegisterUnitComponent } from './register-unit/register-unit.component';
 import { CameraComponent } from './camera/camera.component';
 import {WebcamModule} from 'ngx-webcam';
 import { UploadImageComponent } from './upload-image/upload-image.component';
@@ -45,20 +41,18 @@ import { VerifyComponent } from './verify/verify.component';
 import { AddResultComponent } from './add-result/add-result.component';
 import { ScannerComponent } from './scanner/scanner.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
+import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
+import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent,
     ErrorComponent,
     SelectZoneComponent,
-    DashboardComponent,
     ChangePasswordComponent,
-    MapComponent,
     ConfirmDialogComponent,
-    RegisterUnitComponent,
     CameraComponent,
     UploadImageComponent,
     RegisterStatusComponent,
@@ -67,7 +61,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
     RecordVerifyComponent,
     VerifyComponent,
     AddResultComponent,
-    ScannerComponent
+    ScannerComponent,
+    GenerateCertificateComponent,
+    PublicDashboardComponent
   ],
   imports: [
     BrowserModule,

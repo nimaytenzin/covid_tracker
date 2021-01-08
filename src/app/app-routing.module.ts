@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { ErrorComponent } from './error/error.component';
 import { SelectZoneComponent } from './select-zone/select-zone.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouteGuard } from './service/route.guard';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import { MapComponent } from './map/map.component';
-import { RegisterUnitComponent } from './register-unit/register-unit.component';
 import { UploadImageComponent } from './upload-image/upload-image.component';
 import { RegisterStatusComponent } from './register-status/register-status.component';
 import { GenerateQrComponent } from './generate-qr/generate-qr.component';
 import { RecordVerifyComponent } from './record-verify/record-verify.component';
 import { VerifyComponent } from './verify/verify.component';
 import { AddResultComponent } from './add-result/add-result.component';
+import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
+import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
 
 
 const routes: Routes = [
@@ -24,13 +22,11 @@ const routes: Routes = [
   {path: 'navigate', component: RecordVerifyComponent},
   {path: 'verify', component:VerifyComponent},
   {path: 'add-result', component: AddResultComponent},
+  {path: 'generateCertificate/:cid', component:GenerateCertificateComponent},
   {path: 'selectzone', component:SelectZoneComponent},
-  {path: 'dashboard/:id', component: DashboardComponent},
-  {path: 'building', component: RegisterComponent },
-  {path: 'unit', component: RegisterUnitComponent},
-  {path: 'map', component: MapComponent },
   {path: 'generateQr/:hash/:id', component: GenerateQrComponent},
   {path: 'camera',component: UploadImageComponent},
+  {path: 'public-dash', component:PublicDashboardComponent},
   {path: '**', component: ErrorComponent},
 ];
 

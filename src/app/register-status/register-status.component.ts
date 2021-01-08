@@ -46,6 +46,7 @@ export class SubjectDetails{
   residence_dzongkhag:string;
   residence_zone:string;
   residence_accomodation:string;
+  utid:string;
 }
 
 export class Certificate{
@@ -75,13 +76,16 @@ export class RegisterStatusComponent implements OnInit {
   certificate:Certificate = new Certificate();
   isExistingUser = false;
   subjectId: number;
-  
-
-  
+ 
   testTypes : Dropdown [] =[
     {id: "1", name:"RT/PCR"},
     {id: "2", name:"Antigen Test"},
     {id: "3", name:"Antibody Test"}
+  ]
+
+  genders : Dropdown [] =[
+    {id: "1", name:"Male"},
+    {id: "2", name:"Female"}
   ]
 
   constructor(
@@ -141,7 +145,6 @@ export class RegisterStatusComponent implements OnInit {
 
   submit(){
     if(this.registerSubjectForm.valid ){
-
       this.subjectDetails.cid = this.registerSubjectForm.get('cidControl').value
       this.subjectDetails.name = this.registerSubjectForm.get('nameControl').value
       this.subjectDetails.sex = this.registerSubjectForm.get('sexControl').value
@@ -154,7 +157,8 @@ export class RegisterStatusComponent implements OnInit {
       this.subjectDetails.residence_dzongkhag = this.registerSubjectForm.get('residenceDzongkhagControl').value
       this.subjectDetails.residence_zone = this.registerSubjectForm.get('residenceZoneControl').value
       this.subjectDetails.residence_accomodation = this.registerSubjectForm.get('residenceAccomodationControl').value
-
+      this.subjectDetails.utid = Md5.hashStr(`${this.subjectDetails.cid} + ${this.subjectDetails.name}`).toString();
+    
       if(this.isExistingUser === false){
         this.dataService.registerSubject(this.subjectDetails).subscribe( res =>{
           if(res.success === "true"){
@@ -162,13 +166,12 @@ export class RegisterStatusComponent implements OnInit {
               this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-              this.certificate.utid = Md5.hashStr(`${this.certificate.subject_id} + ${Date.now()}`).toString();
               this.certificate.status = "PENDING";
             
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
                   let hash =this.certificate.utid
-                  this.router.navigate([`/generateQr/${hash}/${res.data.id}`]);
+                  this.router.navigate([`/navigate`]);
                 }
               )
           }

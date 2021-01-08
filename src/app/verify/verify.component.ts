@@ -5,9 +5,6 @@ import { ScannerComponent } from '../scanner/scanner.component';
 import { MatDialog } from '@angular/material';
 import { DataService } from '../service/data.service';
 
-
-
-
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
@@ -24,9 +21,6 @@ export class VerifyComponent implements OnInit {
   workAgency:string
   subjectAge:number
 
-  tableCols = ['Subject_id',"Name","Test Type","Test Date", "Test Result", "Expiry Date", "Status"]
-
-  columns = ["createdAt","exp_date", "id","operator_id","place","status","test_date","test_result","test_type","updatedAt","utid"]
 
   constructor(
     private fb:FormBuilder,
@@ -82,6 +76,11 @@ export class VerifyComponent implements OnInit {
         this.certificates = resp.data
       })
     });
+  }
+
+  generateCertificate(){
+    this.subjectCID = this.verifyForm.get('cidControl').value;
+    this.router.navigate([`/generateCertificate/${this.subjectCID}`])
   }
 
 }

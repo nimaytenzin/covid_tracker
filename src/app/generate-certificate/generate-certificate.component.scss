@@ -1,0 +1,159 @@
+.centerContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.bshadow {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+    opacity: .5;
+  
+  }
+
+  p{
+      padding: 0%;
+      margin: 0%;
+  }
+  h2{
+      padding: 0%;
+      margin: 0%;
+  }
+table{
+    width: fit-content;
+}
+
+th{
+    border-bottom: 2px dashed black;
+}
+
+#qrConatainer{
+    display:table-row;
+    width: 100%;
+    align-items: stretch;
+    justify-content: space-between;
+}
+
+#leftbox { 
+    float:left;  
+    align-items: flex-end;
+    width:30%; 
+
+} 
+#middlebox{
+    float: right;;
+    width: 50%;
+}
+#rightbox{ 
+    float:right; 
+    justify-content: end;
+    margin: 0%;
+    padding: 0;  
+} 
+
+.footer-images{
+    width: 20%;
+}
+
+// @media (max-width: 1600px){
+//     img{
+//         width: 90px;
+//         height: 90px;
+//     }
+//     h2{
+//         font-size: larger;
+//         text-align: left;
+//     }
+//     #rightbox{ 
+//         float:right; 
+//         width:20%; 
+//     }
+// }
+
+@media (min-width: 481px) and (max-width: 800px) {
+    h2,h3{
+        font-size: 15px;
+        padding: 0%;
+        margin: 0%;
+    }
+    div{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+  
+    p,h4{
+        font-size: smaller;
+        p{
+            width: 300px;
+        }
+    }
+    table{
+        font-size: 10px;
+        padding-left: 0%;
+        padding-right: 0%;
+    }
+    
+    #rightbox{
+      float: inline-end;
+    
+    }
+    .table{
+        width: fit-content;
+    }
+    .details{
+        width: fit-content;
+    }
+    .footer-images{
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+
+  body{
+    padding: 0%;
+    margin: 0%;
+  }
+  mat-toolbar{
+    width: 100%;
+  }
+  h2,h3{
+      font-size: 15px;
+      padding: 0%;
+      margin: 0%;
+  }
+  div{
+      padding-left: 5px;
+      padding-right: 5px;
+  }
+
+  p,h4{
+      font-size: smaller;
+      p{
+          width: 300px;
+      }
+  }
+  table{
+      font-size: 10px;
+      padding-left: 0%;
+      padding-right: 0%;
+  }
+  
+  #rightbox{
+    float: inline-end;
+  
+  }
+  .table{
+      width: fit-content;
+  }
+  .details{
+      width: fit-content;
+  }
+  .footer-images{
+      width: 30%;
+  }
+
+}
