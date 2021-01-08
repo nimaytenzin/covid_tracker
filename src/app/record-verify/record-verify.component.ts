@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./record-verify.component.scss']
 })
 export class RecordVerifyComponent implements OnInit {
+  userRole : string;
 
   constructor() { }
 
   ngOnInit() {
+    this.userRole = sessionStorage.getItem('operatorRole')
+    console.log(this.userRole)
   }
 
 }

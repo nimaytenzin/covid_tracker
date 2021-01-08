@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 export const TOKEN = 'token';
 export const AUTHENTICATED_USER = 'authenticatedUser';
 export const IS_AUTHENTICATED = 'isAuthenticated';
+export const ROLE = 'operatorRole';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class AuthenticationService {
   ) { }
 
   validateLogin(cid, password) {
-    return this.http.post<any>(`${this.API_URL}/login`, {
+    return this.http.post<any>(`${this.API_URL}/operator/login`, {
       cid,
       password
     }).pipe(
@@ -29,6 +30,7 @@ export class AuthenticationService {
         data => {
           sessionStorage.setItem(AUTHENTICATED_USER, cid);
           sessionStorage.setItem(TOKEN, `Bearer ${data.data.token}`);
+          sessionStorage.setItem(ROLE, data.data.role);
           this.authState.next(true);
           return data;
       }));
