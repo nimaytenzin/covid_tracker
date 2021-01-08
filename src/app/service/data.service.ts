@@ -59,6 +59,14 @@ export class DataService {
       );
   }
 
+  getCertificateBySubjectId(id){
+    return this.http
+    .get<any>(`${this.API_URL}/cert/get-certificate-subject/${id}`, this.httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getSubjects(cid) {
     return this.http
       .get<any>(`${this.API_URL}/sub/get-subject-cid/${cid}`, this.httpOptions)
@@ -143,6 +151,15 @@ export class DataService {
       .pipe(
         catchError(this.handleError)
       );
+  }
+
+  getCertificateByUtid(utid){
+    return this.http
+      .get<any>(`${this.API_URL}/cert/get-certificate-utid/${utid}`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+
   }
 
   postUpdateHouseHold(item, houseHoldId) {

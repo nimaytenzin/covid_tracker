@@ -3,7 +3,7 @@ import { AuthenticationService } from './service/authentication.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 
 export class MatMenuListItem {
   menuLinkText: string;

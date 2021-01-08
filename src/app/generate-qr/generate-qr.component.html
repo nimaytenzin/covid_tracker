@@ -7,12 +7,13 @@
     <h3>Covid 19 Test Report</h3>
 
     <div> sample ID: {{sample_id}}</div>
-       <ngx-qrcode
+    <!-- <ngx-qrcode
       [elementType]="elementType"
       [errorCorrectionLevel]="correctionLevel"
       [value]="value"
       cssClass="bshadow">
-    </ngx-qrcode>
+    </ngx-qrcode> -->
+    <qrcode [qrdata]="value" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
 
     <div style="display: flex; flex-direction: row;">
       <button mat-raised-button routerLink= "/navigate" >

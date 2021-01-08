@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { last } from 'rxjs/operators';
+import { ScannerComponent } from '../scanner/scanner.component';
+import { MatDialog } from '@angular/material';
+import { DataService } from '../service/data.service';
+
 
 
 
@@ -13,11 +16,23 @@ import { last } from 'rxjs/operators';
 export class VerifyComponent implements OnInit {
   showVerifyByCid: boolean;
   verifyForm: FormGroup;
- 
+  certificates: any;
+  showCertificates:boolean
+  data:any;
+  subjectName:string
+  subjectCID:number
+  workAgency:string
+  subjectAge:number
+
+  tableCols = ['Subject_id',"Name","Test Type","Test Date", "Test Result", "Expiry Date", "Status"]
+
+  columns = ["createdAt","exp_date", "id","operator_id","place","status","test_date","test_result","test_type","updatedAt","utid"]
 
   constructor(
     private fb:FormBuilder,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog,
+    private dataService: DataService,
   ) { }
 
   ngOnInit() {
@@ -29,21 +44,44 @@ export class VerifyComponent implements OnInit {
 
   reactiveForm(){
     this.verifyForm = this.fb.group({
-      cidControl:['', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]]
+      cidControl:['']
     })
   }
 
   VerifyByCid(){
     this.showVerifyByCid = true
+    
   }
 
   chechValidity(){
-    if (this.verifyForm.valid) {
-        const cid = this.verifyForm.get('cid').value;
-        alert(cid)
-      }
- 
+     this.dataService.getSubjects(this.verifyForm.get('cidControl').value).subscribe( res => {
+        if(res.success === "true"){
+          let id = res.data.id;
+          this.subjectName = res.data.name
+          this.subjectCID = res.data.cid
+          this.workAgency = res.data.work_agency
+          this.subjectAge = res.data.age
+          this.dataService.getCertificateBySubjectId(id).subscribe( res => {
+            this.showCertificates = true;
+            this.certificates = res.data
+
+          })
+        }
+     }
+     )
   }
   
+  triggerCamera() {
+    const dialogRef = this.dialog.open(ScannerComponent, {
+      width: '60vw',
+      data: {}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.dataService.getCertificateByUtid(result).subscribe(resp=>{
+        this.certificates = resp.data
+      })
+    });
+  }
 
 }
