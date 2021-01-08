@@ -69,7 +69,7 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     GenerateCertificateComponent,
     PublicDashboardComponent,
 
-    SummaryComponent
+    SummaryComponent,
 
     SampleIdComponent,
     ConfirmModalComponent
