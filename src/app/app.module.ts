@@ -43,6 +43,7 @@ import { ScannerComponent } from './scanner/scanner.component';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
 import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
+import { SummaryComponent } from './summary/summary.component';
 
 
 @NgModule({
@@ -63,7 +64,8 @@ import { PublicDashboardComponent } from './public-dashboard/public-dashboard.co
     AddResultComponent,
     ScannerComponent,
     GenerateCertificateComponent,
-    PublicDashboardComponent
+    PublicDashboardComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -67,6 +67,14 @@ export class DataService {
     );
   }
 
+  getCertificateByOperatorId(id){
+    return this.http
+    .get<any>(`${this.API_URL}/cert/get-certificate-operator/${id}`, this.httpOptions)
+    .pipe(
+      catchError(this.handleError)
+    );
+  }
+
   getSubjects(cid) {
     return this.http
       .get<any>(`${this.API_URL}/sub/get-subject-cid/${cid}`, this.httpOptions)
