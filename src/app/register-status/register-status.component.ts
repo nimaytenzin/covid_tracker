@@ -83,7 +83,7 @@ lol: boolean;
 
 
   testTypes : Dropdown [] =[
-    {id: "1", name:"RT/PCR"},
+    {id: "1", name:"RT/PCR Test"},
     {id: "2", name:"Antigen Test"},
     {id: "3", name:"Antibody Test"}
   ]

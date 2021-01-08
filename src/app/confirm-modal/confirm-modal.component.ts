@@ -8,7 +8,7 @@ import { DataService } from '../service/data.service';
   styleUrls: ['./confirm-modal.component.scss']
 })
 export class ConfirmModalComponent implements OnInit {
- 
+  testRes :string
 
   constructor(
     private dataService: DataService,
@@ -17,19 +17,16 @@ export class ConfirmModalComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  
+    this.testRes = this.data.test_result
   }
   
   yes(){
-  
-    console.log(this.data)
-    alert(this.data.test_result)
-    // this.dataService.setTestResult(this.data).subscribe( res=>{
-    //   if(res.success === "true"){
-    //     this.dialogRef.close();
-    //     location.reload()
-    //   }
-    // }) 
+    this.dataService.setTestResult(this.data).subscribe( res=>{
+      if(res.success === "true"){
+        this.dialogRef.close();
+        location.reload()
+      }
+    }) 
   }
 
   no() {
