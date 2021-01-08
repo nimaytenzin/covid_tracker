@@ -6,12 +6,11 @@
      <br>
        <button mat-flat-button [routerLink]="['/verify']" (click)="VerifyByCid()"> <mat-icon>fact_check</mat-icon>  <h3>Verify by CID</h3></button>
 
-       <div *ngIf='showVerifyByCid'>
+       <div>
         <form [formGroup]="verifyForm">
             <mat-form-field class="justifier">
                 <mat-label>Enter CID</mat-label>
-                <input matInput type="number"  name="cid" formControlName="cid" required autofocus>
-                
+                <input matInput type="number"  name="cid" formControlName="cidControl" required required min="11" autofocus>
               </mat-form-field>
         </form>
         <button mat-raised-button (click)="chechValidity()"  [disabled]="!verifyForm.valid">
@@ -20,7 +19,16 @@
 
        </div>
 
-       <div *ngIf = "certificates">
+       <div *ngIf = "showCertificates">
+
+          <div>
+              <mat-card>
+                <p>Name: {{subjectName}}</p>
+                <p>CID : {{subjectCID}}</p>
+                <p>Age: {{subjectAge}}</p>
+                <p>Working Agency: {{workAgency}}</p>
+              </mat-card>
+            </div>
           <table class="table" >
               <thead>
                   <tr>
@@ -51,6 +59,4 @@
               </tbody>
             </table>
        </div>
-   
-  
 </div>

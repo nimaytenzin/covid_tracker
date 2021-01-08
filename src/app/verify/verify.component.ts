@@ -7,6 +7,7 @@ import { DataService } from '../service/data.service';
 
 
 
+
 @Component({
   selector: 'app-verify',
   templateUrl: './verify.component.html',
@@ -16,7 +17,16 @@ export class VerifyComponent implements OnInit {
   showVerifyByCid: boolean;
   verifyForm: FormGroup;
   certificates: any;
- 
+  showCertificates:boolean
+  data:any;
+  subjectName:string
+  subjectCID:number
+  workAgency:string
+  subjectAge:number
+
+  tableCols = ['Subject_id',"Name","Test Type","Test Date", "Test Result", "Expiry Date", "Status"]
+
+  columns = ["createdAt","exp_date", "id","operator_id","place","status","test_date","test_result","test_type","updatedAt","utid"]
 
   constructor(
     private fb:FormBuilder,
@@ -34,20 +44,31 @@ export class VerifyComponent implements OnInit {
 
   reactiveForm(){
     this.verifyForm = this.fb.group({
-      cidControl:['', [Validators.required, Validators.maxLength(11), Validators.minLength(11)]]
+      cidControl:['']
     })
   }
 
   VerifyByCid(){
     this.showVerifyByCid = true
+    
   }
 
   chechValidity(){
-    if (this.verifyForm.valid) {
-        const cid = this.verifyForm.get('cid').value;
-        alert(cid)
-      }
- 
+     this.dataService.getSubjects(this.verifyForm.get('cidControl').value).subscribe( res => {
+        if(res.success === "true"){
+          let id = res.data.id;
+          this.subjectName = res.data.name
+          this.subjectCID = res.data.cid
+          this.workAgency = res.data.work_agency
+          this.subjectAge = res.data.age
+          this.dataService.getCertificateBySubjectId(id).subscribe( res => {
+            this.showCertificates = true;
+            this.certificates = res.data
+
+          })
+        }
+     }
+     )
   }
   
   triggerCamera() {
