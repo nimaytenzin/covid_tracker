@@ -1,5 +1,5 @@
 import { RepositionScrollStrategy } from '@angular/cdk/overlay';
-import { Component, OnInit, ElementRef, ViewChild  } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ɵConsole  } from '@angular/core';
 import { Form, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -69,9 +69,6 @@ export class Certificate{
 export class RegisterStatusComponent implements OnInit {
 
   
-  @ViewChild('screen',{static: true}) screen: ElementRef;
-  @ViewChild('canvas',{static: true}) canvas: ElementRef;
-  @ViewChild('downloadLink',{static: true}) downloadLink: ElementRef;
 
   dzongkhags: Dzongkhag[] = [];
   agencyCategories: Dropdown [] =[]
@@ -82,7 +79,10 @@ export class RegisterStatusComponent implements OnInit {
   certificate:Certificate = new Certificate();
   isExistingUser = false;
   subjectId: number;
- 
+  agencyCategoryP:any;
+lol: boolean;
+
+
   testTypes : Dropdown [] =[
     {id: "1", name:"RT/PCR"},
     {id: "2", name:"Antigen Test"},
@@ -105,6 +105,7 @@ export class RegisterStatusComponent implements OnInit {
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
+    this.registerSubjectForm.controls.testControl.setValue("selected")
   }
 
   reactiveForm(){
@@ -123,8 +124,8 @@ export class RegisterStatusComponent implements OnInit {
       residenceAccomodationControl:[],
       sampleIdControl:[],
       testTypeControl:[],
-      testDateControl:[],
-      testPlaceControl:[]   
+      testDateControl: new Date(),
+      testPlaceControl:[]
     });
   }
 
@@ -168,6 +169,7 @@ export class RegisterStatusComponent implements OnInit {
       if(this.isExistingUser === false){
         this.dataService.registerSubject(this.subjectDetails).subscribe( res =>{
           if(res.success === "true"){
+             console.log(res.data)
               this.certificate.subject_id = res.data.id;
               this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
@@ -176,8 +178,9 @@ export class RegisterStatusComponent implements OnInit {
             
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
-                  let hash =this.certificate.utid
-                  this.router.navigate([`/navigate`]);
+                  console.log(res)
+                  let sampleId = res.data.id
+                  this.router.navigate([`/sampleid/${sampleId}`]);
                 }
               )
           }
@@ -193,20 +196,17 @@ export class RegisterStatusComponent implements OnInit {
 
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
-                  let hash =this.certificate.utid
-                  this.router.navigate([`/navigate`]);
+                  console.log(res)
+                  let sampleId = res.data.id
+                  this.router.navigate([`/sampleid/${sampleId}`]);
                 }
               )
       }
       
     }
     
+  }
  
-   
-  }
-  getZones(e){
-
-  }
 
   changeDiff(e){
     let cid =  this.registerSubjectForm.get('cidControl').value
@@ -215,24 +215,28 @@ export class RegisterStatusComponent implements OnInit {
         if(res.success === "true"){
             this.isExistingUser = true;
             this.subjectId = res.data.id;
-
-          this.registerSubjectForm.patchValue({
-              
+            console.log(res.data)
+            
+            this.registerSubjectForm.patchValue({
               nameControl: res.data.name,
               sexControl: res.data.sex,
               ageControl: res.data.age,
-
               phoneNumberControl:res.data.contact,
               workDzongkhagControl:res.data.work_dzongkhag,
               agencyCategoryControl:res.data.work_category,
-              agencyControl:res.data.work_agency,
+              testControl : res.data.work_agency,
               agencyRemarkControl:res.data.work_remarks,
               residenceDzongkhagControl:res.data.residence_dzongkhag,
               residenceZoneControl:res.data.residence_zone,
               residenceAccomodationControl:res.data.residence_accomodation 
               
             })
-            this.registerSubjectForm.controls['workDzongkhagControl'].setValue(res.data.work_dzongkhag)
+            console.log(res.data.work_dzongkhag)
+            this.registerSubjectForm.controls['workDzongkhagControl'].setValue(Number(res.data.work_dzongkhag))
+            this.registerSubjectForm.controls['agencyCategoryControl'].setValue(Number(res.data.work_category))
+            this.getAgencies(Number(res.data.work_category))
+            this.registerSubjectForm.controls['agencyControl'].setValue(Number(res.data.work_agency))
+
         }else{
           this.isExistingUser = false
           this.registerSubjectForm.reset({

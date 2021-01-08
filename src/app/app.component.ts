@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthenticationService } from './service/authentication.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { Location } from '@angular/common';
 
 export class MatMenuListItem {
@@ -57,18 +56,7 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    const confirmDialog = this.dialog.open(ConfirmDialogComponent, {
-      data: {
-        title: 'Confirmation',
-        message: 'Do you really want to logout?'
-      }
-    });
-    confirmDialog.afterClosed().subscribe(result => {
-      if (result) {
-        this.authService.logout();
-        this.router.navigate(['login']);
-      }
-    });
+    
   }
 
   back() {

@@ -43,7 +43,8 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-              <mat-form-field class="justifier">
+
+                <mat-form-field class="justifier">
                 <mat-label>Category</mat-label>
                 <mat-select name="agencyCategory" formControlName= "agencyCategoryControl"  (selectionChange)="getAgencies($event.value)">
                   <mat-option *ngFor="let agencyCategory of agencyCategories" [value]="agencyCategory.id"  >
@@ -51,6 +52,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+
               <mat-form-field class="justifier">
                 <mat-label>Agency</mat-label>
                 <mat-select name="agency" formControlName= "agencyControl"  >
@@ -59,6 +61,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
+
               <mat-form-field class="justifier">
                 <mat-label>Agency Remarks</mat-label>
                 <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl" autofocus>
@@ -92,8 +95,8 @@
             
               <mat-form-field class="justifier">
                 <mat-label>Type of Test</mat-label>
-                <mat-select name="testType" formControlName="testTypeControl" >
-                  <mat-option *ngFor="let testType of testTypes" [value]="testType.name">
+                <mat-select name="testType" formControlName="testTypeControl" required >
+                  <mat-option *ngFor="let testType of testTypes" [value]="testType.name" >
                     {{testType.name}}
                   </mat-option>
                 </mat-select>
@@ -115,7 +118,6 @@
           <mat-icon>note_add</mat-icon> Submit
         </button>
       </div>
-  <!-- End of Resident Form--> 
       </div>
 
   
