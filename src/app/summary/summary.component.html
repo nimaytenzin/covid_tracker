@@ -13,12 +13,11 @@
       <th>Sl no.</th>
       <th>Sample ID</th>
       <th>Name</th>
-      
       <th>CID</th>
+      <th>Contact</th>
       <th>RT-PCR</th>
       <th>Antigen</th>
       <th>Antibody</th>
-
       <th>Date</th>
       <th>Status</th>
     </tr>
@@ -27,10 +26,10 @@
         <td>{{test.sample_id}}</td>
         <td>{{test.Subject.name}}</td>
         <td>{{test.Subject.cid}}</td>
+        <td>{{test.Subject.contact}}</td>
         <td>{{test.test_RTPCR}}</td>
         <td>{{test.test_AG}}</td>
         <td>{{test.test_AB}}</td>
-        
         <td>{{test.test_date | date: 'mediumDate'}}</td>
         <td>{{test.status}}</td>
     </tr>
