@@ -41,17 +41,19 @@
             <tr>
               <th>Test ID</th>
               <th>Test Place</th>
-              <th>Test Type</th>
-              <th>Test Result</th>
+              <th>RT-PCR</th>
+              <th>Antigen </th>
+              <th>Antibody</th>
               <th>Date of Test</th>
-              <th>Expiry Date</th>
+              <th>Next Test date</th>
             </tr>
         </thead>
         <tbody style="text-align: left;">
             <tr *ngFor="let certificate of certificates">
                 <td>{{certificate.id}}</td>
                 <td>{{certificate.place}}</td>
-                <td>{{certificate.test_type}}</td>
+                <td>{{certificate.test_result || certificate.status}}</td>
+                <td>{{certificate.test_result || certificate.status}}</td>
                 <td>{{certificate.test_result || certificate.status}}</td>
                 <td>{{certificate.test_date | date: 'mediumDate'}}</td>
                 <td>{{certificate.exp_date | date: 'mediumDate'}}</td>

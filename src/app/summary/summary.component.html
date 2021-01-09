@@ -7,22 +7,30 @@
 </div>
 
 <br>
+<h4>Operator ID: {{tests[0].operator_id}}</h4>
 <table #testTable id="test-table"style = "width:100%;">
     <tr>
       <th>Sl no.</th>
-      <th>Test Id</th>
+      <th>Sample ID</th>
       <th>Name</th>
-      <th>Type</th>
+      
       <th>CID</th>
+      <th>RT-PCR</th>
+      <th>Antigen</th>
+      <th>Antibody</th>
+
       <th>Date</th>
       <th>Status</th>
     </tr>
     <tr *ngFor = "let test of tests; let i = index">
         <td>{{i+1}}</td>
-        <td>{{test.id}}</td>
+        <td>{{test.sample_id}}</td>
         <td>{{test.Subject.name}}</td>
-        <td>{{test.test_type}}</td>
         <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_RTPCR}}</td>
+        <td>{{test.test_AG}}</td>
+        <td>{{test.test_AB}}</td>
+        
         <td>{{test.test_date | date: 'mediumDate'}}</td>
         <td>{{test.status}}</td>
     </tr>

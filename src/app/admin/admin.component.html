@@ -1,18 +1,64 @@
+  
 <div style="display: flex; flex-direction: row;">
     <div style="float: left; width: 50%;">
-        <h2> Total Tests: {{totalTests}}</h2>
-        <h2> Total RT-PCR Tests: {{totalRtpcrTests}}</h2>
-        <h2> Total Antigen Tests: {{totalAntigenTests}}</h2>
-        <h2> Total Antigen Tests: {{totalAntibodyTests}}</h2>
+        <h4><img src="../../assets/test-tube.svg"  width="50px" alt=""> Total Tests: {{totalTests}}</h4>
+        <h4> Total RT-PCR Tests: {{totalRtpcrTests}}</h4>
+        <h4>Total Antigen Tests: {{totalAntigenTests}}</h4>
+        <h4>Total Antigen Tests: {{totalAntibodyTests}}</h4>
     </div>
     <div style="float: right; width: 50%;">
-        <h2> Males Tested: {{totalMalesTested}}</h2>
-        <h2> Females Tested: {{totalFemalesTested}}</h2>
-        <h2> Total Positive: {{totalPositives}}</h2>
-        <h2> Total Negative: {{totalNegatives}}</h2>
+        <h4>  <img src="../../assets/male.svg"  width="50px" alt="">Males Tested: {{totalMalesTested}}</h4>
+        <h4> <img src="../../assets/female.svg"  width="50px" alt=""> Females Tested: {{totalFemalesTested}}</h4>
+        <!-- <h2> Total Positive: {{totalPositives}}</h2>
+        <h2> Total Negative: {{totalNegatives}}</h2> -->
     </div>
 </div>
-<h2>Total Samples</h2>
+
+
+<button mat-raised-button (click)="showCharts()">
+    Show Charts
+</button>
+<button  mat-raised-button (click)="showTestTable()">
+    Show All Tests
+</button>
+
+<button mat-raised-button (click)="showOverDueTable()">
+    Show over Due Test
+</button>
+
+<div *ngIf= "displayCharts">
+
+    <canvas id="dailyTestLineChart" width="600px" height="150px"> </canvas>
+
+
+    <canvas id="testByAgencyBarChart" width="600px" height="150px"> </canvas>
+
+    <canvas id="testByDzongkhagBarChart" width="600px" height="150px"> </canvas>
+
+
+
+    <br>
+    <h2>Upcoming Tests in next 5 days: {{upcomingTests}} Tests</h2>
+
+    <canvas id="testForecastLineChart" width="600px" height="150px"> </canvas>
+
+
+
+    <div style="display: flex; flex-direction: row;">
+        <div style="float: left; width: 50%;">
+            <canvas id="myChart" width="300px" height="300px"></canvas>
+        </div>
+        <div style="float: right; width: 50%;">
+            <canvas id="genderBarChart" width="300px" height="300px"></canvas>
+        </div>
+    
+    </div>
+
+</div>
+
+
+<div *ngIf = "displayTotalTestTable" id="totalTestTable">
+    <h2>Total Tests</h2>
 <table #testTable id="test-table"style = "width:100%;">
     <tr>
       <th>Sl no.</th>
@@ -37,61 +83,71 @@
         <td>{{test.status}}</td>
     </tr>
   </table>
+</div>
 
 
-  <h2>Pending Case</h2>
-  <table  id="test-table"style = "width:100%;">
-    <tr>
-      <th>Sl no.</th>
-      <th>Sample ID</th>
-      <th>Name</th>
-      <th>CID</th>
-      <th>Type</th>
-      <th>Result</th>
-      <th>Test Date</th>
-      <th>Next Test </th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor = "let test of totalPending; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{test.id}}</td>
-        <td>{{test.Subject.name}}</td>
-        <td>{{test.Subject.cid}}</td>
-        <td>{{test.test_type}}</td>
-        <td>{{test.test_result}}</td>
-        <td>{{test.test_date | date: 'mediumDate'}}</td>
-        <td>{{test.exp_date | date: 'mediumDate'}}</td>
-        <td>{{test.status}}</td>
-    </tr>
-  </table>
 
-  <h2>Active Case</h2>
-  <table  id="test-table"style = "width:100%;">
-    <tr>
-      <th>Sl no.</th>
-      <th>Sample ID</th>
-      <th>Name</th>
-      <th>CID</th>
-      <th>Type</th>
-      <th>Result</th>
-      <th>Test Date</th>
-      <th>Next Test </th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor = "let test of totalActive; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{test.id}}</td>
-        <td>{{test.Subject.name}}</td>
-        <td>{{test.Subject.cid}}</td>
-        <td>{{test.test_type}}</td>
-        <td>{{test.test_result}}</td>
-        <td>{{test.test_date | date: 'mediumDate'}}</td>
-        <td>{{test.exp_date | date: 'mediumDate'}}</td>
-        <td>{{test.status}}</td>
-    </tr>
-  </table>
 
-  <h2>Positive Case</h2>
+  <div *ngIf ="dispalyPendingTable">
+    <h2>Test Results Pending</h2>
+    <table  id="test-table"style = "width:100%;">
+      <tr>
+        <th>Sl no.</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type</th>
+        <th>Result</th>
+        <th>Test Date</th>
+        <th>Next Test </th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor = "let test of totalPending; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{test.id}}</td>
+          <td>{{test.Subject.name}}</td>
+          <td>{{test.Subject.cid}}</td>
+          <td>{{test.test_type}}</td>
+          <td>{{test.test_result}}</td>
+          <td>{{test.test_date | date: 'mediumDate'}}</td>
+          <td>{{test.exp_date | date: 'mediumDate'}}</td>
+          <td>{{test.status}}</td>
+      </tr>
+    </table>
+  </div>
+
+
+
+  <div *ngIf="displayPositiveTable">
+    <h2>COVID Positive Cases</h2>
+    <table  id="test-table"style = "width:100%;">
+      <tr>
+        <th>Sl no.</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type</th>
+        <th>Result</th>
+        <th>Test Date</th>
+        <th>Next Test </th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor = "let test of totalPostiveTable; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{test.id}}</td>
+          <td>{{test.Subject.name}}</td>
+          <td>{{test.Subject.cid}}</td>
+          <td>{{test.test_type}}</td>
+          <td>{{test.test_result}}</td>
+          <td>{{test.test_date | date: 'mediumDate'}}</td>
+          <td>{{test.exp_date | date: 'mediumDate'}}</td>
+          <td>{{test.status}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="displayDueTable"> 
+  <h2>Due for Testing</h2>
   <table  id="test-table"style = "width:100%;">
     <tr>
       <th>Sl no.</th>
@@ -116,6 +172,37 @@
         <td>{{test.status}}</td>
     </tr>
   </table>
+  </div>
+
+  <div *ngIf="displayExpiredTable">
+      
+    <h2>Overdue for Testing</h2>
+    <table  id="test-table"style = "width:100%;">
+      <tr>
+        <th>Sl no.</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type</th>
+        <th>Result</th>
+        <th>Test Date</th>
+        <th>Next Test </th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor = "let test of totalPostiveTable; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{test.id}}</td>
+          <td>{{test.Subject.name}}</td>
+          <td>{{test.Subject.cid}}</td>
+          <td>{{test.test_type}}</td>
+          <td>{{test.test_result}}</td>
+          <td>{{test.test_date | date: 'mediumDate'}}</td>
+          <td>{{test.exp_date | date: 'mediumDate'}}</td>
+          <td>{{test.status}}</td>
+      </tr>
+    </table>
+    </div>
+ 
   
   
 

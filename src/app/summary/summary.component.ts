@@ -25,7 +25,9 @@ export class SummaryComponent implements OnInit {
     this.dataService.getCertificateByOperatorId(this.operatorId).subscribe(res=>{
       if(res.success === "true"){
         this.tests = res.data
-
+        console.log(res)
+        this.operatorId = res.data[0].operator_id
+        console.log(this.operatorId)
       }
     })
   }

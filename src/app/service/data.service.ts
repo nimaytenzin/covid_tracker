@@ -137,6 +137,13 @@ export class DataService {
         catchError(this.handleError)
       );
   }
+  updateSubject(item){
+    return this.http
+      .post<any>(`${this.API_URL}/sub/update-subject`,item,this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   registerCertificate(item){
     return this.http

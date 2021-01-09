@@ -3,6 +3,9 @@
     <span class="menu-spacer"></span>
 
     <button mat-button routerLink="/navigate"> <mat-icon>rotate_left</mat-icon> Back</button>
+
+
+
   </mat-toolbar>
 
       <div class="form-body">
@@ -34,7 +37,7 @@
                 <input matInput type="number" name="phoneNumber" formControlName="phoneNumberControl"  required min="0" required autofocus>
               </mat-form-field>
               
-              <p style="font-weight: bolder; font-size: small;">Current Station of Work</p>
+              <p style="font-weight: bolder; font-size: small;">Current Deployment Status</p>
               <mat-form-field class="justifier">
                 <mat-label>Dzongkhag/Thromde</mat-label>
                 <mat-select name="workDzongkhag"  formControlName="workDzongkhagControl" (selectionChange)="getZones($event.value)">
@@ -54,7 +57,7 @@
               </mat-form-field>
 
               <mat-form-field class="justifier">
-                <mat-label>Category</mat-label>
+                <mat-label>Agency</mat-label>
                 <mat-select name="agencyCategory" formControlName= "agencyCategoryControl"  (selectionChange)="getAgencies($event.value)">
                   <mat-option *ngFor="let agencyCategory of agencyCategories" [value]="agencyCategory.id"  >
                     {{agencyCategory.name}}
@@ -63,7 +66,7 @@
               </mat-form-field>
 
               <mat-form-field class="justifier">
-                <mat-label>Agency</mat-label>
+                <mat-label>Sub-Agency</mat-label>
                 <mat-select name="agency" formControlName= "agencyControl"  >
                   <mat-option *ngFor="let agency of agencies" [value]="agency.id">
                     {{agency.name}}
@@ -72,7 +75,7 @@
               </mat-form-field>
 
               <mat-form-field class="justifier">
-                <mat-label>Agency Remarks</mat-label>
+                <mat-label>Remarks/Shop Name</mat-label>
                 <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl" autofocus>
               </mat-form-field>
 
@@ -100,16 +103,27 @@
               </mat-form-field> -->
 
 
-              <p style="font-weight: bolder; font-size: small;">Test Details</p>
+              <p style="font-weight: bolder; font-size: small;">Select Test Type</p>
             
-              <mat-form-field class="justifier">
-                <mat-label>Type of Test</mat-label>
-                <mat-select name="testType" formControlName="testTypeControl" required >
-                  <mat-option *ngFor="let testType of testTypes" [value]="testType.name" >
-                    {{testType.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>             
+      
+              <div style="display: flex; flex-direction: row; justify-content: space-evenly; font-size:large;">
+                <mat-checkbox class="example-margin" [value]="falseValue" (change)="rtPcrTest($event.source, $event.checked)" >
+                  RT-PCR Test
+                </mat-checkbox>
+  
+                <mat-checkbox class="example-margin" [value]="falseValue" (change)="antigenTest($event.source, $event.checked)" >
+                   Antigen Test
+               </mat-checkbox>
+  
+               <mat-checkbox class="example-margin" [value]="falseValue" (change)="antibodyTest($event.source, $event.checked)" >
+                Antibody Test
+              </mat-checkbox>
+              </div>
+           
+         
+                  
+        
+
               <mat-form-field appearance="fill" class="justifier">
                 <mat-label>Date of Testing</mat-label>
                 <input matInput [matDatepicker]="dp3" disabled name="testDate" formControlName ="testDateControl">

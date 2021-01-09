@@ -20,4 +20,5 @@ export class ExportService {
     XLSX.writeFile(workbook, `${fileName}${EXCEL_EXTENSION}`);
 
   }
+  
 }

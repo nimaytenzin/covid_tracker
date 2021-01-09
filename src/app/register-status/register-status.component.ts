@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../service/data.service';
 import { Md5 } from 'ts-md5';
 import { StateService } from "../service/stateService";
+import { MatCheckbox } from '@angular/material';
 
 interface Dropdown{
   id: string,
@@ -38,12 +39,14 @@ interface Zone{
 // }
 
 export class SubjectDetails{
+  id:number;
   cid: number;
   name: string;
   age:string;
   sex:string;
   contact:number;
   work_dzongkhag:string;
+  work_zone:string;
   work_category:string;
   work_agency: string;
   work_remarks:string;
@@ -57,7 +60,9 @@ export class SubjectDetails{
 export class Certificate{
   subject_id:number;
   operator_id:number;
-  test_type:string;
+  test_RTPCR:string;
+  test_AG:string;
+  test_AB:string;
   test_date:string;
   place:string;
   status:string;
@@ -72,9 +77,10 @@ export class Certificate{
 
 
 export class RegisterStatusComponent implements OnInit {
-
+  falseValue = 'No'
+  trueValue = 'Yes';
   
-
+ 
   dzongkhags: Dzongkhag[] = [];
   zones: Zone[] = [];
   agencyCategories: Dropdown [] =[]
@@ -90,9 +96,8 @@ export class RegisterStatusComponent implements OnInit {
 
 
   testTypes : Dropdown [] =[
-    {id: "1", name:"RT/PCR Test"},
-    {id: "2", name:"Antigen Test"},
-    {id: "3", name:"Antibody Test"}
+    {id: "1", name:"Yes"},
+    {id: "2", name:"No"}
   ]
 
   genders : Dropdown [] =[
@@ -113,10 +118,31 @@ export class RegisterStatusComponent implements OnInit {
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
-    this.registerSubjectForm.controls.testControl.setValue("selected")
+    
+
+  }
+  
+  antigenTest(checkbox: MatCheckbox, checked: boolean) {
+    checkbox.value = checked ? this.trueValue : this.falseValue;
+    this.certificate.test_AG = checkbox.value
   }
 
+  antibodyTest(checkbox: MatCheckbox, checked: boolean) {
+    checkbox.value = checked ? this.trueValue : this.falseValue;
+    this.certificate.test_AB = checkbox.value
+  }
+  rtPcrTest(checkbox: MatCheckbox, checked: boolean) {
+    checkbox.value = checked ? this.trueValue : this.falseValue;
+    this.certificate.test_RTPCR = checkbox.value
+  }
+
+ 
+
   reactiveForm(){
+    this.certificate.test_RTPCR = "No";
+    this.certificate.test_AG = "No";
+    this.certificate.test_AB = "No";
+
     this.registerSubjectForm = this.fb.group({
       cidControl: ['', Validators.compose([Validators.required, Validators.maxLength(11), Validators.minLength(11)])],
       nameControl:[],
@@ -132,8 +158,7 @@ export class RegisterStatusComponent implements OnInit {
       residenceZoneControl:[],
       residenceAccomodationControl:[],
       sampleIdControl:[],
-      testTypeControl:[],
-      testDateControl: new Date(),
+      testDateControl: Date.now(),
       testPlaceControl:[]
     });
   }
@@ -166,6 +191,7 @@ export class RegisterStatusComponent implements OnInit {
   }
 
   submit(){
+
     if(this.registerSubjectForm.valid ){
       this.subjectDetails.cid = this.registerSubjectForm.get('cidControl').value
       this.subjectDetails.name = this.registerSubjectForm.get('nameControl').value
@@ -173,6 +199,8 @@ export class RegisterStatusComponent implements OnInit {
       this.subjectDetails.age = this.registerSubjectForm.get('ageControl').value
       this.subjectDetails.contact = this.registerSubjectForm.get('phoneNumberControl').value
       this.subjectDetails.work_dzongkhag = this.registerSubjectForm.get('workDzongkhagControl').value
+      this.subjectDetails.work_zone = this.registerSubjectForm.get('zoneControl').value
+      console.log(this.subjectDetails.work_zone)
       this.subjectDetails.work_category = this.registerSubjectForm.get('agencyCategoryControl').value
       this.subjectDetails.work_agency = this.registerSubjectForm.get('agencyControl').value
       this.subjectDetails.work_remarks = this.registerSubjectForm.get('agencyRemarkControl').value
@@ -180,22 +208,21 @@ export class RegisterStatusComponent implements OnInit {
       this.subjectDetails.residence_zone = this.registerSubjectForm.get('residenceZoneControl').value
       this.subjectDetails.residence_accomodation = this.registerSubjectForm.get('residenceAccomodationControl').value
       this.subjectDetails.utid = Md5.hashStr(`${this.subjectDetails.cid} + ${this.subjectDetails.name}`).toString();
-    
+   
       if(this.isExistingUser === false){
         this.dataService.registerSubject(this.subjectDetails).subscribe( res =>{
           if(res.success === "true"){
-             console.log(res.data)
               this.certificate.subject_id = res.data.id;
               this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
-              this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-              this.certificate.status = "PENDING";
+              //-> test Types control
             
+              this.certificate.status = "PENDING";
+          
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {
-                  console.log(res)
-                  let sampleId = res.data.id
+                  let sampleId = res.data.sample_id
                   this.router.navigate([`/sampleid/${sampleId}`]);
                 }
               )
@@ -204,19 +231,25 @@ export class RegisterStatusComponent implements OnInit {
 
       }else{
         this.certificate.subject_id = this.subjectId;
+        this.subjectDetails.id = this.subjectId;
         this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
-              this.certificate.test_type = this.registerSubjectForm.get('testTypeControl').value
-              this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
-              this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-              this.certificate.status = "PENDING"
-  
-              this.dataService.registerCertificate(this.certificate).subscribe(
-                res => {
-                  console.log(res)
-                  let sampleId = res.data.id
-                  this.router.navigate([`/sampleid/${sampleId}`]);
-                }
-              )
+        this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
+        this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
+
+        //-> test Types control
+        
+        this.certificate.status = "PENDING"
+        
+        this.dataService.registerCertificate(this.certificate).subscribe(
+          res => {
+            let sampleId = res.data.sample_id
+            this.router.navigate([`/sampleid/${sampleId}`]);
+          
+          }
+        )
+        this.dataService.updateSubject(this.subjectDetails).subscribe(
+          res => console.log(res)
+        )
       }
       
     }
@@ -230,9 +263,7 @@ export class RegisterStatusComponent implements OnInit {
       this.dataService.getSubjects(cid).subscribe( res => {
         if(res.success === "true"){
             this.isExistingUser = true;
-            this.subjectId = res.data.id;
-            console.log(res.data)
-            
+            this.subjectId = res.data.id;            
             this.registerSubjectForm.patchValue({
               nameControl: res.data.name,
               sexControl: res.data.sex,
@@ -247,8 +278,9 @@ export class RegisterStatusComponent implements OnInit {
               residenceAccomodationControl:res.data.residence_accomodation 
               
             })
-            console.log(res.data.work_dzongkhag)
             this.registerSubjectForm.controls['workDzongkhagControl'].setValue(Number(res.data.work_dzongkhag))
+            this.getZones(Number(res.data.work_dzongkhag))
+            this.registerSubjectForm.controls['zoneControl'].setValue(Number(res.data.work_zone))
             this.registerSubjectForm.controls['agencyCategoryControl'].setValue(Number(res.data.work_category))
             this.getAgencies(Number(res.data.work_category))
             this.registerSubjectForm.controls['agencyControl'].setValue(Number(res.data.work_agency))
@@ -259,13 +291,11 @@ export class RegisterStatusComponent implements OnInit {
             cidControl:cid
         });
         }
+
       })
     }
     
     
   }
-
-
-
 
 }
