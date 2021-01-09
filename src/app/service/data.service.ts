@@ -100,7 +100,7 @@ export class DataService {
 
   getZones(dzongkhagId) {
     return this.http
-      .get<any>(`${this.API_URL}/get-zones/${dzongkhagId}`, this.httpOptions)
+      .get<any>(`${this.API_URL}/zone/get-zone/${dzongkhagId}`, this.httpOptions)
       .pipe(
         catchError(this.handleError)
       );
