@@ -48,6 +48,7 @@ import { SummaryComponent } from './summary/summary.component';
 import { SampleIdComponent } from './sample-id/sample-id.component';
 import { MatTableModule } from '@angular/material';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
     SummaryComponent,
 
     SampleIdComponent,
-    ConfirmModalComponent
+    ConfirmModalComponent,
+    AdminComponent
 
   ],
   imports: [

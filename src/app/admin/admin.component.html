@@ -1,0 +1,126 @@
+<div style="display: flex; flex-direction: row;">
+    <div style="float: left; width: 50%;">
+        <h2> Total Tests: {{totalTests}}</h2>
+        <h2> Total RT-PCR Tests: {{totalRtpcrTests}}</h2>
+        <h2> Total Antigen Tests: {{totalAntigenTests}}</h2>
+        <h2> Total Antigen Tests: {{totalAntibodyTests}}</h2>
+    </div>
+    <div style="float: right; width: 50%;">
+        <h2> Males Tested: {{totalMalesTested}}</h2>
+        <h2> Females Tested: {{totalFemalesTested}}</h2>
+        <h2> Total Positive: {{totalPositives}}</h2>
+        <h2> Total Negative: {{totalNegatives}}</h2>
+    </div>
+</div>
+<h2>Total Samples</h2>
+<table #testTable id="test-table"style = "width:100%;">
+    <tr>
+      <th>Sl no.</th>
+      <th>Sample ID</th>
+      <th>Name</th>
+      <th>CID</th>
+      <th>Type</th>
+      <th>Result</th>
+      <th>Test Date</th>
+      <th>Next Test </th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor = "let test of tests; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{test.id}}</td>
+        <td>{{test.Subject.name}}</td>
+        <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_type}}</td>
+        <td>{{test.test_result}}</td>
+        <td>{{test.test_date | date: 'mediumDate'}}</td>
+        <td>{{test.exp_date | date: 'mediumDate'}}</td>
+        <td>{{test.status}}</td>
+    </tr>
+  </table>
+
+
+  <h2>Pending Case</h2>
+  <table  id="test-table"style = "width:100%;">
+    <tr>
+      <th>Sl no.</th>
+      <th>Sample ID</th>
+      <th>Name</th>
+      <th>CID</th>
+      <th>Type</th>
+      <th>Result</th>
+      <th>Test Date</th>
+      <th>Next Test </th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor = "let test of totalPending; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{test.id}}</td>
+        <td>{{test.Subject.name}}</td>
+        <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_type}}</td>
+        <td>{{test.test_result}}</td>
+        <td>{{test.test_date | date: 'mediumDate'}}</td>
+        <td>{{test.exp_date | date: 'mediumDate'}}</td>
+        <td>{{test.status}}</td>
+    </tr>
+  </table>
+
+  <h2>Active Case</h2>
+  <table  id="test-table"style = "width:100%;">
+    <tr>
+      <th>Sl no.</th>
+      <th>Sample ID</th>
+      <th>Name</th>
+      <th>CID</th>
+      <th>Type</th>
+      <th>Result</th>
+      <th>Test Date</th>
+      <th>Next Test </th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor = "let test of totalActive; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{test.id}}</td>
+        <td>{{test.Subject.name}}</td>
+        <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_type}}</td>
+        <td>{{test.test_result}}</td>
+        <td>{{test.test_date | date: 'mediumDate'}}</td>
+        <td>{{test.exp_date | date: 'mediumDate'}}</td>
+        <td>{{test.status}}</td>
+    </tr>
+  </table>
+
+  <h2>Positive Case</h2>
+  <table  id="test-table"style = "width:100%;">
+    <tr>
+      <th>Sl no.</th>
+      <th>Sample ID</th>
+      <th>Name</th>
+      <th>CID</th>
+      <th>Type</th>
+      <th>Result</th>
+      <th>Test Date</th>
+      <th>Next Test </th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor = "let test of totalPostiveTable; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{test.id}}</td>
+        <td>{{test.Subject.name}}</td>
+        <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_type}}</td>
+        <td>{{test.test_result}}</td>
+        <td>{{test.test_date | date: 'mediumDate'}}</td>
+        <td>{{test.exp_date | date: 'mediumDate'}}</td>
+        <td>{{test.status}}</td>
+    </tr>
+  </table>
+  
+  
+
+  <!-- <div>
+     
+    <canvas id="myChart" width="620px " height="320px"></canvas>
+    <canvas id="casesByDzongkhag" width="620px " height="330px"></canvas>
+  </div> -->

@@ -15,6 +15,7 @@ import { GenerateCertificateComponent } from './generate-certificate/generate-ce
 import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
 import { SummaryComponent } from './summary/summary.component';
 import { SampleIdComponent } from './sample-id/sample-id.component';
+import { AdminComponent } from './admin/admin.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path:'register', component: RegisterStatusComponent},
   {path: 'navigate', component: RecordVerifyComponent},
+  {path: 'admin', component:AdminComponent},
   {path: 'verify', component:VerifyComponent},
   {path: 'add-result', component: AddResultComponent},
   {path: 'generateCertificate/:cid', component:GenerateCertificateComponent},
@@ -29,9 +31,7 @@ const routes: Routes = [
   {path: 'generateQr/:hash/:id', component: GenerateQrComponent},
   {path: 'camera',component: UploadImageComponent},
   {path: 'public-dash', component:PublicDashboardComponent},
-
   {path: 'summary', component:SummaryComponent},
-  
   {path: 'sampleid/:sampleid', component:SampleIdComponent},
   {path: '**', component: ErrorComponent}
 ];
