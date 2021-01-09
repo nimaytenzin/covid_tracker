@@ -19,17 +19,23 @@ interface Dzongkhag {
   updated_at: string;
 }
 
-interface Zone {
-  id: string;
-  name: string;
-  map_image: string;
-  dzongkhag_id: number;
-  color_code: string;
-  lat: number;
-  lng: number;
-  created_at: string;
-  updated_date: string;
+interface Zone{
+  id: String;
+  name: String;
+  dzo_id: String;
 }
+
+// interface Zone {
+//   id: string;
+//   name: string;
+//   map_image: string;
+//   dzongkhag_id: number;
+//   color_code: string;
+//   lat: number;
+//   lng: number;
+//   created_at: string;
+//   updated_date: string;
+// }
 
 export class SubjectDetails{
   cid: number;
@@ -70,6 +76,7 @@ export class RegisterStatusComponent implements OnInit {
   
 
   dzongkhags: Dzongkhag[] = [];
+  zones: Zone[] = [];
   agencyCategories: Dropdown [] =[]
   agencies:Dropdown[] =[]
   superZones: Zone[] = [];
@@ -79,7 +86,7 @@ export class RegisterStatusComponent implements OnInit {
   isExistingUser = false;
   subjectId: number;
   agencyCategoryP:any;
-lol: boolean;
+  lol: boolean;
 
 
   testTypes : Dropdown [] =[
@@ -117,6 +124,7 @@ lol: boolean;
       ageControl:[],
       phoneNumberControl:[],
       workDzongkhagControl:[],
+      zoneControl:[],
       agencyCategoryControl:[],
       agencyControl:[],
       agencyRemarkControl:[],
@@ -143,6 +151,12 @@ lol: boolean;
   getAgencies(agencyCategoryId){
     this.dataService.getAgencies(agencyCategoryId).subscribe(response => {
       this.agencies = response.data
+    })
+  }
+
+  getZones(dzoId){
+    this.dataService.getZones(dzoId).subscribe(response => {
+      this.zones = response.data
     })
   }
   getZoneList(dzongkhagId) {

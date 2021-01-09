@@ -37,14 +37,23 @@
               <p style="font-weight: bolder; font-size: small;">Current Station of Work</p>
               <mat-form-field class="justifier">
                 <mat-label>Dzongkhag/Thromde</mat-label>
-                <mat-select name="workDzongkhag"  formControlName="workDzongkhagControl" >
+                <mat-select name="workDzongkhag"  formControlName="workDzongkhagControl" (selectionChange)="getZones($event.value)">
                   <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id" >
                     {{dzongkhag.name}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
 
-                <mat-form-field class="justifier">
+              <mat-form-field class="justifier">
+                <mat-label>Zone/Gewog</mat-label>
+                <mat-select name="zone"  formControlName="zoneControl" >
+                  <mat-option *ngFor="let zone of zones" [value]="zone.id" >
+                    {{zone.name}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="justifier">
                 <mat-label>Category</mat-label>
                 <mat-select name="agencyCategory" formControlName= "agencyCategoryControl"  (selectionChange)="getAgencies($event.value)">
                   <mat-option *ngFor="let agencyCategory of agencyCategories" [value]="agencyCategory.id"  >
