@@ -25,6 +25,7 @@ export class GenerateCertificateComponent implements OnInit {
   subjectGender: string;
   subjectWorkingAgency: string;
   subjectDzongkhag: string;
+ 
 
   constructor(
     private dataservice: DataService,
@@ -49,6 +50,7 @@ export class GenerateCertificateComponent implements OnInit {
 
         let id = res.data.id;
         this.dataservice.getCertificateBySubjectId(id).subscribe( res => {
+       
           this.showCertificates = true;
           this.certificates = res.data
 

@@ -1,0 +1,176 @@
+    
+  <div style="display: flex; flex-direction: row;">
+    
+    <div style="float: left;border: 1px solid #A9AABC; border-radius: 8px;padding:3rem; ;box-shadow: 2px 2px #A9AABC;">
+      <h1  class="h3 mb-4 text-gray-800" style="font-weight: light;">Total Tests</h1>
+      <h2 style="text-align: center;font-size: 10rem; font-weight: bolder;color:#0097B2;">{{totalTests}}</h2>
+    </div>
+    
+    <div style="display:flex; flex-direction: column; justify-content: space-between;">
+      <div style="margin-left:3rem; padding:3rem;  border: 1px solid #A9AABC; border-radius: 8px;padding: 10px;box-shadow: 2px 2px #A9AABC; align-items: center;">
+        <h3 class="h3 mb-4 text-gray-800" style="font-weight: light;white-space: nowrap;">Males Tested</h3>
+        <h2 style="text-align: center;font-size: 5rem; font-weight: bolder;color:#0097B2;">{{totalMalesTested}}</h2>    
+      </div>
+      <br>
+  
+      <div style="margin-left:3rem; padding:3rem;  border: 1px solid #A9AABC; border-radius: 8px;padding: 10px;box-shadow: 2px 2px #A9AABC; align-items: center;">   
+        <h3 class="h3 mb-4 text-gray-800"  style="font-weight: light; width: fit-content; white-space: nowrap;">Female Tested</h3>
+        <h2 style="text-align: center;font-size: 5rem; font-weight: bolder;color:#0097B2;">{{totalFemalesTested}}</h2>  
+      </div>
+    </div>
+
+    <div style="float: right; width: 70%;">
+      <canvas id="dailyTestLineChart" width="600px" height="150px"> </canvas>
+    </div>
+   
+</div>
+<br>
+<br>
+<div style="display: flex; flex-direction: row;">
+  <div style="float: left;width: 20%;">
+      <canvas id="myChart" width="150px" height="150px"></canvas>
+  </div>
+  <div style="float: left; width: 20%;">
+      <canvas id="genderBarChart" width="150px" height="150px"></canvas>
+  </div>
+  <div style="float: right; width: 60%;">
+    <canvas id="testByAgencyBarChart" width="600px" height="100%"> </canvas>
+</div>
+</div>
+
+<!-- <div *ngIf= "displayCharts">
+
+   
+    <canvas id="testByAgencyBarChart" width="600px" height="150px"> </canvas>
+    <canvas id="testByDzongkhagBarChart" width="600px" height="150px"> </canvas>
+
+    <br>
+    <h2>Upcoming Tests in next 5 days: {{upcomingTests}} Tests</h2>
+
+    <canvas id="testForecastLineChart" width="600px" height="150px"> </canvas>
+
+
+   
+
+</div> -->
+
+
+
+
+
+
+
+  <div *ngIf ="dispalyPendingTable">
+    <h2>Test Results Pending</h2>
+    <table  id="test-table"style = "width:100%;">
+      <tr>
+        <th>Sl no.</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type</th>
+        <th>Result</th>
+        <th>Test Date</th>
+        <th>Next Test </th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor = "let test of totalPending; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{test.id}}</td>
+          <td>{{test.Subject.name}}</td>
+          <td>{{test.Subject.cid}}</td>
+          <td>{{test.test_type}}</td>
+          <td>{{test.test_result}}</td>
+          <td>{{test.test_date | date: 'mediumDate'}}</td>
+          <td>{{test.exp_date | date: 'mediumDate'}}</td>
+          <td>{{test.status}}</td>
+      </tr>
+    </table>
+  </div>
+
+
+
+  <div *ngIf="displayPositiveTable">
+    <h2>COVID Positive Cases</h2>
+    <table  id="test-table"style = "width:100%;">
+      <tr>
+        <th>Sl no.</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type</th>
+        <th>Result</th>
+        <th>Test Date</th>
+        <th>Next Test </th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor = "let test of totalPostiveTable; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{test.id}}</td>
+          <td>{{test.Subject.name}}</td>
+          <td>{{test.Subject.cid}}</td>
+          <td>{{test.test_type}}</td>
+          <td>{{test.test_result}}</td>
+          <td>{{test.test_date | date: 'mediumDate'}}</td>
+          <td>{{test.exp_date | date: 'mediumDate'}}</td>
+          <td>{{test.status}}</td>
+      </tr>
+    </table>
+  </div>
+
+  <div *ngIf="displayDueTable"> 
+  <h2>Due for Testing</h2>
+  <table  id="test-table"style = "width:100%;">
+    <tr>
+      <th>Sl no.</th>
+      <th>Sample ID</th>
+      <th>Name</th>
+      <th>CID</th>
+      <th>Type</th>
+      <th>Result</th>
+      <th>Test Date</th>
+      <th>Next Test </th>
+      <th>Status</th>
+    </tr>
+    <tr *ngFor = "let test of totalPostiveTable; let i = index">
+        <td>{{i+1}}</td>
+        <td>{{test.id}}</td>
+        <td>{{test.Subject.name}}</td>
+        <td>{{test.Subject.cid}}</td>
+        <td>{{test.test_type}}</td>
+        <td>{{test.test_result}}</td>
+        <td>{{test.test_date | date: 'mediumDate'}}</td>
+        <td>{{test.exp_date | date: 'mediumDate'}}</td>
+        <td>{{test.status}}</td>
+    </tr>
+  </table>
+  </div>
+
+  <div *ngIf="displayExpiredTable">
+      
+    <h2>Overdue for Testing</h2>
+    <table  id="test-table"style = "width:100%;">
+      <tr>
+        <th>Sl no.</th>
+        <th>Sample ID</th>
+        <th>Name</th>
+        <th>CID</th>
+        <th>Type</th>
+        <th>Result</th>
+        <th>Test Date</th>
+        <th>Next Test </th>
+        <th>Status</th>
+      </tr>
+      <tr *ngFor = "let test of totalPostiveTable; let i = index">
+          <td>{{i+1}}</td>
+          <td>{{test.id}}</td>
+          <td>{{test.Subject.name}}</td>
+          <td>{{test.Subject.cid}}</td>
+          <td>{{test.test_type}}</td>
+          <td>{{test.test_result}}</td>
+          <td>{{test.test_date | date: 'mediumDate'}}</td>
+          <td>{{test.exp_date | date: 'mediumDate'}}</td>
+          <td>{{test.status}}</td>
+      </tr>
+    </table>
+    </div>

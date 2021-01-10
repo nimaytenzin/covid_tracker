@@ -3,9 +3,9 @@
           box-sizing: border-box;
 }
 
-body {
-  padding: 0;
-  margin: 0;
+::ng-deep body{
+  padding-left: 25%;
+  padding-right: 25%;
 }
 
 #notfound {

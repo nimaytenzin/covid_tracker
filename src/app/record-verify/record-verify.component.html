@@ -1,8 +1,22 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button class="example-icon" aria-label="back button" (click)="back()" *ngIf="isUserLoggedIn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <img src="../assets/app-logo.png" alt="" width="50px">
+    <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
+    <span class="menu-spacer"></span>
+    <button mat-icon-button (click)="logout()" *ngIf="isUserLoggedIn">
+      <mat-icon>settings_power</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <div style="display: flex; flex-direction: column"> 
      <h3 style="text-align: center;">Covid 19 Test Record</h3>
      <p style="text-align: center;">record || Verify</p>
       <br>
-        <button [disabled]="userRole=='admin' ? null : 'disabled' " mat-raised-button [routerLink]="['/admin']"> <mat-icon>assignment</mat-icon><h3 >Admin</h3></button>
+        <button [disabled]="userRole=='admin' ? null : 'disabled' " mat-raised-button [routerLink]="['/admin/dashboard']"> <mat-icon>assignment</mat-icon><h3 >Admin</h3></button>
       <br>
         <button [disabled]="userRole=='registrar' ? null : 'disabled' " mat-raised-button [routerLink]="['/register']"> <mat-icon>assignment</mat-icon><h3 >Register</h3></button>
       <br>

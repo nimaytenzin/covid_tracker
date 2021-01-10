@@ -113,6 +113,13 @@ export class DataService {
         catchError(this.handleError)
       );
   }
+  getAllSubjects(){
+    return this.http
+      .get<any>(`${this.API_URL}/sub/get-all-subjects`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
 
   getZones(dzongkhagId) {
     return this.http

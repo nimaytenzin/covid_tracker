@@ -1,3 +1,17 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button class="example-icon" aria-label="back button" (click)="back()" *ngIf="isUserLoggedIn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <img src="../assets/app-logo.png" alt="" width="50px">
+    <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
+    <span class="menu-spacer"></span>
+    <button mat-icon-button (click)="logout()" *ngIf="isUserLoggedIn">
+      <mat-icon>settings_power</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-toolbar style="align-items: center; justify-content: center;">
   <h3 style="text-align: center;">Covid 19 Test Verification</h3>
   <span class="menu-spacer"></span>
@@ -41,11 +55,13 @@
                     <th>Test ID</th>
                     <th>Subject ID</th>
                     <th>Test Place</th>
-                    <th>Test Type</th>
-                    <th>Test Result</th>
+                    <th>RT-PCR</th>
+                    <th>Antigen</th>
+                    <th>Antibody</th>
+
                     <th>Date of Test</th>
                     <th>Next Test Date</th>
-                    <th>Status</th>
+     
                   </tr>
               </thead>
               <tbody style="text-align: left;">
@@ -53,12 +69,11 @@
                       <td>{{certificate.id}}</td>
                       <td>{{certificate.subject_id}}</td>
                       <td>{{certificate.place}}</td>
-                      <td>{{certificate.test_type}}</td>
-                      <td>{{certificate.test_result || certificate.status}}</td>
+                      <td>{{certificate.result_RTPCR || certificate.status}}</td>
+                      <td>{{certificate.result_AG || certificate.status}}</td>
+                      <td>{{certificate.result_AB || certificate.status}}</td>
                       <td>{{certificate.test_date | date: 'mediumDate'}}</td>
                       <td>{{certificate.exp_date | date: 'mediumDate'}}</td>
-                      <td>{{certificate.status}}</td>
-
                       <hr>
                   </tr>
               

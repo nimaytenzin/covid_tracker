@@ -144,7 +144,7 @@ export class RegisterStatusComponent implements OnInit {
     this.certificate.test_AB = "No";
 
     this.registerSubjectForm = this.fb.group({
-      cidControl: ['', Validators.compose([Validators.required, Validators.maxLength(11), Validators.minLength(11)])],
+      cidControl: [''],
       nameControl:[],
       sexControl:[],
       ageControl:[],
@@ -219,6 +219,7 @@ export class RegisterStatusComponent implements OnInit {
               //-> test Types control
             
               this.certificate.status = "PENDING";
+
           
               this.dataService.registerCertificate(this.certificate).subscribe(
                 res => {

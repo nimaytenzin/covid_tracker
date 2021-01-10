@@ -49,6 +49,10 @@ import { SampleIdComponent } from './sample-id/sample-id.component';
 import { MatTableModule } from '@angular/material';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
 import { AdminComponent } from './admin/admin.component';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { TestDashboardComponent } from './test-dashboard/test-dashboard.component';
+import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
+import { MatSortModule } from "@angular/material";
 
 
 @NgModule({
@@ -74,11 +78,15 @@ import { AdminComponent } from './admin/admin.component';
 
     SampleIdComponent,
     ConfirmModalComponent,
-    AdminComponent
+    AdminComponent,
+    MainDashboardComponent,
+    TestDashboardComponent,
+    PlannerDashboardComponent
 
   ],
   imports: [
     BrowserModule,
+    MatSortModule,
     MatDatepickerModule,
     MatNativeDateModule, 
     MatRippleModule,
@@ -105,7 +113,7 @@ import { AdminComponent } from './admin/admin.component';
     WebcamModule,
     QRCodeModule,
     ZXingScannerModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}

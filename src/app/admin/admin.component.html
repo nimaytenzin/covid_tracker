@@ -1,213 +1,154 @@
-  
-<div style="display: flex; flex-direction: row;">
-    <div style="float: left; width: 50%;">
-        <h4><img src="../../assets/test-tube.svg"  width="50px" alt=""> Total Tests: {{totalTests}}</h4>
-        <h4> Total RT-PCR Tests: {{totalRtpcrTests}}</h4>
-        <h4>Total Antigen Tests: {{totalAntigenTests}}</h4>
-        <h4>Total Antigen Tests: {{totalAntibodyTests}}</h4>
-    </div>
-    <div style="float: right; width: 50%;">
-        <h4>  <img src="../../assets/male.svg"  width="50px" alt="">Males Tested: {{totalMalesTested}}</h4>
-        <h4> <img src="../../assets/female.svg"  width="50px" alt=""> Females Tested: {{totalFemalesTested}}</h4>
-        <!-- <h2> Total Positive: {{totalPositives}}</h2>
-        <h2> Total Negative: {{totalNegatives}}</h2> -->
-    </div>
-</div>
+ <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" routerLink="/admin/dashboard">
+            <div class="sidebar-brand-icon rotate-n-15">
+                <i class="fas fa-laugh-wink"></i>
+            </div>
+            <div class="sidebar-brand-text mx-3">CovTracker<sup> 2021</sup></div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/admin/dashboard">
+                <i class="fas fa-fw fa-tachometer-alt"></i>
+                <span>Statistics</span></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/plan-dash">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Plan Testing</span></a>
+      </li>
 
 
-<button mat-raised-button (click)="showCharts()">
-    Show Charts
-</button>
-<button  mat-raised-button (click)="showTestTable()">
-    Show All Tests
-</button>
+        <!-- Divider -->
+        <hr class="sidebar-divider">
 
-<button mat-raised-button (click)="showOverDueTable()">
-    Show over Due Test
-</button>
+        <!-- Heading -->
+        <!-- <div class="sidebar-heading">
+            Interface
+        </div> -->
 
-<div *ngIf= "displayCharts">
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/frontliner-dash">
+            <i class="fas fa-person-booth"></i>
+              <span>Frontliners Statistics</span></a>
+         </li>
 
-    <canvas id="dailyTestLineChart" width="600px" height="150px"> </canvas>
+         <li class="nav-item">
+          <a class="nav-link" routerLink="/admin/test-dash">
+              <i class="fas fa-fw fa-tachometer-alt"></i>
+              <span>Testing Data</span></a>
+         </li>
 
+        
 
-    <canvas id="testByAgencyBarChart" width="600px" height="150px"> </canvas>
+        <!-- Nav Item - Utilities Collapse Menu -->
+        
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
 
-    <canvas id="testByDzongkhagBarChart" width="600px" height="150px"> </canvas>
-
-
-
-    <br>
-    <h2>Upcoming Tests in next 5 days: {{upcomingTests}} Tests</h2>
-
-    <canvas id="testForecastLineChart" width="600px" height="150px"> </canvas>
-
-
-
-    <div style="display: flex; flex-direction: row;">
-        <div style="float: left; width: 50%;">
-            <canvas id="myChart" width="300px" height="300px"></canvas>
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <mat-icon [ngStyle]="{'color' : 'white'}">all_inclusive</mat-icon>
         </div>
-        <div style="float: right; width: 50%;">
-            <canvas id="genderBarChart" width="300px" height="300px"></canvas>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+                <!-- Topbar Search -->
+                <div
+                    class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                    <h1 class="h3 mb-4 text-gray-800">Welcome</h1>
+                </div>
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <div class="topbar-divider d-none d-sm-block"></div>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">CovTracker</span>
+                            <img class="img-profile rounded-circle"
+                                src="../../assets/app-logo.png">
+                        </a>
+                        <!-- Dropdown - User Information -->
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="userDropdown">
+                            <p>
+                                This is a covid Test Record Dashboard developed by the National Zoning Task force for the Ministry of Health
+                            </p>
+                            <mat-icon [ngStyle]="{'color' : 'rgb(78,115,223)'}">all_inclusive</mat-icon>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                
+                <router-outlet></router-outlet>
+
+
+
+
+
+            </div>
+            <!-- /.container-fluid -->
+
         </div>
-    
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Covid Test Tracker 2020</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+
     </div>
+    <!-- End of Content Wrapper -->
 
 </div>
+<!-- End of Page Wrapper -->
 
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
 
-<div *ngIf = "displayTotalTestTable" id="totalTestTable">
-    <h2>Total Tests</h2>
-<table #testTable id="test-table"style = "width:100%;">
-    <tr>
-      <th>Sl no.</th>
-      <th>Sample ID</th>
-      <th>Name</th>
-      <th>CID</th>
-      <th>Type</th>
-      <th>Result</th>
-      <th>Test Date</th>
-      <th>Next Test </th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor = "let test of tests; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{test.id}}</td>
-        <td>{{test.Subject.name}}</td>
-        <td>{{test.Subject.cid}}</td>
-        <td>{{test.test_type}}</td>
-        <td>{{test.test_result}}</td>
-        <td>{{test.test_date | date: 'mediumDate'}}</td>
-        <td>{{test.exp_date | date: 'mediumDate'}}</td>
-        <td>{{test.status}}</td>
-    </tr>
-  </table>
-</div>
+<!-- Logout Modal-->
 
-
-
-
-  <div *ngIf ="dispalyPendingTable">
-    <h2>Test Results Pending</h2>
-    <table  id="test-table"style = "width:100%;">
-      <tr>
-        <th>Sl no.</th>
-        <th>Sample ID</th>
-        <th>Name</th>
-        <th>CID</th>
-        <th>Type</th>
-        <th>Result</th>
-        <th>Test Date</th>
-        <th>Next Test </th>
-        <th>Status</th>
-      </tr>
-      <tr *ngFor = "let test of totalPending; let i = index">
-          <td>{{i+1}}</td>
-          <td>{{test.id}}</td>
-          <td>{{test.Subject.name}}</td>
-          <td>{{test.Subject.cid}}</td>
-          <td>{{test.test_type}}</td>
-          <td>{{test.test_result}}</td>
-          <td>{{test.test_date | date: 'mediumDate'}}</td>
-          <td>{{test.exp_date | date: 'mediumDate'}}</td>
-          <td>{{test.status}}</td>
-      </tr>
-    </table>
-  </div>
-
-
-
-  <div *ngIf="displayPositiveTable">
-    <h2>COVID Positive Cases</h2>
-    <table  id="test-table"style = "width:100%;">
-      <tr>
-        <th>Sl no.</th>
-        <th>Sample ID</th>
-        <th>Name</th>
-        <th>CID</th>
-        <th>Type</th>
-        <th>Result</th>
-        <th>Test Date</th>
-        <th>Next Test </th>
-        <th>Status</th>
-      </tr>
-      <tr *ngFor = "let test of totalPostiveTable; let i = index">
-          <td>{{i+1}}</td>
-          <td>{{test.id}}</td>
-          <td>{{test.Subject.name}}</td>
-          <td>{{test.Subject.cid}}</td>
-          <td>{{test.test_type}}</td>
-          <td>{{test.test_result}}</td>
-          <td>{{test.test_date | date: 'mediumDate'}}</td>
-          <td>{{test.exp_date | date: 'mediumDate'}}</td>
-          <td>{{test.status}}</td>
-      </tr>
-    </table>
-  </div>
-
-  <div *ngIf="displayDueTable"> 
-  <h2>Due for Testing</h2>
-  <table  id="test-table"style = "width:100%;">
-    <tr>
-      <th>Sl no.</th>
-      <th>Sample ID</th>
-      <th>Name</th>
-      <th>CID</th>
-      <th>Type</th>
-      <th>Result</th>
-      <th>Test Date</th>
-      <th>Next Test </th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor = "let test of totalPostiveTable; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{test.id}}</td>
-        <td>{{test.Subject.name}}</td>
-        <td>{{test.Subject.cid}}</td>
-        <td>{{test.test_type}}</td>
-        <td>{{test.test_result}}</td>
-        <td>{{test.test_date | date: 'mediumDate'}}</td>
-        <td>{{test.exp_date | date: 'mediumDate'}}</td>
-        <td>{{test.status}}</td>
-    </tr>
-  </table>
-  </div>
-
-  <div *ngIf="displayExpiredTable">
-      
-    <h2>Overdue for Testing</h2>
-    <table  id="test-table"style = "width:100%;">
-      <tr>
-        <th>Sl no.</th>
-        <th>Sample ID</th>
-        <th>Name</th>
-        <th>CID</th>
-        <th>Type</th>
-        <th>Result</th>
-        <th>Test Date</th>
-        <th>Next Test </th>
-        <th>Status</th>
-      </tr>
-      <tr *ngFor = "let test of totalPostiveTable; let i = index">
-          <td>{{i+1}}</td>
-          <td>{{test.id}}</td>
-          <td>{{test.Subject.name}}</td>
-          <td>{{test.Subject.cid}}</td>
-          <td>{{test.test_type}}</td>
-          <td>{{test.test_result}}</td>
-          <td>{{test.test_date | date: 'mediumDate'}}</td>
-          <td>{{test.exp_date | date: 'mediumDate'}}</td>
-          <td>{{test.status}}</td>
-      </tr>
-    </table>
-    </div>
- 
-  
-  
-
-  <!-- <div>
-     
-    <canvas id="myChart" width="620px " height="320px"></canvas>
-    <canvas id="casesByDzongkhag" width="620px " height="330px"></canvas>
-  </div> -->

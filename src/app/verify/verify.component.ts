@@ -50,14 +50,13 @@ export class VerifyComponent implements OnInit {
   chechValidity(){
      this.dataService.getSubjects(this.verifyForm.get('cidControl').value).subscribe( res => {
         if(res.success === "true"){
-
-          console.log(res.data)
           let id = res.data.id;
           this.subjectName = res.data.name
           this.subjectCID = res.data.cid
           this.workAgency = res.data.Agency.name
           this.subjectAge = res.data.age
           this.dataService.getCertificateBySubjectId(id).subscribe( res => {
+            console.log(res.data)
             this.showCertificates = true;
             this.certificates = res.data
           })

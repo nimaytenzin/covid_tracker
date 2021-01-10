@@ -16,6 +16,10 @@ import { PublicDashboardComponent } from './public-dashboard/public-dashboard.co
 import { SummaryComponent } from './summary/summary.component';
 import { SampleIdComponent } from './sample-id/sample-id.component';
 import { AdminComponent } from './admin/admin.component';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { FrontlineDashComponent } from './frontline-dash/frontline-dash.component';
+import { TestDashboardComponent } from './test-dashboard/test-dashboard.component';
+import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
 
 
 const routes: Routes = [
@@ -23,7 +27,13 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path:'register', component: RegisterStatusComponent},
   {path: 'navigate', component: RecordVerifyComponent},
-  {path: 'admin', component:AdminComponent},
+  {path: 'admin', component:AdminComponent,
+  children: [
+    { path: 'dashboard', component: MainDashboardComponent },
+    {path:'frontliner-dash', component:FrontlineDashComponent},
+    {path:'test-dash', component:TestDashboardComponent},
+    {path:'plan-dash',  component:PlannerDashboardComponent}
+ ],},
   {path: 'verify', component:VerifyComponent},
   {path: 'add-result', component: AddResultComponent},
   {path: 'generateCertificate/:cid', component:GenerateCertificateComponent},

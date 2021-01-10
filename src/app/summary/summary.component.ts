@@ -26,13 +26,24 @@ export class SummaryComponent implements OnInit {
       if(res.success === "true"){
         this.tests = res.data
         console.log(res)
-        this.operatorId = res.data[0].operator_id
+        this.operatorId = 
         console.log(this.operatorId)
       }
     })
   }
 
   exportToExcel(): void {
+
+    var d = new Date(Date.now())
+    var s = d.toDateString()
+    s.replace(/\s+/g,'_').toLowerCase();
+          
+    let oId = sessionStorage.getItem('operatorId')
+    this.exportService.exportTableElmToExcel(this.testTable, `${s}_${oId}`);
+  }
+
+  
+  exportToCsv(): void {
 
     var d = new Date(Date.now())
     var s = d.toDateString()

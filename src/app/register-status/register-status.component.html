@@ -1,3 +1,18 @@
+
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <button mat-icon-button class="example-icon" aria-label="back button" (click)="back()" *ngIf="isUserLoggedIn">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <img src="../assets/app-logo.png" alt="" width="50px">
+    <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
+    <span class="menu-spacer"></span>
+    <button mat-icon-button (click)="logout()" *ngIf="isUserLoggedIn">
+      <mat-icon>settings_power</mat-icon>
+    </button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-toolbar>
     <span>Enter Record</span>
     <span class="menu-spacer"></span>
@@ -12,10 +27,11 @@
            
             <form [formGroup]="registerSubjectForm">
                 <mat-form-field class="justifier">
-                    <mat-label>CID</mat-label>
-                    <input matInput type="text" name="cid" formControlName="cidControl" (input)="changeDiff($event)" required min="11" required autofocus>
+                    <mat-label>CID/ Work Permit No</mat-label>
+                    <input matInput type="text" name="cid" formControlName="cidControl" (input)="changeDiff($event)"  required autofocus>
                   </mat-form-field>
               <mat-form-field class="justifier">
+
                 <mat-label>Name</mat-label>
                 <input matInput type="text" name="name" formControlName="nameControl"   required min="0" required autofocus>
               </mat-form-field>
