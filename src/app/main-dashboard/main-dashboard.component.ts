@@ -102,13 +102,11 @@ export class MainDashboardComponent implements OnInit {
             return {testDate: item, value: maleD[item]}
         });
         maleD.forEach(element => {
-          this.dailyMaleLineChartLabel.push(element.testDate)
-          this.dailyMaleLineChartData.push(element.value)
+          this.dailyMaleLineChartLabel.unshift(element.testDate)
+          this.dailyMaleLineChartData.unshift(element.value)
         });
 
-        console.log(this.dailyMaleLineChartData)
-        console.log(this.dailyMaleLineChartLabel)
-
+      
         //female Daily
         var femaleD = Object.keys(femaleD =this.fem.map(function(item) {
           return item.test_date.slice(0,10)
@@ -119,8 +117,8 @@ export class MainDashboardComponent implements OnInit {
             return {testDate: item, value: femaleD[item]}
         });
         femaleD.forEach(element => {
-          this.dailyFemaleLineChartLabel.push(element.testDate)
-          this.dailyFemaleLLineChartData.push(element.value)
+          this.dailyFemaleLineChartLabel.unshift(element.testDate)
+          this.dailyFemaleLLineChartData.unshift(element.value)
         });
 
         
@@ -134,8 +132,8 @@ export class MainDashboardComponent implements OnInit {
             return {testDate: item, value: arr2[item]}
         });
         arr2.forEach(element => {
-          this.lineChartLabel.push(element.testDate)
-          this.lineChartdata.push(element.value)
+          this.lineChartLabel.unshift(element.testDate)
+          this.lineChartdata.unshift(element.value)
         });
         
         //array mapping for Test by agency
