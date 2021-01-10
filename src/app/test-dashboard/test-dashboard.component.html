@@ -1,11 +1,11 @@
 <div  id="totalTestTable">
     <form [formGroup]="searchForm" class="search__form">
-        <mat-form-field  class="search__form_field" appearance="outline">
+        <mat-form-field  class="search__form_field" appearance="outline" style="width: 50%;">
             <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
           </mat-form-field>
 
           
-        <mat-form-field class="search__form_field" appearance="outline">
+        <!-- <mat-form-field class="search__form_field" appearance="outline">
           <mat-label>Filter by Working Agency</mat-label>
           <input type="text"
                  aria-label="Departure station"
@@ -20,10 +20,10 @@
           <input matInput
                  formControlName="dateControl"
                  [matDatepicker]="picker"
-                 (dateInput)="applyFilter()">
+              >
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+        </mat-form-field> -->
       </form>
 
 <!-- <table class="table table-bordered" id="test-table">
