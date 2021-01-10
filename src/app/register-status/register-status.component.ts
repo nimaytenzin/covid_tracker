@@ -60,6 +60,7 @@ export class SubjectDetails{
 export class Certificate{
   subject_id:number;
   operator_id:number;
+  sample_id: string;
   test_RTPCR:string;
   test_AG:string;
   test_AB:string;
@@ -216,17 +217,19 @@ export class RegisterStatusComponent implements OnInit {
               this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
               this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
               this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-              //-> test Types control
-            
+              this.certificate.sample_id = this.registerSubjectForm.get('sampleIdControl').value
               this.certificate.status = "PENDING";
 
           
-              this.dataService.registerCertificate(this.certificate).subscribe(
-                res => {
-                  let sampleId = res.data.sample_id
-                  this.router.navigate([`/sampleid/${sampleId}`]);
-                }
-              )
+              if(this.certificate.operator_id !== 0){
+                this.dataService.registerCertificate(this.certificate).subscribe(
+                  res => {
+                    if(res.success == "true") this.router.navigate([`/sampleid/${this.certificate.sample_id}`]);
+                  }
+                )
+              }else{
+                alert("cannot submit as your credentials are not valid. Please login in again")
+              }
           }
         })
 
@@ -236,21 +239,22 @@ export class RegisterStatusComponent implements OnInit {
         this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
         this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
         this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-
-        //-> test Types control
-        
+        this.certificate.sample_id = this.registerSubjectForm.get('sampleIdControl').value
         this.certificate.status = "PENDING"
         
-        this.dataService.registerCertificate(this.certificate).subscribe(
-          res => {
-            let sampleId = res.data.sample_id
-            this.router.navigate([`/sampleid/${sampleId}`]);
-          
-          }
-        )
-        this.dataService.updateSubject(this.subjectDetails).subscribe(
-          res => console.log(res)
-        )
+        if(this.certificate.operator_id !== 0){
+          this.dataService.registerCertificate(this.certificate).subscribe(
+            res => {
+              if(res.success == "true") this.router.navigate([`/sampleid/${this.certificate.sample_id}`]);
+
+              this.dataService.updateSubject(this.subjectDetails).subscribe(
+                res => console.log(res)
+              )
+            }
+          )
+        }else{
+          alert("cannot submit as your credentials are not valid. Please login in again")
+        }
       }
       
     }

@@ -5,8 +5,11 @@ import { DataService } from '../service/data.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
+import { SelectionModel } from '@angular/cdk/collections';
+import { MatTableDataSource } from '@angular/material';
+import {animate, state, style, transition, trigger} from '@angular/animations';
+
 export interface CertificateObj{
-  createdAt: string;
   exp_date: string;
   id: number;
   operator_id: number;
@@ -16,20 +19,48 @@ export interface CertificateObj{
   test_date : string;
   test_result : string;
   test_type : string;
-  tester_id : number;
-  updatedAt : string;
   utid : string;
-  
+}
+interface Certificate{
+  sample_id: string;
+  name: string;
+  cid: string;
+  result_RTPCR: string;
+  result_AG: string;
+  result_AB: string;
+  test_date: string;
 }
 
 @Component({
   selector: 'app-add-result',
   templateUrl: './add-result.component.html',
-  styleUrls: ['./add-result.component.scss']
+  styleUrls: ['./add-result.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0', display: 'none'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ]
 })
 export class AddResultComponent implements OnInit {
 
   pendingSubjects: []
+  pendingCertificates:Certificate[] = []
+  selection = new SelectionModel<Certificate>(true, []);
+
+  pendingTests = null;
+  displayedColumns: string[] = ['select', 'sample_id', 'name', 'cid', 'rt','ag','ab','test_date'];
+  disableButton = true;
+  expandedElement: Certificate;
+
+  currentCheckbox = {
+    id: null,
+    current_rt : false,
+    current_ag : false,
+    current_ab : false
+  }
+
   constructor(
     private dataservice: DataService,
     private router: Router,
@@ -38,36 +69,79 @@ export class AddResultComponent implements OnInit {
 
   ngOnInit() {
     this.dataservice.getPendingCertificate().subscribe(res => {
-      this.pendingSubjects = res.data
-  
+      // this.pendingSubjects = res.data
+      this.pendingCertificates = res.data
+      this.pendingTests = new MatTableDataSource<Certificate>(this.pendingCertificates)
     })
   }
+  resetCheckbox(){
+    this.currentCheckbox.current_rt = false
+    this.currentCheckbox.current_ag = false
+    this.currentCheckbox.current_ab = false
+    this.currentCheckbox.id = null
+  }
 
-  setResult(id,result){
-    let obj = {
-      id: id,
-      test_result: result
+  setRtPositive(id,checked){
+      this.currentCheckbox.id = id 
+      this.currentCheckbox.current_rt = checked 
+      console.log(this.currentCheckbox)
+  }
+  setAgPositive(id,checked){
+      this.currentCheckbox.id = id 
+      this.currentCheckbox.current_ag= checked 
+      console.log(this.currentCheckbox)
+  }
+  setAbPositive(id,checked){
+      this.currentCheckbox.id = id 
+      this.currentCheckbox.current_ab= checked 
+      console.log(this.currentCheckbox)
+  }
+
+  // setCurrentPositive(){
+  //   console.log(this.currentCheckbox)
+  // }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.pendingTests.data.length;
+    return numSelected === numRows;
+  }
+
+  onSelectChange(){
+    if(this.selection.selected.length == 0){
+      this.disableButton = true 
+    }else{
+      this.disableButton = false 
     }
-    this.dataservice.setTestResult(obj).subscribe( res=>{
-      if(res.success === "true"){
-        location.reload();
+    console.log(this.selection.selected)
+  }
+  
 
-      }
-    })
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() :
+        this.pendingTests.data.forEach(row => this.selection.select(row));
   }
 
-  openModal(id,result,subject_id) {
-    const dialogConfig = new MatDialogConfig();
-       dialogConfig.disableClose = true;
+  openModal() {
+    if(this.currentCheckbox.current_ab || this.currentCheckbox.current_ag || this.currentCheckbox.current_rt){
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = true;
       dialogConfig.id = "confirm-modal";
       dialogConfig.height = "350px";
       dialogConfig.width = "600px";
-      
-      dialogConfig.data = {
-      id: id,
-      test_result: result,
-      subject_id: subject_id
+        
+      //   dialogConfig.data = {
+      //   id: id,
+      //   test_result: result,
+      //   subject_id: subject_id
+      // }
+
+      dialogConfig.data = this.currentCheckbox;
+      const modalDialog = this.matDialog.open(ConfirmModalComponent, dialogConfig);
+    }else{
+      console.log("not submitted")
     }
-    const modalDialog = this.matDialog.open(ConfirmModalComponent, dialogConfig);
   }
 }

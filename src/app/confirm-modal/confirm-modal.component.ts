@@ -21,12 +21,21 @@ export class ConfirmModalComponent implements OnInit {
   }
   
   yes(){
-    this.dataService.setTestResult(this.data).subscribe( res=>{
+    let obj = {
+      id: this.data.id,
+      result_RTPCR: this.data.current_rt ? "POSITIVE": "NEGATIVE",
+      result_AG: this.data.current_ag ? "POSITIVE": "NEGATIVE",
+      result_AB: this.data.current_ab ? "POSITIVE": "NEGATIVE",
+      status: "ACTIVE"
+    }
+    this.dataService.setTestResult(obj).subscribe( res=>{
+      console.log(res)
       if(res.success === "true"){
         this.dialogRef.close();
         location.reload()
       }
     }) 
+    console.log(obj)
   }
 
   no() {
