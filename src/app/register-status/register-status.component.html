@@ -122,8 +122,10 @@
            
          
                   
-        
-
+              <mat-form-field class="justifier">
+                <mat-label>Sample Id</mat-label>
+                <input matInput type="text" name="sampleId" formControlName="sampleIdControl" required autofocus>
+              </mat-form-field>
               <mat-form-field appearance="fill" class="justifier">
                 <mat-label>Date of Testing</mat-label>
                 <input matInput [matDatepicker]="dp3" disabled name="testDate" formControlName ="testDateControl">
