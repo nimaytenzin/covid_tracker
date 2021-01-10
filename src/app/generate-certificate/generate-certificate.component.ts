@@ -25,7 +25,8 @@ export class GenerateCertificateComponent implements OnInit {
   subjectGender: string;
   subjectWorkingAgency: string;
   subjectDzongkhag: string;
- 
+  todayDate:any;
+
 
   constructor(
     private dataservice: DataService,
@@ -35,7 +36,7 @@ export class GenerateCertificateComponent implements OnInit {
   ngOnInit() {
 
     let cid = this.route.snapshot.params.cid;
-   
+    this.todayDate = Date.now()
 
     this.dataservice.getSubjects(cid).subscribe( res => {
       if(res.success === "true"){

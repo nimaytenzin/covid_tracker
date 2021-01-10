@@ -1,14 +1,8 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <button mat-icon-button class="example-icon" aria-label="back button" (click)="back()" *ngIf="isUserLoggedIn">
-      <mat-icon>arrow_back</mat-icon>
-    </button>
     <img src="../assets/app-logo.png" alt="" width="50px">
     <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
     <span class="menu-spacer"></span>
-    <button mat-icon-button (click)="logout()" *ngIf="isUserLoggedIn">
-      <mat-icon>settings_power</mat-icon>
-    </button>
   </mat-toolbar-row>
 </mat-toolbar>
 
@@ -21,14 +15,16 @@
 
 <div style="display: flex; flex-direction: row; justify-content: space-between;">
     
-    <img src="../../assets/app-logo.png" alt="" style="float:left; height: 20%; width: 20%;">
+    <img src="../../assets/app-logo.png" alt="" style="float:left; height: 16%; width: 16%;">
     <h2 style="float:left;text-align: center; width: 60%; margin-top: 6%;">
         Royal Government of Bhutan <br>
    
         <h3>Covid 19 Test Report</h3>
    </h2>
-   <img src="../../assets/bhutan.png" alt=""  style="float: right; height: 20%;width: 20%;">
+   <img src="../../assets/bhutan.png" alt=""  style="float: right; height: 16%;width: 16%;">
 </div>
+<br>
+      <p style="text-align: right; width: 100%;">Date:{{todayDate | date: 'mediumDate'}}</p>
     <br>
 
       <div id="qrConatainer" style="display: flex; flex-direction: row; justify-content: space-between;">
