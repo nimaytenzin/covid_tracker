@@ -1,16 +1,10 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <button mat-icon-button class="example-icon" aria-label="back button" (click)="back()" *ngIf="isUserLoggedIn">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <img src="../assets/app-logo.png" alt="" width="50px">
-      <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
-      <span class="menu-spacer"></span>
-      <button mat-icon-button (click)="logout()" *ngIf="isUserLoggedIn">
-        <mat-icon>settings_power</mat-icon>
-      </button>
-    </mat-toolbar-row>
-  </mat-toolbar>
+  <mat-toolbar-row>
+    <img src="../assets/app-logo.png" alt="" width="50px">
+    <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
+    <span class="menu-spacer"></span>
+  </mat-toolbar-row>
+</mat-toolbar>
   
 <div style="display: flex; flex-direction: column; align-items: center; justify-content: center;">
     <br>
