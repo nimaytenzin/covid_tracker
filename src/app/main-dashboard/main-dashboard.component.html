@@ -1,21 +1,43 @@
-    
+<div style="display: flex; flex-direction: row;">
+  <div style="float: left;border: 1px solid #A9AABC; border-radius: 8px;padding:1rem; ;box-shadow: 2px 2px #A9AABC;">
+    <h1  class="h3 mb-4 text-gray-800" style="font-weight: lighter;">Total Frontliners Registered</h1>
+    <h2 style="text-align: center;font-size: 6rem; font-weight: bolder;color:#0097B2;">{{totalFrontliners}}</h2>
+  </div>
+  <div style="display:flex; flex-direction: column; justify-content: space-between;">
+    <div style="margin-left:3rem; padding:2rem;  border: 1px solid #A9AABC; border-radius: 8px;padding: 10px;box-shadow: 2px 2px #A9AABC; align-items: center;">
+      <h3 class="h3 mb-4 text-gray-800" style="font-weight: lighter;white-space: nowrap;">Males Registered</h3>
+      <h2 style="text-align: center;font-size: 5rem; font-weight: bolder;color:#0097B2;">{{frontlinerMale}}</h2>    
+    </div>
+    <br>
+    <div style="margin-left:3rem; padding:2rem;  border: 1px solid #A9AABC; border-radius: 8px;padding: 10px;box-shadow: 2px 2px #A9AABC; align-items: center;">   
+      <h3 class="h3 mb-4 text-gray-800"  style="font-weight: lighter; width: fit-content; white-space: nowrap;">Female Registered</h3>
+      <h2 style="text-align: center;font-size: 5rem; font-weight: bolder;color:#0097B2;">{{frontlinerFemale}}</h2>  
+    </div>
+  </div>
+
+  <div style="float: right; width: 80%;">
+    <canvas id="frontLinersByAgency" width="600px" height="150px"> </canvas>
+  </div>
+</div>
+<br>
+
   <div style="display: flex; flex-direction: row;">
     
     <div style="float: left;border: 1px solid #A9AABC; border-radius: 8px;padding:3rem; ;box-shadow: 2px 2px #A9AABC;">
       <h1  class="h3 mb-4 text-gray-800" style="font-weight: light;">Total Tests</h1>
-      <h2 style="text-align: center;font-size: 10rem; font-weight: bolder;color:#0097B2;">{{totalTests}}</h2>
+      <h2 style="text-align: center;font-size: 8rem; font-weight: bolder;color:#EF9CDA;">{{totalTests}}</h2>
     </div>
     
     <div style="display:flex; flex-direction: column; justify-content: space-between;">
       <div style="margin-left:3rem; padding:3rem;  border: 1px solid #A9AABC; border-radius: 8px;padding: 10px;box-shadow: 2px 2px #A9AABC; align-items: center;">
         <h3 class="h3 mb-4 text-gray-800" style="font-weight: light;white-space: nowrap;">Males Tested</h3>
-        <h2 style="text-align: center;font-size: 5rem; font-weight: bolder;color:#0097B2;">{{totalMalesTested}}</h2>    
+        <h2 style="text-align: center;font-size: 4rem; font-weight: bolder;color:#EF9CDA;">{{totalMalesTested}}</h2>    
       </div>
       <br>
   
       <div style="margin-left:3rem; padding:3rem;  border: 1px solid #A9AABC; border-radius: 8px;padding: 10px;box-shadow: 2px 2px #A9AABC; align-items: center;">   
         <h3 class="h3 mb-4 text-gray-800"  style="font-weight: light; width: fit-content; white-space: nowrap;">Female Tested</h3>
-        <h2 style="text-align: center;font-size: 5rem; font-weight: bolder;color:#0097B2;">{{totalFemalesTested}}</h2>  
+        <h2 style="text-align: center;font-size: 4rem; font-weight: bolder;color:#EF9CDA;">{{totalFemalesTested}}</h2>  
       </div>
     </div>
 
@@ -39,4 +61,6 @@
 </div>
 
     <!-- <canvas id="testByDzongkhagBarChart" width="600px" height="150px"> </canvas> -->
+<br>
     
+  

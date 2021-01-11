@@ -91,6 +91,14 @@ export class DataService {
       );
   }
 
+  getAllSubjects(){
+    return this.http
+      .get<any>(`${this.API_URL}/sub/get-all-subject`, this.httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getSubjectByUtid(utid) {
     return this.http
       .get<any>(`${this.API_URL}/sub/get-subject-utid/${utid}`, this.httpOptions)
@@ -113,13 +121,8 @@ export class DataService {
         catchError(this.handleError)
       );
   }
-  getAllSubjects(){
-    return this.http
-      .get<any>(`${this.API_URL}/sub/get-all-subjects`, this.httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+
+ 
 
   getZones(dzongkhagId) {
     return this.http

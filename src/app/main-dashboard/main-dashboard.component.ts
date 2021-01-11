@@ -19,8 +19,11 @@ export class MainDashboardComponent implements OnInit {
   totalAntibodyTests:number;
   totalMalesTested:number;
   totalFemalesTested:number;
-  totalPositives:number;
-  totalNegatives:number;
+  totalFrontliners:any;
+  frontlinerMale:any;
+  frontlinerFemale:any;
+
+
 
   //table population
   tests:Array<any> =[];
@@ -42,7 +45,9 @@ export class MainDashboardComponent implements OnInit {
   testAgencyBarLabel: Array<any> = [];
   testDzongkhagBarLabel: Array<any> = [];
   testDzongkhagBarData: Array<any> = [];
- 
+  //frontliners by Agency
+  frontlinerAgencyData: Array<any> =[];
+  frontlinerAgencyLabel:Array<any> =[];
 
   canvas1: any;
   ctx1: any;
@@ -54,7 +59,9 @@ export class MainDashboardComponent implements OnInit {
   ctx4:any;
   canvas5:any;
   ctx5: any;
- 
+  canvas9:any;
+  ctx9:any;
+
   constructor(
     private dataService:DataService
   ) { }
@@ -67,8 +74,34 @@ export class MainDashboardComponent implements OnInit {
     this.totalRtpcrTests = 0;
     this.totalMalesTested =0;
     this.totalFemalesTested =0;
-    this.totalPositives =0;
-    this.totalNegatives =0;
+    this.frontlinerMale =0;
+    this.frontlinerFemale =0;
+ 
+
+    this.dataService.getAllSubjects().subscribe(res => {
+         this.totalFrontliners = res.data.length;
+          res.data.forEach(item => {
+           
+            if(item.sex === "Male"){
+              this.frontlinerMale +=1;
+            }else if(item.sex === "Female"){
+              this.frontlinerFemale +=1;
+            }
+          })
+          var arr2 = Object.keys(arr2 = res.data.map(function(item) {
+            return item.work_category
+          }).reduce(function(acc,curr){
+              acc[curr] = acc[curr] + 1 || 1;
+              return acc;
+          }, [])).map(function(item){
+              return {testDate: item, value: arr2[item]}
+          });
+          arr2.forEach(element => {
+            this.frontlinerAgencyLabel.push(element.testDate)
+            this.frontlinerAgencyData.push(element.value)
+          });
+          this.frontlinersByAgencyChart()
+      })
 
     this.dataService.getCertificates().subscribe(res=>{
       if(res.success === "true"){
@@ -310,7 +343,7 @@ export class MainDashboardComponent implements OnInit {
         title: {
               display: true,
               fontSize: 20,
-              text: 'Daily Tests'
+              text: 'Total Daily Tests'
           },
         lengend:{
           display: true,
@@ -353,14 +386,29 @@ export class MainDashboardComponent implements OnInit {
           datasets: [{
               label: 'Nos of Tests',
               data: this.testAgencyBarData,
-              backgroundColor: [
-                  '#FFC05C',
-                  '#3F51B5',
-                  '#b8f4ff',
-                  '#cc759a',
-                  '#4faaa1',
-                  '#edffc9'
-             ],
+              backgroundColor:[
+                '#FFC05C',
+                '#3F51B5',
+                '#b8f4ff',
+                '#cc759a',
+                '#4faaa1',
+                '#edffc9',
+                "#E3E8CD",
+                "#BCD8BF",
+                "#D3B9A3",
+                "#EE9C92",
+                "#FE857E",
+                "#A69E80",
+                "#E0BA9B",
+                "#E7A97E",
+                "#D28574",
+                "#3B1922",
+                "#D3D5B0",
+                "#B5CEA4",
+                "#9DC19D",
+                "#8C7C62",
+                "#71443F"
+            ],
               borderWidth: 1
           }]
       },
@@ -415,6 +463,59 @@ export class MainDashboardComponent implements OnInit {
   //   });
   // }
 
-
+  frontlinersByAgencyChart(){
+    Chart.defaults.global.legend.display = false;
+  
+    this.canvas9 = document.getElementById('frontLinersByAgency');
+    this.ctx9 = this.canvas9.getContext('2d');
+    let myChart = new Chart(this.ctx9,{
+      type: 'bar',
+      data: {
+          labels: this.frontlinerAgencyLabel,
+          datasets: [{
+              label: 'frontliners',
+              data: this.frontlinerAgencyData,
+              backgroundColor: [
+                '#FFC05C',
+                '#3F51B5',
+                '#b8f4ff',
+                '#cc759a',
+                '#4faaa1',
+                '#edffc9',
+                "#E3E8CD",
+                "#BCD8BF",
+                "#D3B9A3",
+                "#EE9C92",
+                "#FE857E",
+                "#A69E80",
+                "#E0BA9B",
+                "#E7A97E",
+                "#D28574",
+                "#3B1922",
+                "#D3D5B0",
+                "#B5CEA4",
+                "#9DC19D",
+                "#8C7C62",
+                "#71443F"
+            ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+        datalabels:{
+          color: 'red'
+        },
+        title: {
+          display: true,
+          fontSize: 20,
+          text: 'Frontliners by Agency'
+      },
+      maintainAspectRatio: false,
+        responsive: true,
+        display:true
+      },
+     
+    });
+  }
 
 }

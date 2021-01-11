@@ -88,10 +88,7 @@ export class TestDashboardComponent implements OnInit,AfterViewInit  {
             case 'Subject.work_agency' :return item.Subject.work_agency;
             
             default: return item[property]
-            
-
-           
-            
+                      
           }
         }
 
@@ -104,10 +101,6 @@ export class TestDashboardComponent implements OnInit,AfterViewInit  {
           const transformedFilter = filter.trim().toLowerCase();
           return dataStr.indexOf(transformedFilter) !== -1;
         };
-
-        
-
-
 
         this.dataSource.sort = this.sort;
         var maleD = Object.keys(maleD = res.data.map(function(item) {
