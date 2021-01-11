@@ -124,24 +124,34 @@ export class AddResultComponent implements OnInit {
         this.pendingTests.data.forEach(row => this.selection.select(row));
   }
 
+  setNegative(){
+    this.resetCheckbox()
+    this.openModal()
+  }
+
   openModal() {
     if(this.currentCheckbox.current_ab || this.currentCheckbox.current_ag || this.currentCheckbox.current_rt){
+      console.log("positive submission")
       const dialogConfig = new MatDialogConfig();
       dialogConfig.disableClose = true;
       dialogConfig.id = "confirm-modal";
       dialogConfig.height = "350px";
       dialogConfig.width = "600px";
-        
-      //   dialogConfig.data = {
-      //   id: id,
-      //   test_result: result,
-      //   subject_id: subject_id
-      // }
 
       dialogConfig.data = this.currentCheckbox;
       const modalDialog = this.matDialog.open(ConfirmModalComponent, dialogConfig);
     }else{
-      console.log("not submitted")
+      if(this.selection.selected.length > 0){
+        console.log("negative submission")
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.id = "confirm-modal";
+        dialogConfig.height = "350px";
+        dialogConfig.width = "600px";
+
+        dialogConfig.data = this.selection.selected;
+        const modalDialog = this.matDialog.open(ConfirmModalComponent, dialogConfig);
+      }
     }
   }
 }

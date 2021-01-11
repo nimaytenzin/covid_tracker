@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  // API_URL: 'http://192.168.128.41:1234'
+  // API_URL: 'http://127.0.0.1:1234'
   API_URL: 'https://zhichar.ddnsfree.com/cpi'
 };
 

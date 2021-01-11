@@ -46,12 +46,14 @@ export class PublicDashboardComponent implements OnInit {
         .subscribe( res => {
             if(res.success === "true"){
               let id = res.data.id;
+              
               this.subjectName = res.data.name
               this.subjectCID = res.data.cid
               this.workAgency = res.data.work_agency
               this.subjectAge = res.data.age
               this.dataService.getCertificateBySubjectId(id).subscribe( res => {
                 this.showCertificates = true;
+                console.log(res.data)
                 this.certificates = res.data
               })
             }
