@@ -51,7 +51,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { FlatpickrModule } from 'angularx-flatpickr';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
-import { CalendarComponent} from "./calendar/calendar.component";
+
 
 @NgModule({
   declarations: [
@@ -73,8 +73,7 @@ import { CalendarComponent} from "./calendar/calendar.component";
     AdminComponent,
     MainDashboardComponent,
     TestDashboardComponent,
-    PlannerDashboardComponent,
-    CalendarComponent
+    PlannerDashboardComponent
 
   ],
   imports: [

@@ -6,9 +6,7 @@ html, body { height: 100%; }
 
 body{
   font-family: 'Roboto', sans-serif;
-  margin:0px !important;
-
-  
+  margin:0px !important;  
 }
 
 .add-btn{
@@ -176,10 +174,7 @@ mat-dialog-container#confirm-modal {
 */
 @media screen and (max-width: 480px) {
 
-  body{
-    padding: 0%;
-    margin: 0%;
-  }
+ 
   mat-toolbar{
     width: 100%;
   }

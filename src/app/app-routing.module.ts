@@ -17,7 +17,6 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { FrontlineDashComponent } from './frontline-dash/frontline-dash.component';
 import { TestDashboardComponent } from './test-dashboard/test-dashboard.component';
 import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
-import { CalendarComponent } from './calendar/calendar.component'
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -28,8 +27,7 @@ const routes: Routes = [
   children: [
     { path: 'dashboard', component: MainDashboardComponent },
     {path:'frontliner-dash', component:FrontlineDashComponent},
-    {path:'test-dash', component:TestDashboardComponent},
-    {path:'plan',  component:CalendarComponent}
+    {path:'test-dash', component:TestDashboardComponent}
  ],},
   {path: 'verify', component:VerifyComponent},
   {path: 'add-result', component: AddResultComponent},
