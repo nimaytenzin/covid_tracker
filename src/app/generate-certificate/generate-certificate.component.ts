@@ -40,7 +40,6 @@ export class GenerateCertificateComponent implements OnInit {
 
     this.dataservice.getSubjects(cid).subscribe( res => {
       if(res.success === "true"){
-        console.log(res.data)
         this.subjectName = res.data.name;
         this.value = res.data.utid;
         this.subjectAge = res.data.age;
