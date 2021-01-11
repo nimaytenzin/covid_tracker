@@ -9,7 +9,7 @@
 <button mat-button routerLink="/navigate" style="justify-content: end;"> <mat-icon>rotate_left</mat-icon> Back</button>
 <!-- <button mat-button routerLink="/navigate" style="justify-content: end;"> Set selected as positive</button>
 <button mat-button routerLink="/navigate" style="justify-content: end;"> Set selected as Negative</button> -->
-<button mat-button [disabled] = "disableButton" [ngStyle]="{'background-color' : 'rgb(154,210,127)'}" (click)="openModal()">Set selected as Negative</button>
+<button mat-button [disabled] = "disableButton" [ngStyle]="{'background-color' : 'rgb(154,210,127)'}" (click)="setNegative()">Set selected as Negative</button>
 
 <!-- <table class="table" id="table2">
     <thead>
