@@ -8,8 +8,8 @@ import { DataService } from '../service/data.service';
   styleUrls: ['./planner-dashboard.component.scss']
 })
 export class PlannerDashboardComponent implements OnInit {
-  canvas6: any;
-  ctx6:any;
+  canvas1: any;
+  ctx1:any;
   forecastLineLabel: Array <any> = [];
   forecastLineData: Array <any> = [];
   
@@ -18,13 +18,13 @@ export class PlannerDashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-     
+    this.testForecastLineChart()
     this.dataService.getCertificates().subscribe(res=>{
       if(res.success === "true"){
-       
+     
         //Array mapping for expiry date line charts
         var arr2 = Object.keys(arr2 = res.data.map(function(item) {
-          return item.exp_date;
+          return item.exp_date.slice(0,10);
         }).reduce(function(acc,curr){
             acc[curr] = acc[curr] + 1 || 1;
             return acc;
@@ -33,12 +33,10 @@ export class PlannerDashboardComponent implements OnInit {
         });
 
         arr2.forEach(element => {
-          this.forecastLineData.push(element.value)
-          this.forecastLineLabel.push(element.exp_date)
+          this.forecastLineData.unshift(element.value)
+          this.forecastLineLabel.unshift(element.exp_date)
         }); 
-        console.log(this.forecastLineData)
-        console.log(this.forecastLineLabel)
-
+  
         this.testForecastLineChart()
       }
     })
@@ -47,9 +45,10 @@ export class PlannerDashboardComponent implements OnInit {
 
   testForecastLineChart(){
     Chart.defaults.global.legend.display = false;
-    this.canvas6 = document.getElementById('testForecastLineChart');
-    this.ctx6 = this.canvas6.getContext('2d');
-    let myChart = new Chart(this.ctx6, {
+    console.log('it runs')
+    this.canvas1 = document.getElementById('testForecastLineChart');
+    this.ctx1 = this.canvas1.getContext('2d');
+    let myChart = new Chart(this.ctx1, {
       type: 'line',
       data: {
       labels: this.forecastLineLabel,
@@ -85,8 +84,7 @@ export class PlannerDashboardComponent implements OnInit {
         }]
     }
       },
-      maintainAspectRatio: false,
-
+      maintainAspectRatio: true,
       responsive: true,
       display:true
       

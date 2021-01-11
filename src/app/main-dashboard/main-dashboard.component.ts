@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../service/data.service';
 import * as Chart from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { empty } from 'rxjs';
+
 
 @Component({
   selector: 'app-main-dashboard',
@@ -11,12 +11,7 @@ import { empty } from 'rxjs';
 })
 export class MainDashboardComponent implements OnInit {
   operatorId:any;
-  displayTotalTestTable:boolean = false;
-  dispalyPendingTable:boolean = false;
-  displayPositiveTable:boolean = false
-  displayDueTable:boolean = false;
-  displayExpiredTable:boolean = false;
-  displayCharts:boolean = true;
+ 
   //numbers
   totalTests:number;
   totalRtpcrTests:number;
@@ -47,9 +42,7 @@ export class MainDashboardComponent implements OnInit {
   testAgencyBarLabel: Array<any> = [];
   testDzongkhagBarLabel: Array<any> = [];
   testDzongkhagBarData: Array<any> = [];
-  forecastLineLabel: Array <any> = [];
-  forecastLineData: Array <any> = [];
-  upcomingTests = 34;
+ 
 
   canvas1: any;
   ctx1: any;
@@ -61,8 +54,7 @@ export class MainDashboardComponent implements OnInit {
   ctx4:any;
   canvas5:any;
   ctx5: any;
-  canvas6:any;
-  ctx6:any;
+ 
   constructor(
     private dataService:DataService
   ) { }
@@ -164,21 +156,7 @@ export class MainDashboardComponent implements OnInit {
           this.testDzongkhagBarData.push(element.value)
         }); 
 
-        //Array mapping for expiry date line charts
-        var arr5 = Object.keys(arr2 = res.data.map(function(item) {
-          return item.exp_date;
-        }).reduce(function(acc,curr){
-            acc[curr] = acc[curr] + 1 || 1;
-            return acc;
-        }, [])).map(function(item){
-            return {exp_date: item, value: arr2[item]}
-        });
-        arr5.forEach(element => {
-          this.forecastLineData.push(element.value)
-          this.forecastLineLabel.push(element.exp_date)
-        }); 
-
-          
+                
         this.totalTests = res.data.length;
         this.tests.forEach(item => {
           if(item.test_RTPCR === "Yes"){
@@ -207,8 +185,8 @@ export class MainDashboardComponent implements OnInit {
         this.renderBarChartGender()
         this.dailyTestLineChart()
         this.agencyTestBarchart()
-        this.workDzongkhagBarChart()
-        this.testForecastLineChart()
+        // this.workDzongkhagBarChart()
+        // this.testForecastLineChart()
       }
     })
   }
@@ -404,84 +382,39 @@ export class MainDashboardComponent implements OnInit {
         
   }
 
-  workDzongkhagBarChart(){
-    this.canvas5 = document.getElementById('testByDzongkhagBarChart');
-    this.ctx5 = this.canvas5.getContext('2d');
-    let myChart = new Chart(this.ctx5,{
-      type: 'bar',
-      data: {
-          labels: this.testDzongkhagBarLabel,
-          datasets: [{
-              label: 'Nos of Tests',
-              data: this.testDzongkhagBarData,
-              backgroundColor: [
-                  '#FFC05C',
-                  '#3F51B5',
-                  '#b8f4ff',
-                  '#cc759a',
-                  '#4faaa1',
-                  '#edffc9'
-             ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        title: {
-          display: true,
-          fontSize: 20,
-          text: 'Tests by Dzongkhag/Thromde'
-      },
-        responsive: true,
-        display:true
-      }
-    });
-  }
+  // workDzongkhagBarChart(){
+  //   this.canvas5 = document.getElementById('testByDzongkhagBarChart');
+  //   this.ctx5 = this.canvas5.getContext('2d');
+  //   let myChart = new Chart(this.ctx5,{
+  //     type: 'bar',
+  //     data: {
+  //         labels: this.testDzongkhagBarLabel,
+  //         datasets: [{
+  //             label: 'Nos of Tests',
+  //             data: this.testDzongkhagBarData,
+  //             backgroundColor: [
+  //                 '#FFC05C',
+  //                 '#3F51B5',
+  //                 '#b8f4ff',
+  //                 '#cc759a',
+  //                 '#4faaa1',
+  //                 '#edffc9'
+  //            ],
+  //             borderWidth: 1
+  //         }]
+  //     },
+  //     options: {
+  //       title: {
+  //         display: true,
+  //         fontSize: 20,
+  //         text: 'Tests by Dzongkhag/Thromde'
+  //     },
+  //       responsive: true,
+  //       display:true
+  //     }
+  //   });
+  // }
 
-  testForecastLineChart(){
-    Chart.defaults.global.legend.display = false;
-    this.canvas6 = document.getElementById('testForecastLineChart');
-    this.ctx6 = this.canvas6.getContext('2d');
-    let myChart = new Chart(this.ctx6, {
-      type: 'line',
-      data: {
-      labels: this.forecastLineLabel,
-      datasets: [{
-            data: this.forecastLineData,
-            backgroundColor:"transparent",
-            borderColor:"rgb(63,81,181)",
-            pointRadius: 5,
-            pointHoverRadius: 20,
-            pointHitRadius: 30,
-            pointBorderWidth: 2,
-      }]
-      },
-      options: {
-        title: {
-              display: true,
-              fontSize: 20,
-              text: 'Test Forecast '
-          },
-        lengend:{
-          display: false
-       },
-       scales: {
-        xAxes: [{
-            gridLines: {
-                display:false
-            }
-        }],
-        yAxes: [{
-            gridLines: {
-                display:false
-            }   
-        }]
-    }
-      },
-      responsive: true,
-      display:true
-      
-    })
 
-  }
 
 }

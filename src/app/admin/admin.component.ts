@@ -12,6 +12,8 @@ import { map, shareReplay } from 'rxjs/operators';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+  todayDate:any;
+
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches),
@@ -27,9 +29,7 @@ export class AdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
-    
+    this.todayDate = Date.now()
     
   }
 

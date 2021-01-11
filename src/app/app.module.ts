@@ -27,13 +27,9 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './service/http-interceptor.service';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatListModule } from '@angular/material/list';
-import { ChangePasswordComponent } from './change-password/change-password.component';
-import { CameraComponent } from './camera/camera.component';
 import {WebcamModule} from 'ngx-webcam';
-import { UploadImageComponent } from './upload-image/upload-image.component';
 import { RegisterStatusComponent } from './register-status/register-status.component';
 import { FrontlineDashComponent } from './frontline-dash/frontline-dash.component';
-import { GenerateQrComponent } from './generate-qr/generate-qr.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { RecordVerifyComponent } from './record-verify/record-verify.component';
 import { VerifyComponent } from './verify/verify.component';
@@ -61,12 +57,8 @@ import { MatSortModule } from "@angular/material";
     LoginComponent,
     ErrorComponent,
     SelectZoneComponent,
-    ChangePasswordComponent,
-    CameraComponent,
-    UploadImageComponent,
     RegisterStatusComponent,
     FrontlineDashComponent,
-    GenerateQrComponent,
     RecordVerifyComponent,
     VerifyComponent,
     AddResultComponent,

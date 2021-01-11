@@ -21,11 +21,11 @@
                 <span>Statistics</span></a>
         </li>
 
-        <!-- <li class="nav-item">
+        <li class="nav-item">
           <a class="nav-link" routerLink="/admin/plan-dash">
               <i class="fas fa-fw fa-tachometer-alt"></i>
-              <span>Plan Testing</span></a>
-      </li> -->
+              <span>Schedule Testing</span></a>
+      </li>
 
 
         <!-- Divider -->
@@ -81,7 +81,7 @@
                 <!-- Topbar Search -->
                 <div
                     class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                    <h1 class="h3 mb-4 text-gray-800">Welcome</h1>
+                    <h1 class="h3 mb-4 text-gray-800 ">{{todayDate | date: 'mediumDate' }}</h1>
                 </div>
 
                 <!-- Topbar Navbar -->
@@ -118,9 +118,6 @@
                 <!-- Page Heading -->
                 
                 <router-outlet></router-outlet>
-
-
-
 
 
             </div>
