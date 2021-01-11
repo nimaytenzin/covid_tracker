@@ -39,8 +39,6 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 import { GenerateCertificateComponent } from './generate-certificate/generate-certificate.component';
 import { PublicDashboardComponent } from './public-dashboard/public-dashboard.component';
 import { SummaryComponent } from './summary/summary.component';
-
-
 import { SampleIdComponent } from './sample-id/sample-id.component';
 import { MatTableModule } from '@angular/material';
 import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
@@ -51,7 +49,9 @@ import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard
 import { MatSortModule } from "@angular/material";
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-
+import { FlatpickrModule } from 'angularx-flatpickr';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { CalendarComponent} from "./calendar/calendar.component";
 
 @NgModule({
   declarations: [
@@ -67,15 +67,14 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     ScannerComponent,
     GenerateCertificateComponent,
     PublicDashboardComponent,
-
     SummaryComponent,
-
     SampleIdComponent,
     ConfirmModalComponent,
     AdminComponent,
     MainDashboardComponent,
     TestDashboardComponent,
-    PlannerDashboardComponent
+    PlannerDashboardComponent,
+    CalendarComponent
 
   ],
   imports: [
@@ -108,6 +107,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     QRCodeModule,
     ZXingScannerModule,
     MatTableModule,
+    NgbModalModule,
+    FlatpickrModule.forRoot(),
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   providers: [

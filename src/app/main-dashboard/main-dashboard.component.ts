@@ -127,8 +127,8 @@ export class MainDashboardComponent implements OnInit {
             return {testDate: item, value: maleD[item]}
         });
         maleD.forEach(element => {
-          this.dailyMaleLineChartLabel.unshift(element.testDate)
-          this.dailyMaleLineChartData.unshift(element.value)
+          this.dailyMaleLineChartLabel.push(element.testDate)
+          this.dailyMaleLineChartData.push(element.value)
         });
 
       
@@ -143,7 +143,7 @@ export class MainDashboardComponent implements OnInit {
         });
         femaleD.forEach(element => {
           this.dailyFemaleLineChartLabel.unshift(element.testDate)
-          this.dailyFemaleLLineChartData.unshift(element.value)
+          this.dailyFemaleLLineChartData.push(element.value)
         });
 
         
@@ -158,7 +158,7 @@ export class MainDashboardComponent implements OnInit {
         });
         arr2.forEach(element => {
           this.lineChartLabel.unshift(element.testDate)
-          this.lineChartdata.unshift(element.value)
+          this.lineChartdata.push(element.value)
         });
         
         //array mapping for Test by agency
