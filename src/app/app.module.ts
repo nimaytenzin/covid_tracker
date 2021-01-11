@@ -47,10 +47,7 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { TestDashboardComponent } from './test-dashboard/test-dashboard.component';
 import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
 import { MatSortModule } from "@angular/material";
-import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import { FlatpickrModule } from 'angularx-flatpickr';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -105,10 +102,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     WebcamModule,
     QRCodeModule,
     ZXingScannerModule,
-    MatTableModule,
-    NgbModalModule,
-    FlatpickrModule.forRoot(),
-    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    MatTableModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}
