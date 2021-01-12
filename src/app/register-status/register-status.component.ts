@@ -50,6 +50,7 @@ export class SubjectDetails{
   work_category:string;
   work_agency: string;
   work_remarks:string;
+  
 
   residence_dzongkhag:string;
   residence_zone:string;
@@ -80,8 +81,8 @@ export class Certificate{
 export class RegisterStatusComponent implements OnInit {
   falseValue = 'No'
   trueValue = 'Yes';
-  
- 
+  showDessupFields:boolean; 
+  subAgency = "Sub Agency"
   dzongkhags: Dzongkhag[] = [];
   zones: Zone[] = [];
   agencyCategories: Dropdown [] =[]
@@ -114,13 +115,11 @@ export class RegisterStatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
-    console.log(sessionStorage)
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
     
-
+    this.showDessupFields = false
   }
   
   antigenTest(checkbox: MatCheckbox, checked: boolean) {
@@ -189,6 +188,14 @@ export class RegisterStatusComponent implements OnInit {
     this.dataService.getZones(dzongkhagId).subscribe(response => {
       this.superZones = response.data;
     });
+  }
+  dessung(item){
+    console.log(item)
+    if(item ===1 ){
+      this.subAgency = "SuperZones"
+    }else{
+      this.subAgency = "Sub Agency"
+    }
   }
 
   submit(){

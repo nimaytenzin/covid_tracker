@@ -57,9 +57,10 @@
                 </mat-select>
               </mat-form-field>
 
+
               <mat-form-field class="justifier">
                 <mat-label>Zone/Gewog</mat-label>
-                <mat-select name="zone"  formControlName="zoneControl" >
+                <mat-select name="zone"  formControlName="zoneControl" (selectionChange)="dessung($event.value)" >
                   <mat-option *ngFor="let zone of zones" [value]="zone.id" >
                     {{zone.name}}
                   </mat-option>
@@ -76,7 +77,7 @@
               </mat-form-field>
 
               <mat-form-field class="justifier">
-                <mat-label>Sub-Agency</mat-label>
+                <mat-label>{{subAgency}}</mat-label>
                 <mat-select name="agency" formControlName= "agencyControl"  >
                   <mat-option *ngFor="let agency of agencies" [value]="agency.id">
                     {{agency.name}}
