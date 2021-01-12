@@ -1,18 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material';
 import * as Chart from 'chart.js';
+import { sub } from 'date-fns';
+import { ExportService } from '../export.service';
 import { DataService } from '../service/data.service';
 
+interface Dropdown{
+  id: string,
+  name: string
+}
 
-// interface Fronliners{
-//   slN: number,
-//   name: string,
-//   sex:string,
-//   age:string,
-//   contact:string,
-//   work_Agency:string,
-//   work_zone:string
-// }
+
 
 @Component({
   selector: 'app-frontline-dash',
@@ -26,100 +25,192 @@ export class FrontlineDashComponent implements OnInit {
   totalFrontliners:any;
   frontlinerMale:any;
   frontlinerFemale:any;
-  // dataSource:any;
+  filterDataForm: FormGroup;
 
-  // displayedColumns: string[] = ['slNo', 'name', 'sex', 'age', 'contact', 'work_agency', 'work_zone'];
+  @ViewChild('testTable', {static: false}) testTable: ElementRef;
+  
+  dzongkhags: Dropdown[] = [];
+  zones: Dropdown[] = [];
+  agencyCategories: Dropdown [] =[]
+  agencies:Dropdown[] =[]
+  superZones: Dropdown[] = [];
+  showTable:boolean;
+  totalCount:number;
+  totalMale:number;
+  totalFemale:number;
+  agencyName:string;
+  dzongkhagName:string;
+ 
 
-  canvas1: any;
-  ctx1: any;
-  canvas2:any;
-  ctx2:any;
-
-  frontlinerAgencyData: Array<any> =[];
-  frontlinerAgencyLabel:Array<any> =[];
-  frontlinerDzongkhagData: Array<any> =[];
-  frontlinerDzongkhagLabel:Array<any> =[];
+  dataSource:any;
+  displayedColumns: string[] = ['slNo', 'name', 'sex', 'age', 'cid','contact'];
+  Subjects:Array<any> =[];
 
   constructor(
-    private dataService: DataService
+    private dataService: DataService,
+    private fb: FormBuilder,
+    private exportService: ExportService
   ) { }
 
   ngOnInit() {
-    this.totalFrontliners = 0;
-    this.frontlinerMale = 0;
-    this.frontlinerFemale =0;
-
-    this.dataService.getAllSubjects().subscribe(res => {
-
-
-    // this.dataSource = new MatTableDataSource<Fronliners>(res.data);
-    //card value Definition
-       this.totalFrontliners = res.data.length;
-
-        res.data.forEach(item => {
-          if(item.sex === "Male"){
-            this.frontlinerMale +=1;
-          }else if(item.sex === "Female"){
-            this.frontlinerFemale +=1;
-          }
-        })
-
-        var arr2 = Object.keys(arr2 = res.data.map(function(item) {
-          return item.work_category
-        }).reduce(function(acc,curr){
-            acc[curr] = acc[curr] + 1 || 1;
-            return acc;
-        }, [])).map(function(item){
-            return {testDate: item, value: arr2[item]}
-        });
-        arr2.forEach(element => {
-          this.frontlinerAgencyLabel.unshift(element.testDate)
-          this.frontlinerAgencyData.unshift(element.value)
-        });
-        this.frontlinersByAgencyChart()
-    })
-
-    
-    
+    this.getDzongkhagList();
+    this.reactiveForm();
+    this.getAgencyCategories();
+    this.showTable = false
+    this.totalMale =0;
+    this.totalFemale =0;
   }
 
-  frontlinersByAgencyChart(){
-    Chart.defaults.global.legend.display = false;
-    
-    this.canvas1 = document.getElementById('testByAgencyBarChart');
-    this.ctx1 = this.canvas1.getContext('2d');
-    let myChart = new Chart(this.ctx1,{
-      type: 'bar',
-      data: {
-          labels: this.frontlinerAgencyLabel,
-          datasets: [{
-              label: 'Nos of Tests',
-              data: this.frontlinerAgencyData,
-              backgroundColor: [
-                  '#FFC05C',
-                  '#3F51B5',
-                  '#b8f4ff',
-                  '#cc759a',
-                  '#4faaa1',
-                  '#edffc9'
-             ],
-              borderWidth: 1
-          }]
-      },
-      options: {
-        datalabels:{
-          color: 'red'
-        },
-        title: {
-          display: true,
-          fontSize: 20,
-          text: 'Frontliners by Agency'
-      },
-      maintainAspectRatio: false,
-        responsive: true,
-        display:true
-      },
-     
+  reactiveForm(){
+    this.filterDataForm = this.fb.group({
+      workDzongkhagControl:[],
+      zoneControl:[],
+      agencyCategoryControl:[],
+      agencyControl:[]
+    })
+  }
+
+  
+  getDzongkhagList() {
+    this.dataService.getDzongkhags().subscribe(response => {
+      this.dzongkhags = response.data;
     });
   }
+  getAgencyCategories(){ 
+    this.dataService.getAgencyCategories().subscribe(response => {
+      this.agencyCategories = response.data
+    })
+  }
+  getAgencies(agencyCategoryId){
+    this.dataService.getAgencies(agencyCategoryId).subscribe(response => {
+      this.agencies = response.data
+    })
+  }
+
+  getZones(dzoId){
+    this.dataService.getZones(dzoId).subscribe(response => {
+      this.zones = response.data
+    })
+  }
+  getZoneList(dzongkhagId) {
+    this.dataService.getZones(dzongkhagId).subscribe(response => {
+      this.superZones = response.data;
+    });
+  }
+
+  sortByDzongkhag(){
+    this.showTable = true
+    let dzongkhag = this.filterDataForm.get('workDzongkhagControl').value
+    let subZone = this.filterDataForm.get('zoneControl').value
+
+    console.log(this.agencyCategories)
+    function getKeyByValue(object, value) {
+      return Object.keys(object).find(key => object[key] === value);
+    }
+      
+    let array= [];
+    if(subZone === null){
+   
+      this.dataService.getAllSubjects().subscribe(res => {
+        res.data.forEach(item => {
+          if(item.work_dzongkhag === dzongkhag){
+            array.push(item)
+          }         
+  
+        }); 
+        this.dataSource = array;
+        console.log(array)
+        
+        array.forEach(item => {
+          if(item.sex === "Male"){
+            this.totalMale += 1
+          }else if (item.sex === "Female"){
+            this.totalFemale +=1
+          }
+        })
+        this.totalCount = array.length        
+      })
+    }else{
+      this.dataService.getAllSubjects().subscribe(res => {
+        res.data.forEach(item => {
+          if(item.work_zone === subZone){
+            array.push(item)
+          }         
+        }); 
+        this.dataSource = array;
+        array.forEach(item => {
+          if(item.sex === "Male"){
+            this.totalMale += 1
+          }else if (item.sex === "Female"){
+            this.totalFemale +=1
+          }
+        })
+        this.totalCount = array.length        
+      })
+    }
+
+    
+
+  }
+
+  sortByAgency(){
+    this.showTable = true
+    let agencyCategory = this.filterDataForm.get('agencyCategoryControl').value
+    let agency = this.filterDataForm.get('agencyControl').value
+    let array2=[]
+
+    if(agency === null){
+        this.dataService.getAllSubjects().subscribe(res =>{
+        res.data.forEach(item => {
+          if(item.work_category === agencyCategory){
+            array2.push(item)
+          }
+          this.dataSource = array2;
+          this.totalCount = array2.length
+          this.totalFemale=0
+          this.totalMale =0
+          array2.forEach(item => {
+            if(item.sex === "Male"){
+              this.totalMale += 1
+            }else if (item.sex === "Female"){
+              this.totalFemale +=1
+            }
+          })
+        });
+      })
+    }else{
+      this.dataService.getAllSubjects().subscribe(res =>{
+        res.data.forEach(item => {
+          if(item.work_agency === agency){
+            array2.push(item)
+          }
+          this.dataSource = array2;
+          this.totalCount = array2.length
+          this.totalFemale=0
+          this.totalMale =0
+          array2.forEach(item => {
+            if(item.sex === "Male"){
+              this.totalMale += 1
+            }else if (item.sex === "Female"){
+              this.totalFemale +=1
+            }
+          })
+        });
+      })
+      console.log(array2)
+    }
+    
+  }
+
+  
+  exportToExcel(): void {
+
+    var d = new Date(Date.now())
+    var s = d.toDateString()
+    s.replace(/\s+/g,'_').toLowerCase();
+          
+    this.exportService.exportTableElmToExcel(this.testTable, `${s}`);
+  }
+
+
 }

@@ -3,57 +3,9 @@
         <mat-form-field  class="search__form_field" appearance="outline" style="width: 50%;">
             <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Filter">
           </mat-form-field>
-
-         
-          
-        <!-- <mat-form-field class="search__form_field" appearance="outline">
-          <mat-label>Filter by Working Agency</mat-label>
-          <input type="text"
-                 aria-label="Departure station"
-                 matInput
-                 formControlName="agencyControl"
-                 (keyup)="applyFilter()"
-          >
-        </mat-form-field>
-    
-        <mat-form-field class="search__form_field" appearance="outline">
-          <mat-label>Filter by date</mat-label>
-          <input matInput
-                 formControlName="dateControl"
-                 [matDatepicker]="picker"
-              >
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field> -->
       </form>
 
-<!-- <table class="table table-bordered" id="test-table">
-    <tr>
-      <th>Sl no.</th>
-      <th>Sample ID</th>
-      <th>Name</th>
-      <th>CID</th>
-      <th>RT-PCR Test</th>
-      <th>Antigen Test</th>
-      <th>Antibody Test</th>
-      <th>Test Date</th>
-      <th>Next Test </th>
-      <th>Status</th>
-    </tr>
-    <tr *ngFor = "let test of tests; let i = index">
-        <td>{{i+1}}</td>
-        <td>{{test.id}}</td>
-        <td>{{test.Subject.name}}</td>
-        <td>{{test.Subject.cid}}</td>
-        <td>{{test.result_RTPCR || test.status}}</td>
-        <td>{{test.result_AG || test.status}}</td>
-        <td>{{test.result_AB || test.status}}</td>
-        <td>{{test.test_date | date: 'mediumDate'}}</td>
-        <td>{{test.exp_date | date: 'mediumDate'}}</td>
-        <td>{{test.status}}</td>
-    </tr>
-  </table>
-</div> -->
+
 
 
 <p style="color: gray; font-weight: lighter;">Sort by clicking on the table header</p>
@@ -62,12 +14,12 @@
     <!-- Position Column -->
     <ng-container matColumnDef="slNo">
       <th mat-header-cell *matHeaderCellDef >Sl-No </th>
-      <td mat-cell *matCellDef="let test"> {{test.sample_id}} </td>
+      <td mat-cell *matCellDef="let test; let i = index"> {{i+1}} </td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="sample_id">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header> sample_id </th>
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header> Sample_id </th>
       <td mat-cell *matCellDef="let test"> {{test.sample_id}} </td>
     </ng-container>
   
@@ -86,20 +38,6 @@
      <ng-container matColumnDef="Subject.work_agency">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Work-Agency </th>
       <td mat-cell *matCellDef="let test"> {{test.Subject.work_agency}} </td>
-    </ng-container>
-    <ng-container matColumnDef="test_RTPCR">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> RT- PCR </th>
-    <td mat-cell *matCellDef="let test"> {{test.result_RTPCR || test.status}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="test_AG">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Antigen Test </th>
-    <td mat-cell *matCellDef="let test"> {{test.result_AG || test.status}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="test_AB">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Antibody Test </th>
-        <td mat-cell *matCellDef="let test"> {{test.result_AB || test.status}} </td>
     </ng-container>
   
     <ng-container matColumnDef="test_date">

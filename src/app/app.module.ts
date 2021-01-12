@@ -47,7 +47,7 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { TestDashboardComponent } from './test-dashboard/test-dashboard.component';
 import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
 import { MatSortModule } from "@angular/material";
-
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -74,6 +74,7 @@ import { MatSortModule } from "@angular/material";
 
   ],
   imports: [
+    MatTabsModule,
     BrowserModule,
     MatSortModule,
     MatDatepickerModule,

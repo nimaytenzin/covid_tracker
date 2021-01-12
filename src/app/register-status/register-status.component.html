@@ -2,7 +2,7 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
     <img src="../assets/app-logo.png" alt="" width="50px">
-    <h1 style="margin-left: 10px;">Covid Test Record | Frontliners </h1>
+    <h1 style="margin-left: 10px;">Covid-19 Test Record | Frontliners </h1>
     <span class="menu-spacer"></span>
   </mat-toolbar-row>
 </mat-toolbar>
@@ -139,10 +139,11 @@
               </mat-form-field>
               <mat-form-field appearance="fill" class="justifier">
                 <mat-label>Date of Testing</mat-label>
-                <input matInput [matDatepicker]="dp3" disabled name="testDate" formControlName ="testDateControl">
+                <input matInput [matDatepicker]="dp3"  name="testDate" formControlName ="testDateControl">
                 <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
                 <mat-datepicker #dp3 disabled="false"></mat-datepicker>
               </mat-form-field>
+              
               <mat-form-field class="justifier">
                 <mat-label>Place of Sample Collection</mat-label>
                 <input matInput type="text" name="testPlace" formControlName="testPlaceControl"  required autofocus>

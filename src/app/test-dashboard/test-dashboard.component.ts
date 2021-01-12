@@ -31,7 +31,7 @@ interface Test{
 
 export class TestDashboardComponent implements OnInit,AfterViewInit  {
   
-  displayedColumns: string[] = ['slNo', 'sample_id', 'Subject.name', 'Subject.cid', 'Subject.work_agency','test_RTPCR', 'test_AG', 'test_AB', 'test_date', 'exp_date'];
+  displayedColumns: string[] = ['slNo', 'sample_id', 'Subject.name', 'Subject.cid', 'Subject.work_agency', 'test_date', 'exp_date'];
   dataSource: any;
   tests:Array<any> =[];
   searchForm:FormGroup;

@@ -118,7 +118,7 @@ export class RegisterStatusComponent implements OnInit {
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
-    
+    this.registerSubjectForm.controls['testDateControl'].setValue(new Date())
     this.showDessupFields = false
   }
   
@@ -142,7 +142,7 @@ export class RegisterStatusComponent implements OnInit {
     this.certificate.test_RTPCR = "No";
     this.certificate.test_AG = "No";
     this.certificate.test_AB = "No";
-
+    
     this.registerSubjectForm = this.fb.group({
       cidControl: [''],
       nameControl:[],
@@ -158,7 +158,7 @@ export class RegisterStatusComponent implements OnInit {
       residenceZoneControl:[],
       residenceAccomodationControl:[],
       sampleIdControl:[],
-      testDateControl: Date.now(),
+      testDateControl:[],
       testPlaceControl:[]
     });
   }

@@ -96,6 +96,7 @@ export class MainDashboardComponent implements OnInit {
           }, [])).map(function(item){
               return {testDate: item, value: arr2[item]}
           });
+          
           arr2.forEach(element => {
             this.frontlinerAgencyLabel.push(element.testDate)
             this.frontlinerAgencyData.push(element.value)
