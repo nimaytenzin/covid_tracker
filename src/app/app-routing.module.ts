@@ -17,6 +17,7 @@ import { MainDashboardComponent } from './main-dashboard/main-dashboard.componen
 import { FrontlineDashComponent } from './frontline-dash/frontline-dash.component';
 import { TestDashboardComponent } from './test-dashboard/test-dashboard.component';
 import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
+import { TeamSummaryComponent } from './team-summary/team-summary.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
   children: [
     { path: 'dashboard', component: MainDashboardComponent },
     {path:'frontliner-dash', component:FrontlineDashComponent},
-    {path:'test-dash', component:TestDashboardComponent}
+    {path:'test-dash', component:TestDashboardComponent},
+    {path:'team-summary', component:TeamSummaryComponent}
  ],},
   {path: 'verify', component:VerifyComponent},
   {path: 'add-result', component: AddResultComponent},

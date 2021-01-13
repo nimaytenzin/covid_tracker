@@ -8,6 +8,7 @@ import { ErrorComponent } from './error/error.component';
 import { SelectZoneComponent } from './select-zone/select-zone.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import {
   MatButtonModule,
   MatFormFieldModule,
@@ -48,6 +49,7 @@ import { TestDashboardComponent } from './test-dashboard/test-dashboard.componen
 import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
 import { MatSortModule } from "@angular/material";
 import {MatTabsModule} from '@angular/material/tabs';
+import { TeamSummaryComponent } from './team-summary/team-summary.component';
 
 
 @NgModule({
@@ -70,7 +72,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     AdminComponent,
     MainDashboardComponent,
     TestDashboardComponent,
-    PlannerDashboardComponent
+    PlannerDashboardComponent,
+    TeamSummaryComponent
 
   ],
   imports: [
@@ -103,7 +106,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     WebcamModule,
     QRCodeModule,
     ZXingScannerModule,
-    MatTableModule
+    MatTableModule,
+     NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}

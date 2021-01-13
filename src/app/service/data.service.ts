@@ -122,7 +122,21 @@ export class DataService {
       );
   }
 
- 
+ getAllOperators(){
+  return this.http
+  .get<any>(`${this.API_URL}/operator/get-all-op`, this.httpOptions)
+  .pipe(
+    catchError(this.handleError)
+  );
+ }
+
+ getCidDetais(cid){
+  return this.http
+  .get<any>(`${this.API_URL}/api/get-cid/${cid}`, this.httpOptions)
+  .pipe(
+    catchError(this.handleError)
+  );
+ }
 
   getZones(dzongkhagId) {
     return this.http

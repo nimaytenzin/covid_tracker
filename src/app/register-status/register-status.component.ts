@@ -115,6 +115,7 @@ export class RegisterStatusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
@@ -305,6 +306,10 @@ export class RegisterStatusComponent implements OnInit {
         }
 
       })
+      // this.dataService.getCidDetais(cid).subscribe(res => {
+      //   console.log(res.data.citizendetails.citizendetail[0])
+      //   console.log(res.data.citizendetails.citizendetail[0].firstNamebh)
+      // })
     }
     
     
