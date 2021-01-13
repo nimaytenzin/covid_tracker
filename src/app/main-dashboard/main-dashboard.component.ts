@@ -458,13 +458,15 @@ export class MainDashboardComponent implements OnInit {
       data: {
           labels: this.frontlinerAgencyLabel,
           datasets: [{
+              barPercentage: 0.999,
+              categoryPercentage:0.8,
               label: 'frontliners',
               data: this.frontlinerAgencyData,
               backgroundColor: [
-                '#FFC05C',
-                '#3F51B5',
-                '#b8f4ff',
                 '#cc759a',
+                'rgb(255,99,14)',
+                '#b8f4ff',
+                '#FFC05C',
                 '#4faaa1',
                 '#edffc9',
                 "#E3E8CD",
@@ -487,6 +489,20 @@ export class MainDashboardComponent implements OnInit {
           }]
       },
       options: {
+        
+
+        scales: {
+          xAxes: [{
+            ticks: {
+              // autoSkip: false,
+              // maxRotation: 90,
+              // minRotation: 90
+          }
+         }],
+          yAxes: [{
+            display: false  
+          }]
+      },
         datalabels:{
           color: 'red'
         },
@@ -499,6 +515,7 @@ export class MainDashboardComponent implements OnInit {
         responsive: true,
         display:true
       },
+      
      
     });
   }
