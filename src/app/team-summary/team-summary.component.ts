@@ -3,7 +3,6 @@ import { ExportService } from '../export.service';
 import { DataService } from '../service/data.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatTableDataSource } from '@angular/material';
-import { type } from 'os';
 
 // interface Test {
 //   operator_id: number,
