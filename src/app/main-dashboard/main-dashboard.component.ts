@@ -22,7 +22,8 @@ export class MainDashboardComponent implements OnInit {
   totalFrontliners:any;
   frontlinerMale:any;
   frontlinerFemale:any;
-
+  testsTodayFemale:number;
+  testsTodayMale:number
 
 
   //table population
@@ -37,6 +38,7 @@ export class MainDashboardComponent implements OnInit {
   dailyMaleLineChartData:Array<any> =[];
   dailyFemaleLineChartLabel: Array<any> =[];
   dailyFemaleLLineChartData:Array<any> =[];
+  testsToday:number;
 
   gg: Array<any> =[];
   fem:Array <any> =[];
@@ -84,16 +86,11 @@ export class MainDashboardComponent implements OnInit {
       for(var i in res.data){
         categoryHash.set(res.data[i].id,res.data[i].name)
       }
-      console.log(categoryHash)
     })
   
     this.dataService.getAllSubjects().subscribe(res => {
          this.totalFrontliners = res.data.length;
-          var categoryCount = new Map<string,number>()
-
-       
-
-        
+          var categoryCount = new Map<string,number>()       
           for(var i in res.data){ 
             if(res.data[i].sex === "Male"){
               this.frontlinerMale += 1
@@ -163,6 +160,7 @@ export class MainDashboardComponent implements OnInit {
           this.dailyMaleLineChartData.unshift(value)
         })
         
+        this.testsTodayMale = this.dailyMaleLineChartData[this.dailyMaleLineChartData.length -1]
 
         var femaleDCount = new Map<number,number>();
         for( i in this.fem){
@@ -179,8 +177,8 @@ export class MainDashboardComponent implements OnInit {
           this.dailyFemaleLineChartLabel.unshift(string)
           this.dailyFemaleLLineChartData.unshift(value)
         })
+        this.testsTodayFemale = this.dailyFemaleLLineChartData[this.dailyFemaleLLineChartData.length -1]
       
-
         var totalDaily = new Map<number,number>();
 
         for( i in res.data){
@@ -197,7 +195,8 @@ export class MainDashboardComponent implements OnInit {
           this.lineChartLabel.unshift(string)
           this.lineChartdata.unshift(value)
         })
-       
+
+        this.testsToday = this.lineChartdata[this.lineChartdata.length - 1]
 
         var testByAgency = new Map<string,number>()
           for(var i in res.data){

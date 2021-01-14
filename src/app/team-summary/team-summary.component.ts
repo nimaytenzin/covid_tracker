@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ExportService } from '../export.service';
 import { DataService } from '../service/data.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatTableDataSource } from '@angular/material';
-
+import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
 // interface Test {
 //   operator_id: number,
 //   sample_id:number,
@@ -27,37 +27,47 @@ import { MatTableDataSource } from '@angular/material';
   styleUrls: ['./team-summary.component.scss']
 })
 export class TeamSummaryComponent implements OnInit {
+  @ViewChild('testTable', {static: false}) testTable: ElementRef;
+
+  message: string;
+  actionButtonLabel: string = '';
+  action: boolean = true;
+  setAutoHide: boolean = true;
+  autoHide: number = 2000;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  
 
   dropdownList = [];
   selectedItems = [];
-  displayedColumns: string[] = 
-      ['slNo', 
-      'operator_id',
-      'sample_id', 
-      'Subject.name',
-       'Subject.cid', 
-      'Subject.contact',
-      'test_RTPCR',
-      'test_AG',
-      'test_AB',
-      'test_date',
-      "test_place"
-      ];
+  // displayedColumns: string[] = 
+  //     ['slNo', 
+  //     'operator_id',
+  //     'sample_id', 
+  //     'Subject.name',
+  //      'Subject.cid', 
+  //     'Subject.contact',
+  //     'test_RTPCR',
+  //     'test_AG',
+  //     'test_AB',
+  //     'test_date',
+  //     "test_place"
+  //     ];
 
-  operatorId:number;
+  // operatorId:number;
   tests= [];
   selectedOperators =[7,8];
-  dataSource :any;
   dropdownSettings:IDropdownSettings;
   
   constructor(
     private dataService: DataService,
-    private exportService: ExportService
+    private exportService: ExportService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
     
-    this.operatorId = 2
+
     this.dataService.getAllOperators().subscribe(res => {
       this.dropdownList = res.data
     })
@@ -81,23 +91,49 @@ export class TeamSummaryComponent implements OnInit {
     }
     
   }
+
+  openSnackBar() {
+    let config = new MatSnackBarConfig();
+    config.verticalPosition = this.verticalPosition;
+    config.horizontalPosition = this.horizontalPosition;
+    config.duration = this.setAutoHide ? this.autoHide : 0;
+    this._snackBar.open(this.message, this.action ? this.actionButtonLabel : undefined, config);
+  }
+  
   onSelectAll(items: any) {
     console.log(items);
   }
+
+  exportToExcel(): void {
+
+    var d = new Date(Date.now())
+    var s = d.toDateString()
+    s.replace(/\s+/g,'_').toLowerCase();
+          
+    let oId = sessionStorage.getItem('operatorId')
+    this.exportService.exportTableElmToExcel(this.testTable, `${s}`);
+  }
   
 
-  getSummary(){ 
-        
+  getSummary(){       
     let data= [];
-
-    for(let i in this.selectedItems){
-      this.dataService.getCertificateByOperatorId(this.selectedItems[i].id).subscribe(res => {
-        for(let index in res.data){
-          data.push(res.data[index])
-        }
-        this.dataSource = new MatTableDataSource(data)
-
-     })
+    if(this.selectedItems.length === 0){
+      this.message = "Select Operators"
+      this.openSnackBar()
+    }else{
+      for(let i in this.selectedItems){
+        this.dataService.getCertificateByOperatorId(this.selectedItems[i].id).subscribe(res => {
+          for(let index in res.data){
+            data.push(res.data[index])
+          }
+          if(data.length === 0){
+            this.message = "No Data for selected Operators"
+            this.openSnackBar()
+          }else{
+            this.tests = data
+          }
+       })
+    }
 
      
    }
