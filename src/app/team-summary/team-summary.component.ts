@@ -4,22 +4,6 @@ import { DataService } from '../service/data.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { MatTableDataSource } from '@angular/material';
 import {MatSnackBar, MatSnackBarConfig, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition} from '@angular/material/snack-bar';
-// interface Test {
-//   operator_id: number,
-//   sample_id:number,
-//   Subject.name:string,
-
-
-//   '', 
-//   'Subject.name',
-//    'Subject.cid', 
-//   'Subject.contact',
-//   'test_RTPCR',
-//   'test_AG',
-//   'test_AB',
-//   'test_date', 
-//   ];
-// }
 
 @Component({
   selector: 'app-team-summary',
@@ -36,25 +20,11 @@ export class TeamSummaryComponent implements OnInit {
   autoHide: number = 2000;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
-  
+  agencyCategoryArray =[];
 
   dropdownList = [];
   selectedItems = [];
-  // displayedColumns: string[] = 
-  //     ['slNo', 
-  //     'operator_id',
-  //     'sample_id', 
-  //     'Subject.name',
-  //      'Subject.cid', 
-  //     'Subject.contact',
-  //     'test_RTPCR',
-  //     'test_AG',
-  //     'test_AB',
-  //     'test_date',
-  //     "test_place"
-  //     ];
 
-  // operatorId:number;
   tests= [];
   selectedOperators =[7,8];
   dropdownSettings:IDropdownSettings;
@@ -67,6 +37,7 @@ export class TeamSummaryComponent implements OnInit {
 
   ngOnInit() {
     
+    this.getAgencyName(2)
 
     this.dataService.getAllOperators().subscribe(res => {
       this.dropdownList = res.data
@@ -126,22 +97,21 @@ export class TeamSummaryComponent implements OnInit {
           for(let index in res.data){
             data.push(res.data[index])
           }
-          if(data.length === 0){
-            this.message = "No Data for selected Operators"
-            this.openSnackBar()
-          }else{
-            this.tests = data
-          }
+            this.tests = data 
        })
-    }
-
-     
+      }    
    }
 
-  
-  //   
   }
 
-  
+  getAgencyName(id){
+    this.dataService.getAgencyCategories().subscribe((res) => {
+      this.agencyCategoryArray = res.data
+      console.log(this.agencyCategoryArray)
+      console.log(this.agencyCategoryArray.find(obj => obj.id === id).name)  
+    })
+    
+  }
+ 
 
 }

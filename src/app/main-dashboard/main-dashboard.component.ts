@@ -143,32 +143,34 @@ export class MainDashboardComponent implements OnInit {
 
         //Male daily
 
-        var maleDailyCount = new Map<number,number>();
+        var maleDailyCount = new Map<string,number>();
 
         for( i in this.gg){
-          let z = maleDailyCount.get(Date.parse(this.gg[i].test_date))
+          let string1 = new Date(Date.parse(this.gg[i].test_date)).toString().slice(0,15)
+          let z = maleDailyCount.get(string1)
           if(z){
-            maleDailyCount.set(Date.parse(this.gg[i].test_date), z+1)
+            maleDailyCount.set(string1, z+1)
           }else{
-            maleDailyCount.set(Date.parse(this.gg[i].test_date), 1)
+            maleDailyCount.set(string1, 1)
           }
         }
 
         maleDailyCount.forEach( (value,key) =>{
-          let string = new Date(key).toString().slice(0,15)
+          let string = new Date(key).toString()
           this.dailyMaleLineChartLabel.unshift(string)
           this.dailyMaleLineChartData.unshift(value)
         })
         
         this.testsTodayMale = this.dailyMaleLineChartData[this.dailyMaleLineChartData.length -1]
 
-        var femaleDCount = new Map<number,number>();
+        var femaleDCount = new Map<string,number>();
         for( i in this.fem){
-          let z = femaleDCount.get(Date.parse(this.fem[i].test_date))
+          let string2 = new Date(Date.parse(this.fem[i].test_date)).toString().slice(0,15)
+          let z = femaleDCount.get(string2)
           if(z){
-            femaleDCount.set(Date.parse(this.fem[i].test_date), z+1)
+            femaleDCount.set(string2, z+1)
           }else{
-            femaleDCount.set(Date.parse(this.fem[i].test_date), 1)
+            femaleDCount.set(string2, 1)
           }
         }
    
@@ -179,15 +181,16 @@ export class MainDashboardComponent implements OnInit {
         })
         this.testsTodayFemale = this.dailyFemaleLLineChartData[this.dailyFemaleLLineChartData.length -1]
       
-        var totalDaily = new Map<number,number>();
+        var totalDaily = new Map<string,number>();
 
         for( i in res.data){
-          let z = totalDaily.get(Date.parse(res.data[i].test_date))
-
+          let string = new Date(Date.parse(res.data[i].test_date)).toString().slice(0,15)
+          let z = totalDaily.get(string)
+          
           if(z){
-            totalDaily.set(Date.parse(res.data[i].test_date), z+1)
+            totalDaily.set(string, z+1)
           }else{
-            totalDaily.set(Date.parse(res.data[i].test_date), 1)
+            totalDaily.set(string, 1)
           }
         }
        totalDaily.forEach( (value,key) =>{
@@ -323,7 +326,7 @@ export class MainDashboardComponent implements OnInit {
       usePointStyle:true,
       data: {
         usePointStyle:true,
-      labels: this.dailyMaleLineChartLabel,
+      labels: this.lineChartLabel,
       
       datasets: [
         {
@@ -334,7 +337,7 @@ export class MainDashboardComponent implements OnInit {
             pointRadius: 5,
             pointHitRadius: 30,
             pointBorderWidth: 2,
-      },
+        },
       {
               data: this.dailyMaleLineChartData,
               label: "Male",
@@ -343,8 +346,7 @@ export class MainDashboardComponent implements OnInit {
               pointRadius: 5,
               pointHitRadius: 30,
               pointBorderWidth: 2,
-        }
-        ,
+        },
         {
           data: this.dailyFemaleLLineChartData,
           label: "Female",
@@ -404,14 +406,15 @@ export class MainDashboardComponent implements OnInit {
               label: 'Nos of Tests',
               data: this.testAgencyBarData,
               backgroundColor:[
-                '#FFC05C',
-                '#3F51B5',
-                '#b8f4ff',
                 '#cc759a',
+                'rgb(255,99,14)',
+                '#b8f4ff',
+                '#FFC05C',
                 '#4faaa1',
                 '#edffc9',
                 "#E3E8CD",
                 "#BCD8BF",
+                "#D3B9A3",
                 "#D3B9A3",
                 "#EE9C92",
                 "#FE857E",
