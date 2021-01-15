@@ -30,7 +30,7 @@ interface Test{
 
 export class DesuungComponent implements OnInit,AfterViewInit  {
   
-  displayedColumns: string[] = ['slNo', 'sample_id', 'Subject.name', 'Subject.cid', 'test_date', 'exp_date'];
+  displayedColumns: string[] = ['slNo', 'sample_id', 'Subject.name', 'Subject.cid', 'test_date', 'place','result_RTPCR', 'result_AG','result_AB', 'status'];
   dataSource: any;
   tests:Array<any> =[];
   searchForm:FormGroup;
@@ -80,8 +80,6 @@ export class DesuungComponent implements OnInit,AfterViewInit  {
         this.tests = res.data.filter(x=>{
           return x.Subject.work_category == 3
         })
-        console.log("filder there")
-        console.log(this.tests)
         this.dataSource = new MatTableDataSource(this.tests);
 
         this.dataSource.sortingDataAccessor = (item,property) => {
