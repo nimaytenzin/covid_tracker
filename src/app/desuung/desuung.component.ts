@@ -30,7 +30,7 @@ interface Test{
 
 export class DesuungComponent implements OnInit,AfterViewInit  {
   
-  displayedColumns: string[] = ['slNo', 'sample_id', 'Subject.name', 'Subject.cid', 'test_date', 'exp_date'];
+  displayedColumns: string[] = ['slNo', 'sample_id', 'Subject.name', 'Subject.cid', 'testType','testResult','place','test_date', 'exp_date'];
   dataSource: any;
   tests:Array<any> =[];
   searchForm:FormGroup;

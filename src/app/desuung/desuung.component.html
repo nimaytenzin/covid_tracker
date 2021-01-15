@@ -37,6 +37,20 @@
       <td mat-cell *matCellDef="let test"> {{test.Subject.cid}} </td>
     </ng-container>
 
+    <ng-container matColumnDef="testType">
+      <th mat-header-cell *matHeaderCellDef > Test Type (RTPCR/Antigen/Antibody)</th>
+      <td mat-cell *matCellDef="let test"> {{test.test_RTPCR}}/{{test.test_AG}}/{{test.test_AB}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="testResult">
+      <th mat-header-cell *matHeaderCellDef > Test Result(RTPCR/Antigen/Antibody)</th>
+      <td mat-cell *matCellDef="let test"> {{test.result_RTPCR || 'NA'}}/{{test.result_AG || 'NA'}}/{{test.result_AB || 'NA'}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="place">
+      <th mat-header-cell *matHeaderCellDef > Place of collection</th>
+      <td mat-cell *matCellDef="let test"> {{test.place}} </td>
+    </ng-container>
     <!-- <ng-container matColumnDef="Subject.work_agency">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Work-Agency </th>
       <td mat-cell *matCellDef="let test"> {{test.Subject.work_agency}} </td>
