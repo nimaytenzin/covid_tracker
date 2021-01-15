@@ -50,6 +50,7 @@ import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard
 import { MatSortModule } from "@angular/material";
 import {MatTabsModule} from '@angular/material/tabs';
 import { TeamSummaryComponent } from './team-summary/team-summary.component';
+import { DesuungComponent } from './desuung/desuung.component';
 
 
 @NgModule({
@@ -73,7 +74,8 @@ import { TeamSummaryComponent } from './team-summary/team-summary.component';
     MainDashboardComponent,
     TestDashboardComponent,
     PlannerDashboardComponent,
-    TeamSummaryComponent
+    TeamSummaryComponent,
+    DesuungComponent
 
   ],
   imports: [
