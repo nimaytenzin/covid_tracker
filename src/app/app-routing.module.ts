@@ -19,13 +19,15 @@ import { TestDashboardComponent } from './test-dashboard/test-dashboard.componen
 import { PlannerDashboardComponent } from './planner-dashboard/planner-dashboard.component';
 import { TeamSummaryComponent } from './team-summary/team-summary.component';
 import { DesuungComponent } from './desuung/desuung.component';
+import { FrontlineRegistrationComponent } from './frontline-registration/frontline-registration.component';
 
 const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path:'register', component: RegisterStatusComponent},
   {path: 'navigate', component: RecordVerifyComponent},
-  {path: 'admin', component:AdminComponent,
+  {path:'frontline-registration', component:FrontlineRegistrationComponent},
+    {path: 'admin', component:AdminComponent,
   children: [
     { path: 'dashboard', component: MainDashboardComponent },
     {path:'frontliner-dash', component:FrontlineDashComponent},

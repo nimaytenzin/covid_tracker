@@ -51,6 +51,7 @@ import { MatSortModule } from "@angular/material";
 import {MatTabsModule} from '@angular/material/tabs';
 import { TeamSummaryComponent } from './team-summary/team-summary.component';
 import { DesuungComponent } from './desuung/desuung.component';
+import { FrontlineRegistrationComponent } from './frontline-registration/frontline-registration.component';
 
 
 @NgModule({
@@ -75,7 +76,8 @@ import { DesuungComponent } from './desuung/desuung.component';
     TestDashboardComponent,
     PlannerDashboardComponent,
     TeamSummaryComponent,
-    DesuungComponent
+    DesuungComponent,
+    FrontlineRegistrationComponent
 
   ],
   imports: [

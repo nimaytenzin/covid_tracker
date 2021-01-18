@@ -39,6 +39,11 @@ export class LoginComponent implements OnInit {
     this.loginForm.controls.cid.setValue(localStorage.getItem('loginId'));
   }
 
+  frontlinerRegister(){
+    this.router.navigate(['frontline-registration'])
+    
+  }
+
   
   login() {
     this.submitted = true;
