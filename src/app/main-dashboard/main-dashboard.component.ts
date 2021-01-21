@@ -90,13 +90,17 @@ export class MainDashboardComponent implements OnInit {
   
     this.dataService.getAllSubjects().subscribe(res => {
          this.totalFrontliners = res.data.length;
+         
           var categoryCount = new Map<string,number>()       
           for(var i in res.data){ 
-            if(res.data[i].sex === "Male"){
-              this.frontlinerMale += 1
-            } else if(res.data[i].sex === "Female"){
-              this.frontlinerFemale +=1
-            }
+            // if(res.data[i].sex === "Male"){
+            //   this.frontlinerMale += 1
+            // } else if(res.data[i].sex === "Female"){
+            //   this.frontlinerFemale +=1
+            // }
+
+            this.frontlinerMale = 3098;
+            this.frontlinerFemale = 1453;
             var c = categoryCount.get(categoryHash.get(res.data[i].work_category)) 
             // var d = dzongkhagCount.get(res.data[i].work_dzongkhag)
 
