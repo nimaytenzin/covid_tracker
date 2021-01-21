@@ -161,6 +161,9 @@ export class MainDashboardComponent implements OnInit {
           this.dailyMaleLineChartData.unshift(value)
         })
         
+        console.log("Male", this.dailyMaleLineChartLabel)
+        console.log(this.dailyMaleLineChartData)
+        
         this.testsTodayMale = this.dailyMaleLineChartData[this.dailyMaleLineChartData.length -1]
 
         var femaleDCount = new Map<string,number>();
@@ -180,6 +183,9 @@ export class MainDashboardComponent implements OnInit {
           this.dailyFemaleLLineChartData.unshift(value)
         })
         this.testsTodayFemale = this.dailyFemaleLLineChartData[this.dailyFemaleLLineChartData.length -1]
+
+        console.log("Female", this.dailyFemaleLineChartLabel)
+        console.log(this.dailyFemaleLLineChartData)
       
         var totalDaily = new Map<string,number>();
 
@@ -348,7 +354,7 @@ export class MainDashboardComponent implements OnInit {
               pointBorderWidth: 2,
         },
         {
-          data: this.dailyFemaleLLineChartData,
+          data: [3,14,12,27,26,1,0,0,1,0,11,61],
           label: "Female",
           backgroundColor:"transparent",
           borderColor:"#4F74E0",

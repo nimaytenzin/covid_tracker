@@ -272,7 +272,7 @@ export class RegisterStatusComponent implements OnInit {
 
   changeDiff(e){
     let cid =  this.registerSubjectForm.get('cidControl').value
-    if(cid.length === 11){
+    if(cid.length > 3){
       this.dataService.getSubjects(cid).subscribe( res => {
         if(res.success === "true"){
             this.isExistingUser = true;
