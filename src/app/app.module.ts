@@ -52,7 +52,8 @@ import {MatTabsModule} from '@angular/material/tabs';
 import { TeamSummaryComponent } from './team-summary/team-summary.component';
 import { DesuungComponent } from './desuung/desuung.component';
 import { FrontlineRegistrationComponent } from './frontline-registration/frontline-registration.component';
-
+import { RegisterFrontline } from "./register-frontline/register-frontline.component";
+import { ThankyouComponent } from './thankyou/thankyou.component';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,9 @@ import { FrontlineRegistrationComponent } from './frontline-registration/frontli
     PlannerDashboardComponent,
     TeamSummaryComponent,
     DesuungComponent,
-    FrontlineRegistrationComponent
+    FrontlineRegistrationComponent,
+    RegisterFrontline,
+    ThankyouComponent
 
   ],
   imports: [

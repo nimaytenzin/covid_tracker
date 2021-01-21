@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
   }
 
   frontlinerRegister(){
-    this.router.navigate(['frontline-registration'])
+    this.router.navigate(['frontline'])
     
   }
 
