@@ -191,6 +191,7 @@ export class RegisterFrontline implements OnInit {
           } 
         })
       }else{
+        this.subjectDetails.id = this.subjectId
         this.dataService.updateSubject(this.subjectDetails).subscribe(res => {
         if(res.success === "true"){
           this.router.navigate(['navigate'])
@@ -210,7 +211,7 @@ export class RegisterFrontline implements OnInit {
       this.dataService.getSubjects(cid).subscribe( res => {
         if(res.success === "true"){
             this.isExistingUser = true;
-            this.subjectId = res.data.id;            
+            this.subjectId = res.data.id;         
             this.registerSubjectForm.patchValue({
               nameControl: res.data.name,
               sexControl: res.data.sex,
