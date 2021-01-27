@@ -226,7 +226,6 @@ export class RegisterStatusComponent implements OnInit {
               this.certificate.sample_id = this.registerSubjectForm.get('sampleIdControl').value
               this.certificate.status = "PENDING";
 
-          
               if(this.certificate.operator_id !== 0){
                 this.dataService.registerCertificate(this.certificate).subscribe(
                   res => {
