@@ -12,7 +12,10 @@
       <br>
         <button [disabled]="userRole=='admin' ? null : 'disabled' " mat-raised-button [routerLink]="['/admin/dashboard']"> <mat-icon>assignment</mat-icon><h3 >Admin</h3></button>
       <br>
-        <button [disabled]="userRole=='registrar' || userRole=='admin'  ? null : 'disabled' " mat-raised-button [routerLink]="['/register']"> <mat-icon>assignment</mat-icon><h3 >Register</h3></button>
+      <button [disabled]="userRole=='admin' ? null : 'disabled' " mat-raised-button [routerLink]="['/frontline-registration']"> <mat-icon>assignment</mat-icon><h3 >Register Fronliner</h3></button>
+      <br>
+      <br>
+        <button [disabled]="userRole=='registrar' || userRole=='admin'  ? null : 'disabled' " mat-raised-button [routerLink]="['/register']"> <mat-icon>assignment</mat-icon><h3 >Register Test</h3></button>
       <br>
         <button [disabled]="userRole=='registrar'|| userRole=='admin' ? null : 'disabled' " mat-raised-button [routerLink]="['/summary']"> <mat-icon>list</mat-icon>  <h3>Generate Summary</h3></button>
       <br>

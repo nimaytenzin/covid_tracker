@@ -10,12 +10,8 @@
 <mat-toolbar>
     <span>Enter Record</span>
     <span class="menu-spacer"></span>
-
     <button mat-button routerLink="/navigate"> <mat-icon>rotate_left</mat-icon> Back</button>
-
-
-
-  </mat-toolbar>
+</mat-toolbar>
 
       <div class="form-body">
            
@@ -89,29 +85,6 @@
                 <mat-label>Remarks/Shop Name</mat-label>
                 <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl" autofocus>
               </mat-form-field>
-
-              <!-- <p style="font-weight: bolder; font-size: small;">Current Station of Residence</p>
-              <mat-form-field class="justifier">
-                <mat-label>Dzongkhag/Thromde</mat-label>
-                <mat-select name="residenceDzongkhag" formControlName= "residenceDzongkhagControl"  (selectionChange)="getZones($event.value)" >
-                  <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id" >
-                    {{dzongkhag.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>        
-              <mat-form-field class="justifier">
-                <mat-label>Station Zone *for Thromdes</mat-label>
-                <mat-select name="residenceZone" formControlName ="residenceZoneControl" >
-                  <mat-option *ngFor="let zone of zones" [value]="zone.name">
-                    {{zone.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field class="justifier">
-                <mat-label>Name of Accomodation</mat-label>
-                <input matInput type="text" name="residenceAccomodation" formControlName="residenceAccomodationControl"   required min="0" required autofocus>
-              </mat-form-field> -->
 
 
               <p style="font-weight: bolder; font-size: small;">Select Test Type</p>

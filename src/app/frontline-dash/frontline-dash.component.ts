@@ -1,8 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatTableDataSource } from '@angular/material';
-import * as Chart from 'chart.js';
-import { sub } from 'date-fns';
+import { elementAt } from 'rxjs/operators';
 import { ExportService } from '../export.service';
 import { DataService } from '../service/data.service';
 
@@ -10,7 +8,6 @@ interface Dropdown{
   id: string,
   name: string
 }
-
 
 
 @Component({
@@ -28,9 +25,9 @@ export class FrontlineDashComponent implements OnInit {
   filterDataForm: FormGroup;
 
   @ViewChild('testTable', {static: false}) testTable: ElementRef;
-  
-  dzongkhags: Dropdown[] = [];
-  zones: Dropdown[] = [];
+
+  // dzongkhags: Dropdown[] = [];
+  // zones: Dropdown[] = [];
   agencyCategories: Dropdown [] =[]
   agencies:Dropdown[] =[]
   superZones: Dropdown[] = [];
@@ -43,7 +40,6 @@ export class FrontlineDashComponent implements OnInit {
  
 
   dataSource:any;
-  displayedColumns: string[] = ['slNo', 'name', 'sex', 'age', 'cid','contact'];
   Subjects:Array<any> =[];
 
   constructor(
@@ -53,12 +49,10 @@ export class FrontlineDashComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getDzongkhagList();
+    // this.getDzongkhagList();
     this.reactiveForm();
     this.getAgencyCategories();
     this.showTable = false
-    this.totalMale =0;
-    this.totalFemale =0;
   }
 
   reactiveForm(){
@@ -71,11 +65,11 @@ export class FrontlineDashComponent implements OnInit {
   }
 
   
-  getDzongkhagList() {
-    this.dataService.getDzongkhags().subscribe(response => {
-      this.dzongkhags = response.data;
-    });
-  }
+  // getDzongkhagList() {
+  //   this.dataService.getDzongkhags().subscribe(response => {
+  //     this.dzongkhags = response.data;
+  //   });
+  // }
   getAgencyCategories(){ 
     this.dataService.getAgencyCategories().subscribe(response => {
       this.agencyCategories = response.data
@@ -84,76 +78,78 @@ export class FrontlineDashComponent implements OnInit {
   getAgencies(agencyCategoryId){
     this.dataService.getAgencies(agencyCategoryId).subscribe(response => {
       this.agencies = response.data
+      console.log(response.data)
     })
   }
 
-  getZones(dzoId){
-    this.dataService.getZones(dzoId).subscribe(response => {
-      this.zones = response.data
-    })
-  }
-  getZoneList(dzongkhagId) {
-    this.dataService.getZones(dzongkhagId).subscribe(response => {
-      this.superZones = response.data;
-    });
-  }
+  // getZones(dzoId){
+  //   this.dataService.getZones(dzoId).subscribe(response => {
+  //     this.zones = response.data
+  //   })
+  // }
+  // getZoneList(dzongkhagId) {
+  //   this.dataService.getZones(dzongkhagId).subscribe(response => {
+  //     this.superZones = response.data;
+  //   });
+  // }
 
-  sortByDzongkhag(){
-    this.showTable = true
-    let dzongkhag = this.filterDataForm.get('workDzongkhagControl').value
-    let subZone = this.filterDataForm.get('zoneControl').value
-
-    console.log(this.agencyCategories)
-    function getKeyByValue(object, value) {
-      return Object.keys(object).find(key => object[key] === value);
-    }
+  // sortByDzongkhag(){
+  //   this.showTable = true
+  //   let dzongkhag = this.filterDataForm.get('workDzongkhagControl').value
+  //   let subZone = this.filterDataForm.get('zoneControl').value
+  //   function getKeyByValue(object, value) {
+  //     return Object.keys(object).find(key => object[key] === value);
+  //   }
       
-    let array= [];
-    if(subZone === null){
+  //   let array= [];
+  //   if(subZone === null){
    
-      this.dataService.getAllSubjects().subscribe(res => {
-        res.data.forEach(item => {
-          if(item.work_dzongkhag === dzongkhag){
-            array.push(item)
-          }         
-  
-        }); 
-        this.dataSource = array;
-        console.log(array)
-        
-        array.forEach(item => {
-          if(item.sex === "Male"){
-            this.totalMale += 1
-          }else if (item.sex === "Female"){
-            this.totalFemale +=1
-          }
-        })
-        this.totalCount = array.length        
-      })
-    }else{
-      this.dataService.getAllSubjects().subscribe(res => {
-        res.data.forEach(item => {
-          if(item.work_zone === subZone){
-            array.push(item)
-          }         
-        }); 
-        this.dataSource = array;
-        array.forEach(item => {
-          if(item.sex === "Male"){
-            this.totalMale += 1
-          }else if (item.sex === "Female"){
-            this.totalFemale +=1
-          }
-        })
-        this.totalCount = array.length        
-      })
-    }
+  //     this.dataService.getAllSubjects().subscribe(res => {
+  //       res.data.forEach(item => {
+  //         if(item.work_dzongkhag === dzongkhag){
+  //           array.push(item)
+  //         }         
+  //       }); 
+  //       this.dataSource = array;        
+  //       array.forEach(item => {
+  //         if(item.sex === "Male"){
+  //           this.totalMale += 1
+  //         }else if (item.sex === "Female"){
+  //           this.totalFemale +=1
+  //         }
+  //       })
+  //       this.totalCount = array.length        
+  //     })
+  //   }else{
+  //     this.dataService.getAllSubjects().subscribe(res => {
+  //       res.data.forEach(item => {
+  //         if(item.work_zone === subZone){
+  //           array.push(item)
+  //         }         
+  //       }); 
+  //       this.dataSource = array;
+  //       array.forEach(item => {
+  //         if(item.sex === "Male"){
+  //           this.totalMale += 1
+  //         }else if (item.sex === "Female"){
+  //           this.totalFemale +=1
+  //         }
+  //       })
+  //       this.totalCount = array.length        
+  //     })
+  //   }
 
     
 
+  // }
+  clear(){
+    this.filterDataForm.reset()
   }
 
   sortByAgency(){
+    this.totalCount =0;
+    this.totalFemale =0;
+    this.totalMale =0;
     this.showTable = true
     let agencyCategory = this.filterDataForm.get('agencyCategoryControl').value
     let agency = this.filterDataForm.get('agencyControl').value
@@ -197,20 +193,35 @@ export class FrontlineDashComponent implements OnInit {
           })
         });
       })
-      console.log(array2)
     }
     
   }
 
   
-  exportToExcel(): void {
+  exportToExcelAgency(): void { 
+    let name;
+    let name2;
+    console.log(this.agencyCategories)
+    this.agencyCategories.forEach(element => {
+      if(element.id === this.filterDataForm.get('agencyCategoryControl').value){
+          name = element.name
+      }
+    })
 
-    var d = new Date(Date.now())
-    var s = d.toDateString()
-    s.replace(/\s+/g,'_').toLowerCase();
-          
-    this.exportService.exportTableElmToExcel(this.testTable, `${s}`);
+    this.agencies.forEach(element => {
+     if(element.id === this.filterDataForm.get('agencyControl').value){
+        name2 = element.name
+     }
+    })
+
+    this.exportService.exportTableElmToExcel(this.testTable, `${name2 || name}`)
   }
+
+  // exportToExcelDzongkhag(): void {
+  //   console.log(this.filterDataForm.get('agencyControl').value)
+  //   let s = this.filterDataForm.get('agencyControl').value
+  //   this.exportService.exportTableElmToExcel(this.testTable, `${s}`);
+  // }
 
 
 }

@@ -1,4 +1,4 @@
-<!-- 
+
 <mat-toolbar color="primary">
     <mat-toolbar-row>
       <img src="../assets/app-logo.png" alt="" width="50px">
@@ -43,7 +43,6 @@
                 </mat-form-field>
                 
                 <p style="font-weight: bolder; font-size: small;">Current Deployment Status</p>
-                <p style="font-weight: lighter;">For Dessups in Thimphu Thromde please select <b>Thimphu Thromde</b> for Dzongkhag/Thromde and <b>De-suung</b> for Zone </p>
                 <mat-form-field class="justifier">
                   <mat-label>Dzongkhag/Thromde</mat-label>
                   <mat-select name="workDzongkhag"  formControlName="workDzongkhagControl" (selectionChange)="getZones($event.value)">
@@ -63,7 +62,6 @@
                   </mat-select>
                 </mat-form-field>
   
-                <p style="font-weight: lighter;">For Dessups in Thimphu Thromde please select Agency as <b>De-suung</b> and your respective super zone. Leave the super zone blank if not assigned to any superzone</p>
                 <mat-form-field class="justifier">
                   <mat-label>Agency</mat-label>
                   <mat-select name="agencyCategory" formControlName= "agencyCategoryControl"  (selectionChange)="getAgencies($event.value)">
@@ -92,9 +90,9 @@
   
         <div class="form-footer">
           <button mat-flat-button  color= "warn" class="btn custom-btn" (click)="submit()"[disabled] ="!frontlinerRegistrationForm.valid">
-            <mat-icon>note_add</mat-icon> Submit
+            <mat-icon>note_add</mat-icon> Register
           </button>
         </div>
         </div>
   
-     -->
+    

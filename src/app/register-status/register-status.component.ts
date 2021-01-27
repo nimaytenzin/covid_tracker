@@ -191,7 +191,6 @@ export class RegisterStatusComponent implements OnInit {
     });
   }
   dessung(item){
-    console.log(item)
     if(item ===1 ){
       this.subAgency = "SuperZones"
     }else{
@@ -209,7 +208,6 @@ export class RegisterStatusComponent implements OnInit {
       this.subjectDetails.contact = this.registerSubjectForm.get('phoneNumberControl').value
       this.subjectDetails.work_dzongkhag = this.registerSubjectForm.get('workDzongkhagControl').value
       this.subjectDetails.work_zone = this.registerSubjectForm.get('zoneControl').value
-      console.log(this.subjectDetails.work_zone)
       this.subjectDetails.work_category = this.registerSubjectForm.get('agencyCategoryControl').value
       this.subjectDetails.work_agency = this.registerSubjectForm.get('agencyControl').value
       this.subjectDetails.work_remarks = this.registerSubjectForm.get('agencyRemarkControl').value
@@ -306,10 +304,33 @@ export class RegisterStatusComponent implements OnInit {
         }
 
       })
-      // this.dataService.getCidDetais(cid).subscribe(res => {
-      //   console.log(res.data.citizendetails.citizendetail[0])
-      //   console.log(res.data.citizendetails.citizendetail[0].firstNamebh)
-      // })
+      this.dataService.getCidDetails(cid).subscribe(res => {
+      
+      function get(age2){
+        var from = age2.split("/");
+        var birthdateTimeStamp = new Date(from[2], from[1] - 1, from[0]);
+        var cur = new Date().getTime();
+        var diff = cur - birthdateTimeStamp.getTime();
+        var currentAge = Math.floor(diff/31557600000);
+        return currentAge
+      }
+      let name = (res.data.citizendetails.citizendetail[0].firstName + ' '+ res.data.citizendetails.citizendetail[0].middleName+ ' '+ res.data.citizendetails.citizendetail[0].lastName).split("null").join('')
+      let age = get(res.data.citizendetails.citizendetail[0].dob)
+      console.log(res.data.citizendetails.citizendetail[0])
+
+      let gender;
+      if(res.data.citizendetails.citizendetail[0].gender === "M"){
+        gender = "Male"
+      }else{
+        gender = "Female"
+      }
+  
+      this.registerSubjectForm.patchValue({
+        nameControl: name,
+        sexControl: gender,
+        ageControl: age
+       })
+      })
     }
     
     

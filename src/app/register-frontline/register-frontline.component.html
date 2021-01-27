@@ -12,10 +12,7 @@
     <span class="menu-spacer"></span>
 
     <button mat-button routerLink="/navigate"> <mat-icon>rotate_left</mat-icon> Back</button>
-
-
-
-  </mat-toolbar>
+</mat-toolbar>
 
       <div class="form-body">
            
@@ -31,7 +28,7 @@
               </mat-form-field>
               <mat-form-field class="justifier">
                 <mat-label>Gender</mat-label>
-                <mat-select name="sex"  formControlName="sexControl" >
+                <mat-select name="sex"  formControlName="sexControl" required>
                   <mat-option *ngFor="let sex of genders" [value]="sex.name" >
                     {{sex.name}}
                   </mat-option>
@@ -39,12 +36,12 @@
               </mat-form-field>
               <mat-form-field class="justifier">
                 <mat-label>Age</mat-label>
-                <input matInput type="text" name="age" formControlName="ageControl"   required min="0" required autofocus>
+                <input matInput type="text" name="age" formControlName="ageControl"   required min="0"  autofocus>
               </mat-form-field>
               
               <mat-form-field class="justifier">
                 <mat-label>Phone Number</mat-label>
-                <input matInput type="number" name="phoneNumber" formControlName="phoneNumberControl"  required min="0" required autofocus>
+                <input matInput type="number" name="phoneNumber" formControlName="phoneNumberControl"   min="0"  autofocus>
               </mat-form-field>
               
               <p style="font-weight: bolder; font-size: small;">Current Deployment Status</p>
@@ -90,64 +87,6 @@
                 <input matInput type="text" name="agencyRemark"   formControlName= "agencyRemarkControl" autofocus>
               </mat-form-field>
 
-              <!-- <p style="font-weight: bolder; font-size: small;">Current Station of Residence</p>
-              <mat-form-field class="justifier">
-                <mat-label>Dzongkhag/Thromde</mat-label>
-                <mat-select name="residenceDzongkhag" formControlName= "residenceDzongkhagControl"  (selectionChange)="getZones($event.value)" >
-                  <mat-option *ngFor="let dzongkhag of dzongkhags" [value]="dzongkhag.id" >
-                    {{dzongkhag.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>        
-              <mat-form-field class="justifier">
-                <mat-label>Station Zone *for Thromdes</mat-label>
-                <mat-select name="residenceZone" formControlName ="residenceZoneControl" >
-                  <mat-option *ngFor="let zone of zones" [value]="zone.name">
-                    {{zone.name}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-
-              <mat-form-field class="justifier">
-                <mat-label>Name of Accomodation</mat-label>
-                <input matInput type="text" name="residenceAccomodation" formControlName="residenceAccomodationControl"   required min="0" required autofocus>
-              </mat-form-field> -->
-<!-- 
-
-              <p style="font-weight: bolder; font-size: small;">Select Test Type</p>
-            
-      
-              <div style="display: flex; flex-direction: row; justify-content: space-evenly; font-size:large;">
-                <mat-checkbox class="example-margin" [value]="falseValue" (change)="rtPcrTest($event.source, $event.checked)" >
-                  RT-PCR Test
-                </mat-checkbox>
-  
-                <mat-checkbox class="example-margin" [value]="falseValue" (change)="antigenTest($event.source, $event.checked)" >
-                   Antigen Test
-               </mat-checkbox>
-  
-               <mat-checkbox class="example-margin" [value]="falseValue" (change)="antibodyTest($event.source, $event.checked)" >
-                Antibody Test
-              </mat-checkbox>
-              </div>
-           
-         
-                  
-              <mat-form-field class="justifier">
-                <mat-label>Sample Id</mat-label>
-                <input matInput type="text" name="sampleId" formControlName="sampleIdControl" required autofocus>
-              </mat-form-field>
-              <mat-form-field appearance="fill" class="justifier">
-                <mat-label>Date of Testing</mat-label>
-                <input matInput [matDatepicker]="dp3"  name="testDate" formControlName ="testDateControl">
-                <mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
-                <mat-datepicker #dp3 disabled="false"></mat-datepicker>
-              </mat-form-field>
-              
-              <mat-form-field class="justifier">
-                <mat-label>Place of Sample Collection</mat-label>
-                <input matInput type="text" name="testPlace" formControlName="testPlaceControl"  required autofocus>
-              </mat-form-field> -->
       </form>
 
       <div class="form-footer">

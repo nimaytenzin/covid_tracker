@@ -130,7 +130,7 @@ export class DataService {
   );
  }
 
- getCidDetais(cid){
+ getCidDetails(cid){
   return this.http
   .get<any>(`${this.API_URL}/api/get-cid/${cid}`, this.httpOptions)
   .pipe(

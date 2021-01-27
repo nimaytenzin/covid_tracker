@@ -58,18 +58,7 @@ export class SubjectDetails{
   utid:string;
 }
 
-export class Certificate{
-  subject_id:number;
-  operator_id:number;
-  sample_id: string;
-  test_RTPCR:string;
-  test_AG:string;
-  test_AB:string;
-  test_date:string;
-  place:string;
-  status:string;
-  utid:string;
-}
+
 
 @Component({
   selector: 'app-register-frontline',
@@ -90,7 +79,6 @@ export class RegisterFrontline implements OnInit {
   superZones: Zone[] = [];
   registerSubjectForm:FormGroup;
   subjectDetails: SubjectDetails = new SubjectDetails();
-  certificate:Certificate = new Certificate();
   isExistingUser = false;
   subjectId: number;
   agencyCategoryP:any;
@@ -115,35 +103,14 @@ export class RegisterFrontline implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.getDzongkhagList();
     this.reactiveForm()
     this.getAgencyCategories();
     this.registerSubjectForm.controls['testDateControl'].setValue(new Date())
-    this.showDessupFields = false
   }
   
-  antigenTest(checkbox: MatCheckbox, checked: boolean) {
-    checkbox.value = checked ? this.trueValue : this.falseValue;
-    this.certificate.test_AG = checkbox.value
-  }
-
-  antibodyTest(checkbox: MatCheckbox, checked: boolean) {
-    checkbox.value = checked ? this.trueValue : this.falseValue;
-    this.certificate.test_AB = checkbox.value
-  }
-  rtPcrTest(checkbox: MatCheckbox, checked: boolean) {
-    checkbox.value = checked ? this.trueValue : this.falseValue;
-    this.certificate.test_RTPCR = checkbox.value
-  }
-
  
-
-  reactiveForm(){
-    this.certificate.test_RTPCR = "No";
-    this.certificate.test_AG = "No";
-    this.certificate.test_AB = "No";
-    
+  reactiveForm(){    
     this.registerSubjectForm = this.fb.group({
       cidControl: [''],
       nameControl:[],
@@ -191,7 +158,6 @@ export class RegisterFrontline implements OnInit {
     });
   }
   dessung(item){
-    console.log(item)
     if(item ===1 ){
       this.subAgency = "SuperZones"
     }else{
@@ -199,6 +165,7 @@ export class RegisterFrontline implements OnInit {
     }
   }
 
+ 
   submit(){
 
     if(this.registerSubjectForm.valid ){
@@ -209,7 +176,6 @@ export class RegisterFrontline implements OnInit {
       this.subjectDetails.contact = this.registerSubjectForm.get('phoneNumberControl').value
       this.subjectDetails.work_dzongkhag = this.registerSubjectForm.get('workDzongkhagControl').value
       this.subjectDetails.work_zone = this.registerSubjectForm.get('zoneControl').value
-     
       this.subjectDetails.work_category = this.registerSubjectForm.get('agencyCategoryControl').value
       this.subjectDetails.work_agency = this.registerSubjectForm.get('agencyControl').value
       this.subjectDetails.work_remarks = this.registerSubjectForm.get('agencyRemarkControl').value
@@ -221,53 +187,22 @@ export class RegisterFrontline implements OnInit {
       if(this.isExistingUser === false){
         this.dataService.registerSubject(this.subjectDetails).subscribe( res =>{
           if(res.success === "true"){
-              this.certificate.subject_id = res.data.id;
-              this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
-              this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
-              this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-              this.certificate.sample_id = this.registerSubjectForm.get('sampleIdControl').value
-              this.certificate.status = "PENDING";
-
-          
-              if(this.certificate.operator_id !== 0){
-                this.dataService.registerCertificate(this.certificate).subscribe(
-                  res => {
-                    if(res.success == "true") this.router.navigate([`/thank-you`]);
-                  }
-                )
-              }else{
-                alert("cannot submit as your credentials are not valid. Please login in again")
-              }
-          }
+              this.router.navigate(['navigate'])      
+          } 
         })
-
       }else{
-        this.certificate.subject_id = this.subjectId;
-        this.subjectDetails.id = this.subjectId;
-        this.certificate.operator_id =  Number(sessionStorage.getItem('operatorId'));
-        this.certificate.test_date = this.registerSubjectForm.get('testDateControl').value
-        this.certificate.place = this.registerSubjectForm.get('testPlaceControl').value
-        this.certificate.sample_id = this.registerSubjectForm.get('sampleIdControl').value
-        this.certificate.status = "PENDING"
-        
-        if(this.certificate.operator_id !== 0){
-          this.dataService.registerCertificate(this.certificate).subscribe(
-            res => {
-              if(res.success == "true") this.router.navigate([`/thank-you`]);
-
-              this.dataService.updateSubject(this.subjectDetails).subscribe(
-                res => console.log(res)
-              )
-            }
-          )
-        }else{
-          alert("cannot submit as your credentials are not valid. Please login in again")
+        this.dataService.updateSubject(this.subjectDetails).subscribe(res => {
+        if(res.success === "true"){
+          this.router.navigate(['navigate'])
         }
+        })
+        
       }
-      
+  
+  
     }
-    
   }
+ 
  
   changeDiff(e){
     let cid =  this.registerSubjectForm.get('cidControl').value
@@ -284,11 +219,7 @@ export class RegisterFrontline implements OnInit {
               workDzongkhagControl:res.data.work_dzongkhag,
               agencyCategoryControl:res.data.work_category,
               testControl : res.data.work_agency,
-              agencyRemarkControl:res.data.work_remarks,
-              residenceDzongkhagControl:res.data.residence_dzongkhag,
-              residenceZoneControl:res.data.residence_zone,
-              residenceAccomodationControl:res.data.residence_accomodation 
-              
+              agencyRemarkControl:res.data.work_remarks,              
             })
             this.registerSubjectForm.controls['workDzongkhagControl'].setValue(Number(res.data.work_dzongkhag))
             this.getZones(Number(res.data.work_dzongkhag))
@@ -305,13 +236,34 @@ export class RegisterFrontline implements OnInit {
         }
 
       })
-      // this.dataService.getCidDetais(cid).subscribe(res => {
-      //   console.log(res.data.citizendetails.citizendetail[0])
-      //   console.log(res.data.citizendetails.citizendetail[0].firstNamebh)
-      // })
+      this.dataService.getCidDetails(cid).subscribe(res => {
+      
+      function get(age2){
+        var from = age2.split("/");
+        var birthdateTimeStamp = new Date(from[2], from[1] - 1, from[0]);
+        var cur = new Date().getTime();
+        var diff = cur - birthdateTimeStamp.getTime();
+        var currentAge = Math.floor(diff/31557600000);
+        return currentAge
+      }
+      let name = (res.data.citizendetails.citizendetail[0].firstName + ' '+ res.data.citizendetails.citizendetail[0].middleName+ ' '+ res.data.citizendetails.citizendetail[0].lastName).split("null").join('')
+      let age = get(res.data.citizendetails.citizendetail[0].dob)
+  
+      let gender;
+      if(res.data.citizendetails.citizendetail[0].gender === "M"){
+        gender = "Male"
+      }else{
+        gender = "Female"
+      }
+  
+      this.registerSubjectForm.patchValue({
+        nameControl: name,
+        sexControl: gender,
+        ageControl: age
+       })
+      })
     }
     
     
   }
-
 }
