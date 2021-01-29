@@ -37,7 +37,6 @@
                     <th>Antigen Test</th>
                     <th>Antibody Test</th>
                     <th>Date of Test</th>
-                    <th>Next Test Date</th>
                     <th>Status</th>
                   </tr>
               </thead>
@@ -49,7 +48,6 @@
                       <td>{{certificate.result_AG}}</td>
                       <td>{{certificate.result_AB}}</td>
                       <td>{{certificate.test_date | date: 'mediumDate'}}</td>
-                      <td>{{certificate.exp_date | date: 'mediumDate'}}</td>
                       <td>{{certificate.status}}</td>
                       <hr>
                   </tr>
