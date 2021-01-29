@@ -14,8 +14,11 @@
                 <input matInput type="number"  name="cid" formControlName="cidControl" required required min="11" autofocus>
               </mat-form-field>
         </form>
-        <button mat-raised-button (click)="chechValidity()"  [disabled]="!verifyForm.valid" >
+          <button mat-raised-button (click)="chechValidity()"  [disabled]="!verifyForm.valid" >
             <mat-icon>fact_check</mat-icon> Check Status 
+          </button>
+          <button mat-raised-button (click)="generateCertificate()"  [disabled]="!verifyForm.valid">
+            <mat-icon>fact_check</mat-icon> Generate Certificate
           </button>
        </div>
 
