@@ -29,14 +29,14 @@ const routes: Routes = [
   {path: 'navigate', component: RecordVerifyComponent},
   {path:'thank-you', component:ThankyouComponent},
   {path: 'frontline-registration', component:RegisterFrontline},
-    {path: 'admin', component:AdminComponent,
-  children: [
+  {path: 'admin', component:AdminComponent,
+    children: [
     { path: 'dashboard', component: MainDashboardComponent },
     {path:'frontliner-dash', component:FrontlineDashComponent},
     {path:'test-dash', component:TestDashboardComponent},
     {path:'team-summary', component:TeamSummaryComponent},
     {path:'desuung', component:DesuungComponent}
- ],},
+  ],},
   {path: 'verify', component:VerifyComponent},
   {path: 'add-result', component: AddResultComponent},
   {path: 'generateCertificate/:cid', component:GenerateCertificateComponent},
