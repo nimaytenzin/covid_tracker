@@ -49,7 +49,7 @@ export class PublicDashboardComponent implements OnInit {
               
               this.subjectName = res.data.name
               this.subjectCID = res.data.cid
-              this.workAgency = res.data.work_agency
+              this.workAgency = res.data.Agency.name
               this.subjectAge = res.data.age
               this.dataService.getCertificateBySubjectId(id).subscribe( res => {
                 this.showCertificates = true;
