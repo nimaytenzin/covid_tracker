@@ -54,7 +54,6 @@
               <th>Antigen </th>
               <th>Antibody</th>
               <th>Date of Test</th>
-              <th>Next Test date</th>
             </tr>
         </thead>
         <tbody style="text-align: left;">
@@ -65,7 +64,6 @@
                 <td>{{certificate.result_AG || certificate.status}}</td>
                 <td>{{certificate.result_AB || certificate.status}}</td>
                 <td>{{certificate.test_date | date: 'mediumDate'}}</td>
-                <td>{{certificate.exp_date | date: 'mediumDate'}}</td>
                 <hr>
             </tr>
         
